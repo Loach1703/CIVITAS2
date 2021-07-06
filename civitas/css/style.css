@@ -1,0 +1,171 @@
+.navigator
+{
+  position: fixed;
+  padding: 0 0 0 100px;
+  border-bottom: 3px solid rgb(140,140,140);
+  background-color: rgb(69,69,69);
+  width: 100%;
+  z-index: 100;
+}
+
+.navigator a
+{
+  display: inline-block;
+  padding: 6px 12px 9px 12px;
+  color: white;
+  font-size: 16px;
+}
+
+.navigator a:hover
+{
+  color: white;
+  background-color: rgb(40,40,40);
+  text-decoration: none;
+}
+
+.civitas2
+{
+  margin: 8px 0 0 0px;
+  float: left;
+}
+
+.vertime
+{
+  margin: 3px 15px 0 15px;
+  font-size: 10px;
+  color: white;
+  float: left;
+  font-family: "微软雅黑";
+  text-align: center;
+}
+
+.time
+{
+  margin: 0;
+}
+
+.xp
+{
+  margin: 0;
+  color: black;
+}
+
+.leftnavigator
+{
+  display: inline-block;
+  position: relative;
+  left: 5.5%;
+  top: 40px;
+  padding-top: 15px;
+  background-color: rgb(247,247,247);
+  border-left: 2px solid rgb(204,204,204);
+  width: 17%;
+}
+
+.bottomline
+{
+  border-bottom: 2px solid rgb(204,204,204);
+}
+
+.avatar
+{
+  margin-left: 10px;
+  float: left;
+}
+
+.level
+{
+  margin: 10px 0 20px 100px;
+}
+
+.level a:hover
+{
+  text-decoration: none;
+}
+
+.level p
+{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.levelbar
+{
+  margin: 0 10px 0 0;
+  color: black;
+}
+
+.menu
+{
+  padding: 10px 0 10px 15px;
+  margin: 0;
+  font-size: 20px;
+  font-family: "Arial";
+  color: rgb(102,102,102);
+}
+
+.status
+{
+  margin: 0 30px 25px 18px;
+}
+
+.leftnavigatoroption a
+{
+  color: rgb(41,41,41);
+  font-size: 16px;
+  padding: 5px 0 5px 20px;
+  display: block;
+}
+
+.leftnavigatoroption a:hover
+{
+  color: rgb(41,41,41);
+  background-color: white;
+  text-decoration: none;
+}
+
+.main
+{
+  display: inline-block;
+  position: absolute;
+  width: 34%;
+  left: 23%;
+  top: 50px;
+}
+
+.mainchar
+{
+  padding-left: 10px;
+  font-size: 30px;
+  color: rgb(57,85,115);
+  font-weight: bold;
+  border-bottom: 2px solid rgb(211,227,254);
+}
+
+.address
+{
+  display: inline-block;
+  padding: 15%;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+  background-color: rgb(126,56,120);
+}
+
+.work
+{
+  display: inline-block;
+  padding: 15%;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+  background-color: rgb(0,171,169);
+}
+
+.speech
+{
+  display: inline-block;
+  position: absolute;
+  border-right: 2px solid rgb(204,204,204);
+  width: 34%;
+  left: 57%;
+  top: 50px;
+}
