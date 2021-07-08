@@ -169,3 +169,25 @@
   left: 57%;
   top: 50px;
 }
+
+.workbackground
+{
+  background: url(/civitas/img/1.png);
+  background-size: 400px 200px;
+}
+
+.button
+{
+  display: block;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 0;
+  width: 450px;
+  margin: 0 auto;
+  text-align: center
+}
+
+.transparent
+{
+  background: rgba(0,0,0,0);
+}

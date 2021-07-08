@@ -14,7 +14,7 @@
 <title>我的主页 - 古典社会模拟 CIVITAS2</title>
 </head>
 
-<body>
+<body background="civitas/img/background.png">
 
 <!--上导航栏-->
 <nav class="navigator">
@@ -103,10 +103,10 @@
     <p class="mainchar">我的CIVITAS</p>
     <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"></img></a>
     <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"></img></a>
-    <button type="button" class="button btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
-    <button type="button" class="button btn btn-danger" onclick="work()">工作</button>
-    <button type="button" class="button btn btn-warning" onclick="eat()">吃炭拌粉</button>
-    <button type="button" class="button btn btn-warning" onclick="load_updata()">测试</button>
+    <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
+    <button type="button" class="btn btn-warning" onclick="eat()">吃炭拌粉</button>
+    <button type="button" class="btn btn-warning" onclick="load_updata()">测试</button>
     <p id="change"></p>
 </div>
 
@@ -118,8 +118,27 @@
             <label for="comment">在这里发表演讲，不超过140个字:</label>
             <textarea class="form-control" rows="5" id="comment" style="resize: none;"></textarea>
         </div>
-        <button type="button" class="button btn btn-primary" onclick="">发表</button>
+        <button type="button" class="btn btn-primary" onclick="">发表</button>
     </form>
+</div>
+
+<!--工作模态框-->
+<div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog">
+    <div class="modal-content workbackground">
+        <div class="">
+            <h4 class="modal-title">选择工作策略</h4>
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+            <p class="">如同往常一样，你又开始了一天的工作。今天你打算......</p>
+            <button class="button btn transparent"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>闲散  快乐，健康消耗-25%<br>产出产能-10% 技能增长-10%</button>
+            <button class="button btn transparent"><img src="civitas/icon/work/normal.ico" width="40px" height="40px"/>正常 无特殊加成</button>
+            <button class="button btn transparent"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>勤奋 快乐，健康消耗+25%<br>产出产能+10% 技能增长+10%</button>
+            <button class="button btn transparent" onclick="work()" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>蛮干 快乐，健康消耗+25%<br>产出产能+20% 技能增长-10%</button>
+        </div>
+    </div>
+</div>
 </div>
 
 </body>
