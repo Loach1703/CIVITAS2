@@ -170,24 +170,36 @@
   top: 50px;
 }
 
-.workbackground
+.work-modal
 {
-  background: url(/civitas/img/1.png);
-  background-size: 400px 200px;
+  background: url(../img/background1.png);
+  background-size: 800px 400px;
 }
 
-.button
+.work-title p
+{
+  display: inline-block;
+  padding: 0;
+  margin: 0 150px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 200px;
+}
+
+.work-title button
+{
+  padding: 10px;
+  display: inline;
+}
+
+.work-strategy button
 {
   display: block;
   border: 0;
   border-radius: 5px;
   padding: 10px 0;
   width: 450px;
-  margin: 0 auto;
-  text-align: center
-}
-
-.transparent
-{
-  background: rgba(0,0,0,0);
+  margin: 5px auto;
+  text-align: center;
+  background: rgba(0,0,0,0.1);
 }

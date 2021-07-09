@@ -100,14 +100,26 @@
 
 <!--主页面主体内容-->
 <div class="main">
+
+<!--快捷栏-->
+<div>
     <p class="mainchar">我的CIVITAS</p>
-    <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"></img></a>
-    <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"></img></a>
+    <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"/></a>
+    <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"/></a>
     <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
     <button type="button" class="btn btn-warning" onclick="eat()">吃炭拌粉</button>
     <button type="button" class="btn btn-warning" onclick="load_updata()">测试</button>
     <p id="change"></p>
+</div>
+
+<!--技能-->
+<div>
+    <p class="mainchar">我的技能</p>
+    <p><img src="civitas/icon/work/java.ico" width="80px" height="80px"/>耕作 学徒 1.00</p>
+    <p><img src="civitas/icon/work/python.ico" width="80px" height="80px"/>建筑 学徒 1.00</p>
+</div>
+
 </div>
 
 <!--演讲栏-->
@@ -125,17 +137,18 @@
 <!--工作模态框-->
 <div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog">
-    <div class="modal-content workbackground">
-        <div class="">
-            <h4 class="modal-title">选择工作策略</h4>
+    <div class="modal-content work-modal">
+        <div class="work-title">
+            <p>选择工作策略</p>
             <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body work-strategy">
             <p class="">如同往常一样，你又开始了一天的工作。今天你打算......</p>
-            <button class="button btn transparent"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>闲散  快乐，健康消耗-25%<br>产出产能-10% 技能增长-10%</button>
-            <button class="button btn transparent"><img src="civitas/icon/work/normal.ico" width="40px" height="40px"/>正常 无特殊加成</button>
-            <button class="button btn transparent"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>勤奋 快乐，健康消耗+25%<br>产出产能+10% 技能增长+10%</button>
-            <button class="button btn transparent" onclick="work()" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>蛮干 快乐，健康消耗+25%<br>产出产能+20% 技能增长-10%</button>
+            <button class="btn" onclick="work(1)" data-dismiss="modal"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>闲散  快乐，健康消耗-25%<br>产出产能-10% 技能增长-10%</button>
+            <button class="btn" onclick="work(2)" data-dismiss="modal"><img src="civitas/icon/work/normal.ico" width="40px" height="40px"/>正常 无特殊加成</button>
+            <button class="btn" onclick="work(3)" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>勤奋 快乐，健康消耗+25%<br>产出产能+10% 技能增长+10%</button>
+            <button class="btn" onclick="work(4)" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>蛮干 快乐，健康消耗+25%<br>产出产能+20% 技能增长-10%</button>
+            <button class="btn" onclick="work(5)" data-dismiss="modal"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>怠工 快乐恢复1，健康消耗-50% 精力，饥饿消耗-25%<br>产出产能-75% 技能增长-75%</button>
         </div>
     </div>
 </div>

@@ -37,7 +37,7 @@ function day_change()
 }
 
 //工作
-function work()
+function work(strategy)
 {
     //获取状态值
     var value = getvalue();
@@ -45,12 +45,47 @@ function work()
     var happiness_value = value["happiness_value"];
     var health_value = value["health_value"];
     var starvation_value = value["starvation_value"];
-    //工作变更值
-    stamina_value -= 25;
-    happiness_value -= 3;
-    health_value -= 3;
-    starvation_value -= 3.5;
-    ///检查
+    //工作变更基础
+    var stamina_change = 25;
+    var happiness_change = 3;
+    var health_change = 3;
+    var starvation_change = 3.5;
+    //工作产能基础
+    var capacity = 3
+    //工作策略
+    if (strategy == 1)
+    {
+        happiness_change *= 0.75;
+        health_change *= 0.75;
+    }
+    else if (strategy == 2)
+    {
+        happiness_change *= 1;
+        health_change *= 1;
+    }
+    else if (strategy == 3)
+    {
+        happiness_change *= 1.25;
+        health_change *= 1.25;
+    }
+    else if (strategy == 4)
+    {
+        happiness_change *= 1.25;
+        health_change *= 1.25;
+    }
+    else if (strategy == 5)
+    {
+        stamina_change *= 0.75;
+        happiness_change *= 0.5;
+        health_change *= 0.5;
+        starvation_change *= 0.75;
+    }
+    //改变
+    stamina_value -= stamina_change;
+    happiness_value -= happiness_change;
+    health_value -= health_change;
+    starvation_value -= starvation_change;
+    //检查
     value = check(stamina_value,happiness_value,health_value,starvation_value);
     stamina_value = value["stamina_value"];
     happiness_value = value["happiness_value"];
