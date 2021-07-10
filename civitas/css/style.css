@@ -44,6 +44,17 @@
   margin: 0;
 }
 
+.main
+{
+  display: inline-block;
+  position: absolute;
+  width: 90%;
+  height: 100%;
+  left: 7%;
+  top: 40px;
+  background-color: rgba(247,247,247,0);
+}
+
 .xp
 {
   margin: 0;
@@ -53,13 +64,11 @@
 .leftnavigator
 {
   display: inline-block;
-  position: relative;
-  left: 5.5%;
-  top: 40px;
-  padding-top: 15px;
-  background-color: rgb(247,247,247);
+  position: absolute;
+  padding-top: 10px;
+  background-color: rgba(247,247,247,0.5);
   border-left: 2px solid rgb(204,204,204);
-  width: 17%;
+  width: 20%;
 }
 
 .bottomline
@@ -124,13 +133,13 @@
   text-decoration: none;
 }
 
-.main
+.main-center
 {
   display: inline-block;
   position: absolute;
   width: 34%;
-  left: 23%;
-  top: 50px;
+  left: 20.5%;
+  top: 10px;
 }
 
 .mainchar
@@ -160,14 +169,73 @@
   background-color: rgb(0,171,169);
 }
 
-.speech
+.main-speech
 {
   display: inline-block;
   position: absolute;
   border-right: 2px solid rgb(204,204,204);
   width: 34%;
-  left: 57%;
-  top: 50px;
+  left: 55%;
+  top: 10px;
+}
+
+.deliver-speech
+{
+  margin-bottom: 20px;
+}
+
+.speech
+{
+  padding: 10px 0;
+  border-top: 2px dashed rgba(150,150,150,0.3);
+  font-size: 14px;
+}
+
+.speech:hover
+{
+  background-color: rgba(204,204,204,0.3);
+}
+
+.speech p
+{
+  display: inline;
+  line-height: 25px;
+  font-size: 16px;
+  word-wrap:break-word;
+}
+
+.speech a
+{
+  font-size: 16px;
+}
+
+.speech a:hover
+{
+  text-decoration: none;
+}
+
+.speech-avatar
+{
+  position: relative;
+}
+
+.speech-content
+{
+  position: relative;
+  margin-left: 10px;
+}
+
+.speech-content p
+{
+  position: relative;
+}
+
+.speech-bottom
+{
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  margin-left: 10px;
 }
 
 .work-modal

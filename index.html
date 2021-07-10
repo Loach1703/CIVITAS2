@@ -14,13 +14,13 @@
 <title>我的主页 - 古典社会模拟 CIVITAS2</title>
 </head>
 
-<body background="civitas/img/background.png">
+<body background="civitas/img/background.png" style="background-attachment: fixed;">
 
 <!--上导航栏-->
 <nav class="navigator">
     <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
     <span class="vertime">
-        Pre-Alpha 0.0.2
+        Pre-Alpha 0.0.3
         <p id="time" class="time"></p>
         <script src="civitas/js/time.js"></script>
     </span>
@@ -37,12 +37,15 @@
     </span>
 </nav>
 
+<!--主体结构div-->
+<div class="main">
+
 <!--左侧导航栏-->
 <div class="leftnavigator">
     <!--头像和个人信息-->
     <div class="bottomline">
         <span class="avatar">
-            <img src="civitas/img/1.png" alt="" width="80px" height="80px"/>
+            <img src="civitas/img/1.png" class="img-thumbnail" width="80px" height="80px"/>
         </span>
         <div class="level">
             <a href="#">CIVITAS2团队</a>
@@ -68,7 +71,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width: 100%" id="starvation">饥饿 100 / 100</div>
         </div>
     </div>
-    <!--  选项  -->
+    <!--选项-->
     <div class="leftnavigatoroption">
         <div class="bottomline">
             <p class="menu">我的CIVITAS</p>
@@ -99,7 +102,7 @@
 </div>
 
 <!--主页面主体内容-->
-<div class="main">
+<div class="main-center">
 
 <!--快捷栏-->
 <div>
@@ -123,15 +126,45 @@
 </div>
 
 <!--演讲栏-->
-<div class="speech">
+<div class="main-speech">
     <p class="mainchar">本地演讲</p>
-    <form>
+    <form class="deliver-speech">
         <div class="form-group">
             <label for="comment">在这里发表演讲，不超过140个字:</label>
             <textarea class="form-control" rows="5" id="comment" style="resize: none;"></textarea>
         </div>
         <button type="button" class="btn btn-primary" onclick="">发表</button>
     </form>
+    <div class="speech">
+        <span class="speech-content">
+        <img src="civitas/img/1.png" class="img-thumbnail speech-avatar" width="50px" height="50px"/>
+            <a href="#" class="speech-name">CIVITAS2团队</a>
+            <p>:</p>
+            <p>Hello,world!Hello,world!Hello,world!Hello,world!</p>
+        </span>
+        <div class="speech-bottom">
+            <p>本地演讲，第1天，20:00</p>
+        </div>
+        <div class="speech-bottom">
+            <a href="#">欢呼(0)</a>
+            <a href="#">关注(0)</a>
+            <a href="#">倒彩(0)</a>
+        </div>
+    </div>
+    <div class="speech">
+        <img src="civitas/img/1.png" class="img-thumbnail speech-avatar" width="50px" height="50px"/>
+        <span class="speech-content">
+            <p><a href="#" class="speech-name">CIVITAS2团队</a>：Hello,world!Hello,world!Hello,world!Hello,world!</p>
+        </span>
+        <div class="speech-bottom">
+            <p>本地演讲，第1天，20:00</p>
+        </div>
+        <div class="speech-bottom">
+            <a href="#">欢呼(0)</a>
+            <a href="#">关注(0)</a>
+            <a href="#">倒彩(0)</a>
+        </div>
+    </div>
 </div>
 
 <!--工作模态框-->
@@ -153,6 +186,8 @@
     </div>
 </div>
 </div>
+
+<div>
 
 </body>
 </html>
