@@ -8,6 +8,7 @@
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/status.js"></script>
+<script src="civitas/js/dropdown.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -27,18 +28,17 @@
     <span>
         <a href="#street"><img src="civitas/icon/common/street.ico" width="22px" height="22px"/>街区</a>
         <a href="#square"><img src="civitas/icon/common/square.ico" width="22px" height="22px"/>广场</a>
-        <a href="#square"><img src="civitas/icon/common/map.ico" width="22px" height="22px"/>地图</a>
+        <a href="map.html"><img src="civitas/icon/common/map.ico" width="22px" height="22px"/>地图</a>
     </span>
-    <span class="pull-right">
+    <span class="market-main" id="market">
         <a href="#market"><img src="civitas/icon/common/market.ico" width="22px" height="22px"></img>市场</a>
-        <a href="#square"><img src="civitas/icon/common/goods.ico" width="22px" height="22px"></img>物资市场</a>
-        <a href="#square"><img src="civitas/icon/common/recruit.ico" width="22px" height="22px"></img>招聘市场</a>
-        <a href="#square"><img src="civitas/icon/common/estate.ico" width="22px" height="22px"></img>不动产市场</a>
+        <div id="market-down" class="market-dropdown hide">
+            <a href="#square"><img src="civitas/icon/common/goods.ico" width="22px" height="22px"></img>物资市场</a>
+            <a href="#square"><img src="civitas/icon/common/recruit.ico" width="22px" height="22px"></img>招聘市场</a>
+            <a href="#square"><img src="civitas/icon/common/estate.ico" width="22px" height="22px"></img>不动产市场</a>
+        </div>
     </span>
 </nav>
-
-<!--主体结构div-->
-<div class="main">
 
 <!--左侧导航栏-->
 <div class="leftnavigator">
@@ -75,7 +75,7 @@
     <div class="leftnavigatoroption">
         <div class="bottomline">
             <p class="menu">我的CIVITAS</p>
-            <a href="#home">我的CIVITAS</a>
+            <a href="index.html">我的CIVITAS</a>
             <a href="#news">我的通知</a>
             <a href="#news">我的设置</a>
         </div>
@@ -100,6 +100,9 @@
         </div>
     </div>
 </div>
+
+<!--主体结构div-->
+<div class="main">
 
 <!--主页面主体内容-->
 <div class="main-center">
@@ -126,7 +129,7 @@
 </div>
 
 <!--演讲栏-->
-<div class="main-speech">
+<div class="main-right">
     <p class="mainchar">本地演讲</p>
     <form class="deliver-speech">
         <div class="form-group">
@@ -187,7 +190,7 @@
 </div>
 </div>
 
-<div>
+</div>
 
 </body>
 </html>
