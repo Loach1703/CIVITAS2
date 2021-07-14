@@ -131,22 +131,23 @@
 <!--演讲栏-->
 <div class="main-right">
     <p class="mainchar">本地演讲</p>
-    <form class="deliver-speech">
+    <form class="deliver-speech" action="/speech/" method="post">
+        {% csrf_token %}
         <div class="form-group">
             <label for="comment">在这里发表演讲，不超过140个字:</label>
-            <textarea class="form-control" rows="5" id="comment" style="resize: none;"></textarea>
+            <textarea class="form-control" rows="5" id="comment" style="resize: none;" name="text" type="text"></textarea>
+            <label for="comment">{{status}}</label>
         </div>
-        <button type="button" class="btn btn-primary" onclick="">发表</button>
+        <button type="submit" class="btn btn-primary" onclick="">发表</button>
     </form>
+{% for i in list %}
     <div class="speech">
-        <span class="speech-content">
         <img src="civitas/img/1.png" class="img-thumbnail speech-avatar" width="50px" height="50px"/>
-            <a href="#" class="speech-name">CIVITAS2团队</a>
-            <p>:</p>
-            <p>Hello,world!Hello,world!Hello,world!Hello,world!</p>
+        <span class="speech-content">
+            <p><a href="#" class="speech-name">CIVITAS2团队</a>：{{ i.text }} </p>
         </span>
         <div class="speech-bottom">
-            <p>本地演讲，第1天，20:00</p>
+            <p>本地演讲，第{{ i.day }}天，{{ i.time }}</p>
         </div>
         <div class="speech-bottom">
             <a href="#">欢呼(0)</a>
@@ -154,21 +155,9 @@
             <a href="#">倒彩(0)</a>
         </div>
     </div>
-    <div class="speech">
-        <img src="civitas/img/1.png" class="img-thumbnail speech-avatar" width="50px" height="50px"/>
-        <span class="speech-content">
-            <p><a href="#" class="speech-name">CIVITAS2团队</a>：Hello,world!Hello,world!Hello,world!Hello,world!</p>
-        </span>
-        <div class="speech-bottom">
-            <p>本地演讲，第1天，20:00</p>
-        </div>
-        <div class="speech-bottom">
-            <a href="#">欢呼(0)</a>
-            <a href="#">关注(0)</a>
-            <a href="#">倒彩(0)</a>
-        </div>
-    </div>
+{% endfor %}
 </div>
+
 
 <!--工作模态框-->
 <div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
