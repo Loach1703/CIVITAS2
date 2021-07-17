@@ -19,5 +19,8 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('getspeech/', views.views),
+    path('getspeech/', views.getspeech1),
+    path('speech/', views.speech1),
+    path('getweather/',views.getweather1),
+    path('getdate/',views.getdate1),
 ]
