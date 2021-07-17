@@ -9,7 +9,9 @@
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/status.js"></script>
 <script src="civitas/js/dropdown.js"></script>
+<script src="civitas/js/ajax-time.js"></script>
 <script src="civitas/js/ajax-speech.js"></script>
+<script src="civitas/js/ajax-weather.js"></script>
 <script src="civitas/js/onload.js"></script>
 
 <head>
@@ -25,7 +27,6 @@
     <span class="vertime">
         Pre-Alpha 0.0.4
         <p id="time" class="time"></p>
-        <script src="civitas/js/time.js"></script>
     </span>
     <span>
         <a href="#street"><img src="civitas/icon/common/street.ico" width="22px" height="22px"/>街区</a>
@@ -117,9 +118,9 @@
 <div>
     <p class="mainchar">我的CIVITAS</p>
     <div>
-        <p class="location" id="location"><img src="civitas/svg/weather/qingtian.svg"/>位于京兆郡，长安<img src="civitas/svg/weather/qingtian.svg"/></p>
-        <img src="civitas/svg/weather/qingtian.svg"/>
-        <p class="weather-main">今日天气：<strong id="weather">晴</strong> 温度：<strong id="temperature">25</strong>摄氏度 降水量：<strong id="rain">0</strong>mm</p>
+        <p class="location" id="location">位于京兆郡，长安<span id="season"></span><span id="day"></span></p>
+        <span id="weather-svg"></span>
+        <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
     </div>
     <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"/></a>
     <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"/></a>
