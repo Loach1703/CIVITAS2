@@ -416,18 +416,3 @@ function change_calc(stamina_value,happiness_value,health_value,starvation_value
     var change={"stamina_change":stamina_change,"happiness_change":happiness_change,"health_change":health_change,"starvation_change":starvation_change};
     return change;
 }
-
-//加载页面时更新
-function load_updata()
-{
-    //获取状态值
-    var value = getvalue();
-    var stamina_value = value["stamina_value"];
-    var happiness_value = value["happiness_value"];
-    var health_value = value["health_value"];
-    var starvation_value = value["starvation_value"];
-    //更新
-    updata(stamina_value,happiness_value,health_value,starvation_value);
-}
-
-window.onload = load_updata;
