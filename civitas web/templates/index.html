@@ -11,6 +11,10 @@
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/status.js"></script>
 <script src="civitas/js/dropdown.js"></script>
+<script src="civitas/js/ajax-time.js"></script>
+<script src="civitas/js/ajax-speech.js"></script>
+<script src="civitas/js/ajax-weather.js"></script>
+<script src="civitas/js/onload.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -23,9 +27,8 @@
 <nav class="navigator">
     <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
     <span class="vertime">
-        Pre-Alpha 0.0.3
+        Pre-Alpha 0.0.4
         <p id="time" class="time"></p>
-        <script src="civitas/js/time.js"></script>
     </span>
     <span>
         <a href="#street"><img src="civitas/icon/common/street.ico" width="22px" height="22px"/>街区</a>
@@ -39,6 +42,10 @@
             <a href="#square"><img src="civitas/icon/common/recruit.ico" width="22px" height="22px"></img>招聘市场</a>
             <a href="#square"><img src="civitas/icon/common/estate.ico" width="22px" height="22px"></img>不动产市场</a>
         </div>
+    </span>
+    <span class="signup-in">
+        <a href="#market">登录</a>
+        <a href="#market">注册</a>
     </span>
 </nav>
 
@@ -112,6 +119,11 @@
 <!--快捷栏-->
 <div>
     <p class="mainchar">我的CIVITAS</p>
+    <div>
+        <p class="location" id="location">位于京兆郡，长安<span id="season"></span><span id="day"></span></p>
+        <span id="weather-svg"></span>
+        <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
+    </div>
     <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"/></a>
     <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"/></a>
     <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
@@ -134,30 +146,15 @@
 <div class="main-right">
     <p class="mainchar">本地演讲</p>
     <form class="deliver-speech" action="/speech/" method="post">
-        {% csrf_token %}
         <div class="form-group">
             <label for="comment">在这里发表演讲，不超过140个字:</label>
             <textarea class="form-control" rows="5" id="comment" style="resize: none;" name="text" type="text"></textarea>
-            <label for="comment">{{status}}</label>
+            <label for="comment"></label>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="">发表</button>
+        <button type="submit" class="btn btn-primary">发表</button>
     </form>
-{% for i in list %}
-    <div class="speech">
-        <img src="civitas/img/1.png" class="img-thumbnail speech-avatar" width="50px" height="50px"/>
-        <span class="speech-content">
-            <p><a href="#" class="speech-name">CIVITAS2团队</a>：{{ i.text }} </p>
-        </span>
-        <div class="speech-bottom">
-            <p>本地演讲，第{{ i.day }}天，{{ i.time }}</p>
-        </div>
-        <div class="speech-bottom">
-            <a href="#">欢呼(0)</a>
-            <a href="#">关注(0)</a>
-            <a href="#">倒彩(0)</a>
-        </div>
-    </div>
-{% endfor %}
+    <div id="speech"></div>
+    <div id="speech-page-paginator" class="speech-page-paginator"></div>
 </div>
 
 
