@@ -18,11 +18,15 @@ from django.urls import path,re_path
 from . import views
 from . import rspeech
 from . import map
-
+from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$',views.views),
     path('speech/', rspeech.rspeech),
     path('map.html', map.map),
     path('index.html',views.views),
+]
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+    
 ]
