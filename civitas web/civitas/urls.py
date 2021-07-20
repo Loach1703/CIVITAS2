@@ -19,6 +19,7 @@ from . import views
 from . import rspeech
 from . import map
 from django.conf.urls import include
+from django.contrib.auth import views as loginViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$',views.views),
@@ -26,7 +27,16 @@ urlpatterns = [
     path('map.html', map.map),
     path('index.html',views.views),
 ]
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
+# urlpatterns += [
+#     path('accounts/', include('django.contrib.auth.urls')),
     
+# ]
+urlpatterns += [
+    path('login/',loginViews.LoginView.as_view(), name='login'),
+    path('logout/',loginViews.LogoutView.as_view(), name='logout'),
+
+    path('password-reset/', loginViews.PasswordResetView.as_view(), name='password_reset'),
+    path('password-reset/done/', loginViews.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', loginViews.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', loginViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
