@@ -119,6 +119,23 @@ function speech_swap()
     load_speech(page)
 }
 
+function give_speech()
+{
+    var content = document.getElementById("comment").value;
+    var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+            document.getElementById("comment").value="";
+            load_speech(1)
+		}
+	}
+    xmlhttp.open("POST","https://api.trickydeath.xyz/speech/",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("text="+content);
+}
+
 /*下列为原文
 "<div class=\"speech\">
     <img src=\"civitas/img/1.png\" class=\"img-thumbnail speech-avatar\" width=\"50px\" height=\"50px\"/>

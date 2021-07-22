@@ -1,0 +1,37 @@
+.login-box
+{
+    padding-top: 10%;
+    background-color: rgba(180,180,180,0);
+}
+
+.login-box a
+{
+    margin: 10px auto;
+    text-align: center;
+    display: block;
+}
+
+.login-box a:hover
+{
+    text-decoration: none;
+}
+
+.login-main
+{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(57,85,115);
+  font-weight: bold;
+  border-bottom: 2px solid rgb(211,227,254);
+}
+
+.login-inputdiv
+{
+    padding: 0 80px;
+}
+
+.login-input
+{
+    margin: 25px 0;
+}

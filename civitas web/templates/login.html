@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    
+<link rel="stylesheet" href="civitas/css/style.css">
+<link rel="stylesheet" href="civitas/css/login/style_login.css">
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
+<link rel="icon" href="civitas/icon/favicon2.ico" />
+<link rel="Bookmark" href="civitas/icon/favicon1.ico" />
+<script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/login/time.js"></script>
+<script src="civitas/js/login/onload.js"></script>
+
+<head>
+<meta charset="utf-8">
+<title>登录 - 古典社会模拟 CIVITAS2</title>
+</head>
+
+<body background="civitas/img/background.png" style="background-attachment: fixed;">
+
+<!--上导航栏-->
+<nav class="navigator">
+    <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
+    <span class="vertime">
+        Pre-Alpha 0.0.4
+        <p id="time" class="time"></p>
+    </span>
+    <span>
+      <a href="#street"><img src="civitas/svg/login/log.svg" width="22px" height="22px"/>开发者日志</a>
+    </span>
+    <span class="signup-in">
+        <a href="#market">登录</a>
+        <a href="#market">注册</a>
+    </span>
+</nav>
+
+<div class="container">
+  <div class="col-md-6 col-md-offset-3 container login-box">
+    <p class="login-main">登录CIVITAS2</p>
+    <div class="login-inputdiv">
+      <input type="text" class="form-control login-input" id="account" placeholder="账号">
+      <input type="text" class="form-control login-input" id="password" placeholder="密码">
+      <button class="btn btn-block btn-primary">登录</button>
+    </div>
+    <a href="#street">还没有账号？点击这里注册</a>
+    <a href="#street">忘记密码</a>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optradio">我同意接受<span class="no">CIVITAS</span>服务条款<br>并遵守严格禁止一人多身份的底线
+      </label>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

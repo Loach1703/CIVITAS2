@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     
-<link rel="stylesheet" href="civitas/css/styles.css">
+<link rel="stylesheet" href="civitas/css/style.css">
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <link rel="icon" href="civitas/icon/favicon2.ico" />
 <link rel="Bookmark" href="civitas/icon/favicon1.ico" />
@@ -29,16 +29,16 @@
         <p id="time" class="time"></p>
     </span>
     <span>
-        <a href="#street"><img src="civitas/icon/common/street.ico" width="22px" height="22px"/>街区</a>
-        <a href="#square"><img src="civitas/icon/common/square.ico" width="22px" height="22px"/>广场</a>
-        <a href="map.html"><img src="civitas/icon/common/map.ico" width="22px" height="22px"/>地图</a>
+        <a href="#street"><img src="civitas/svg/common/street.svg" width="22px" height="22px"/>街区</a>
+        <a href="#square"><img src="civitas/svg/common/square.svg" width="22px" height="22px"/>广场</a>
+        <a href="map.html"><img src="civitas/svg/common/map.svg" width="22px" height="22px"/>地图</a>
     </span>
     <span class="market-main" id="market">
-        <a href="#market"><img src="civitas/icon/common/market.ico" width="22px" height="22px"></img>市场</a>
+        <a href="#market"><img src="civitas/svg/common/market.svg" width="22px" height="22px"></img>市场</a>
         <div id="market-down" class="market-dropdown hide">
-            <a href="#square"><img src="civitas/icon/common/goods.ico" width="22px" height="22px"></img>物资市场</a>
-            <a href="#square"><img src="civitas/icon/common/recruit.ico" width="22px" height="22px"></img>招聘市场</a>
-            <a href="#square"><img src="civitas/icon/common/estate.ico" width="22px" height="22px"></img>不动产市场</a>
+            <a href="#square"><img src="civitas/svg/common/goods.svg" width="22px" height="22px"></img>物资市场</a>
+            <a href="#square"><img src="civitas/svg/common/recruit.svg" width="22px" height="22px"></img>招聘市场</a>
+            <a href="#square"><img src="civitas/svg/common/estate.svg" width="22px" height="22px"></img>不动产市场</a>
         </div>
     </span>
     <span class="signup-in">
@@ -122,8 +122,8 @@
         <span id="weather-svg"></span>
         <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
     </div>
-    <a href="#" class="address"><img src="civitas/icon/index/address.ico" width="80px" height="80px"/></a>
-    <a href="#" class="work"><img src="civitas/icon/index/work.ico" width="80px" height="80px"/></a>
+    <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
+    <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
     <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
     <button type="button" class="btn btn-warning" onclick="eat()">吃炭拌粉</button>
@@ -143,14 +143,11 @@
 <!--演讲栏-->
 <div class="main-right">
     <p class="mainchar">本地演讲</p>
-    <form class="deliver-speech" action="/speech/" method="post">
-        <div class="form-group">
-            <label for="comment">在这里发表演讲，不超过140个字:</label>
-            <textarea class="form-control" rows="5" id="comment" style="resize: none;" name="text" type="text"></textarea>
-            <label for="comment"></label>
-        </div>
-        <button type="submit" class="btn btn-primary">发表</button>
-    </form>
+    <div class="deliver-speech">
+        <p>在这里发表演讲，不超过140个字:</p>
+        <textarea class="form-control resize-none" rows="5" id="comment" name="text" type="text"></textarea>
+        <button class="btn btn-primary" onclick="give_speech()">发表</button>
+    </div>
     <div id="speech"></div>
     <div id="speech-page-paginator" class="speech-page-paginator"></div>
 </div>

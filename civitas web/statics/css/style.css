@@ -1,0 +1,374 @@
+.navigator
+{
+  position: fixed;
+  padding: 0 150px 0 150px;
+  border-bottom: 3px solid rgb(140,140,140);
+  background-color: rgb(69,69,69);
+  width: 100%;
+  z-index: 100;
+}
+
+.navigator a
+{
+  display: inline-block;
+  padding: 6px 12px 9px 12px;
+  color: white;
+  font-size: 16px;
+}
+
+.navigator a:hover
+{
+  color: white;
+  background-color: rgb(40,40,40);
+  text-decoration: none;
+}
+
+.civitas2
+{
+  margin: 8px 0 0 0px;
+  float: left;
+}
+
+.vertime
+{
+  margin: 3px 15px 0 15px;
+  font-size: 10px;
+  color: white;
+  float: left;
+  font-family: "微软雅黑";
+  text-align: center;
+}
+
+.time
+{
+  margin: 0;
+}
+
+.market-main
+{
+  position: relative;
+}
+
+.signup-in
+{
+  float: right;
+}
+
+.hide
+{
+  display: none;
+}
+
+.market-dropdown
+{
+  background-color: rgb(69,69,69);
+  border: 3px solid rgb(140,140,140);
+  border-top: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  position: absolute;
+  left: 0%;
+  width: 160%;
+}
+
+.market-dropdown a
+{
+  display: block;
+  font-size: 14px;
+}
+
+.leftnavigator
+{
+  display: inline-block;
+  position: absolute;
+  padding-top: 10px;
+  background-color: rgba(247,247,247,0.5);
+  border-left: 2px solid rgb(204,204,204);
+  width: 18%;
+  left: 8%;
+  top: 40px;
+}
+
+.xp
+{
+  margin: 0;
+  color: black;
+}
+
+.bottomline
+{
+  border-bottom: 2px solid rgb(204,204,204);
+}
+
+.avatar
+{
+  margin-left: 10px;
+  float: left;
+}
+
+.level
+{
+  margin: 10px 0 20px 100px;
+}
+
+.level a:hover
+{
+  text-decoration: none;
+}
+
+.level p
+{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.levelbar
+{
+  margin: 0 10px 0 0;
+  color: black;
+}
+
+.menu
+{
+  padding: 10px 0 10px 15px;
+  margin: 0;
+  font-size: 20px;
+  font-family: "Arial";
+  color: rgb(102,102,102);
+}
+
+.status
+{
+  margin: 0 30px 25px 18px;
+}
+
+.leftnavigatoroption a
+{
+  color: rgb(41,41,41);
+  font-size: 16px;
+  padding: 5px 0 5px 20px;
+  display: block;
+}
+
+.leftnavigatoroption a:hover
+{
+  color: rgb(41,41,41);
+  background-color: white;
+  text-decoration: none;
+}
+
+.main
+{
+  display: inline-block;
+  position: absolute;
+  width: 65%;
+  height: 100%;
+  left: 27%;
+  top: 50px;
+}
+
+.main-center
+{
+  display: inline-block;
+  position: absolute;
+  width: 50%;
+  left: 0%;
+}
+
+.mainchar
+{
+  padding-left: 10px;
+  font-size: 30px;
+  color: rgb(57,85,115);
+  font-weight: bold;
+  border-bottom: 2px solid rgb(211,227,254);
+}
+
+.location
+{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.weather-main
+{
+  display: inline;
+  position: relative;
+}
+
+.address
+{
+  display: inline-block;
+  padding: 15%;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+  background-color: rgb(126,56,120);
+}
+
+.address:hover
+{
+  background-color: rgb(136,66,130);
+}
+
+.work
+{
+  display: inline-block;
+  padding: 15%;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+  background-color: rgb(0,171,169);
+}
+
+.work:hover
+{
+  background-color: rgb(0,161,159);
+}
+
+.main-right
+{
+  display: inline-block;
+  position: absolute;
+  border-right: 2px solid rgb(204,204,204);
+  width: 50%;
+  left: 50%;
+}
+
+.deliver-speech
+{
+  margin-bottom: 10px;
+}
+
+.deliver-speech button
+{
+  margin: 10px 0 10px 0;
+}
+
+.resize-none
+{
+  resize: none;
+}
+
+.speech
+{
+  padding: 10px 0;
+  border-top: 2px dashed rgba(150,150,150,0.3);
+  font-size: 14px;
+}
+
+.speech:hover
+{
+  background-color: rgba(204,204,204,0.3);
+}
+
+.speech p
+{
+  display: inline;
+  line-height: 25px;
+  font-size: 16px;
+  word-wrap:break-word;
+}
+
+.speech a
+{
+  font-size: 16px;
+}
+
+.speech a:hover
+{
+  text-decoration: none;
+}
+
+.speech-avatar
+{
+  position: relative;
+}
+
+.speech-content
+{
+  position: relative;
+  margin-left: 10px;
+}
+
+.speech-content p
+{
+  position: relative;
+}
+
+.speech-bottom
+{
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  margin-left: 10px;
+}
+
+.speech-page-paginator
+{
+  margin: 0 auto;
+  text-align: center;
+  border-top: 2px dashed rgba(150,150,150,0.3);
+}
+
+.speech-page-paginator a
+{
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+.speech-page-paginator a:hover
+{
+  text-decoration: none;
+  background-color: rgba(204,204,204,0.3);
+}
+
+.speech-page-paginator span
+{
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+.speech-page-swap-input
+{
+  margin:  0 10px 0 140px;
+}
+
+.speech-page-swap-button
+{
+  margin: 0 140px 0 10px;
+}
+
+.work-modal
+{
+  background: url(../img/background1.png);
+  background-size: 800px 400px;
+}
+
+.work-title p
+{
+  display: inline-block;
+  padding: 0;
+  margin: 0 150px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 200px;
+}
+
+.work-title button
+{
+  padding: 10px;
+  display: inline;
+}
+
+.work-strategy button
+{
+  display: block;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 0;
+  width: 450px;
+  margin: 5px auto;
+  text-align: center;
+  background: rgba(0,0,0,0.1);
+}
