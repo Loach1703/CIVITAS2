@@ -1,9 +1,10 @@
 from django.shortcuts import redirect,render,HttpResponse
 from TestModel.models import speech,weather
+from django.contrib.sessions.models import Session
 import datetime
 import json
 
-def getspeech1(req):
+def getspeech1(req):    #获取演讲，参数：page
     num_every_page=10
     status=0
     meg='失败'
@@ -48,7 +49,7 @@ def getspeech1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def speech1(req):
+def speech1(req):   #发送演讲，参数：text
     status=0
     meg="失败"
     text=req.POST.get("text")
@@ -71,7 +72,7 @@ def speech1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def getweather1(req):
+def getweather1(req):   #获取天气，无参数
     status=0
     meg='失败'
     data={}
@@ -124,7 +125,7 @@ def getweather1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def year_season_calc(self):
+def year_season_calc(self): #天气计算，非接口
     days = self.day - 1
     days_left = days % self.year_length
     self.year = 1 + days // self.year_length
@@ -132,7 +133,7 @@ def year_season_calc(self):
     self.season = 1 + days_left // self.season_length
     self.day = days_left2 + 1
 
-def getdate1(req):
+def getdate1(req):  #获取日期
     year_length=80
     season_length=20
     status=1
@@ -160,5 +161,28 @@ def getdate1(req):
 
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
-    
+
+def islogin1(req):
+    status=0
+    meg="失败"
+    is_login=False
+    sessionid=req.COOKIES.get("sessionid")
+    if sessionid != None:
+        if req.session.exists(sessionid)==False:
+            meg="登录状态失效"
+        else:
+            status=1
+            meg="成功"
+            is_login=True
+    else:
+        meg="没有提供sessionid"
+    result={
+                "status":status,
+                "message":meg,
+                "data":{
+                            "is_login":is_login,
+                            "sessionid":sessionid
+                        }
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
     

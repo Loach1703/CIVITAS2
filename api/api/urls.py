@@ -23,4 +23,5 @@ urlpatterns = [
     path('speech/', views.speech1),
     path('getweather/',views.getweather1),
     path('getdate/',views.getdate1),
+    path('islogin/',views.islogin1),
 ]

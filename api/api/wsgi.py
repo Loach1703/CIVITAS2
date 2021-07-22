@@ -7,12 +7,10 @@ For more information on this file, see
 https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 """
 
-import os,sys
+import os
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
-
-sys.path.append('/var/www/api')
 
 application = get_wsgi_application()
