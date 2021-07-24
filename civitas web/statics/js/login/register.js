@@ -2,7 +2,7 @@ function register()
 {
     var account = document.getElementById("account").value;
     var password = document.getElementById("password").value;
-    var repeat_password = document.getElementById("repeat_password").value;
+    var repeat_password = document.getElementById("repeat-password").value;
     var email = document.getElementById("email").value;
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
