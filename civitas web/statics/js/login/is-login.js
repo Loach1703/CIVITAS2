@@ -8,7 +8,10 @@ function is_login()
 		{
             var str = xmlhttp.responseText;
             json_str = JSON.parse(str);
-            document.getElementById("username").innerHTML = json_str["data"]["username"];
+            if (json_str["message"] == "成功")
+            {
+                document.getElementById("username").innerHTML = json_str["data"]["username"];
+            }
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/islogin/",false);
