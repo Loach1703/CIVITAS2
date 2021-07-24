@@ -9,10 +9,12 @@
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/status.js"></script>
 <script src="civitas/js/dropdown.js"></script>
-<script src="civitas/js/ajax-time.js"></script>
+<script src="civitas/js/time-index.js"></script>
 <script src="civitas/js/ajax-speech.js"></script>
 <script src="civitas/js/ajax-weather.js"></script>
-<script src="civitas/js/onload.js"></script>
+<script src="civitas/js/login/is-login.js"></script>
+<script src="civitas/js/redirection/redirection-login.js"></script>
+<script src="civitas/js/onload-index.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -62,7 +64,7 @@
             <img src="civitas/img/1.png" class="img-thumbnail" width="80px" height="80px"/>
         </span>
         <div class="level">
-            <a href="#">CIVITAS2团队</a>
+            <a href="#" id="username"></a>
             <p>等级 100级</p>
             <div class="progress levelbar">
                 <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"  style="width: 50%" id="energy"><p class="xp">经验 1000 / 2000</p></div>
@@ -154,6 +156,7 @@
         <p>在这里发表演讲，不超过140个字:</p>
         <textarea class="form-control resize-none" rows="5" id="comment" name="text" type="text"></textarea>
         <button class="btn btn-primary" onclick="give_speech()">发表</button>
+        <p id="speech-tip"></p>
     </div>
     <div id="speech"></div>
     <div id="speech-page-paginator" class="speech-page-paginator"></div>

@@ -8,8 +8,10 @@
 <link rel="Bookmark" href="civitas/icon/favicon1.ico" />
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/login/time.js"></script>
+<script src="civitas/js/time.js"></script>
 <script src="civitas/js/login/login.js"></script>
+<script src="civitas/js/login/is-login.js"></script>
+<script src="civitas/js/redirection/redirection-nologin.js"></script>
 <script src="civitas/js/login/onload.js"></script>
 
 <head>
@@ -27,7 +29,7 @@
         <p id="time" class="time"></p>
     </span>
     <span>
-      <a href="blog.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
+      <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
     </span>
     <span class="signup-in">
         <a href="login.html">登录</a>
@@ -41,7 +43,7 @@
     <div class="login-inputdiv">
       <input type="text" class="form-control login-input" id="account" placeholder="账号">
       <input type="password" class="form-control login-input" id="password" placeholder="密码">
-      <button class="btn btn-block btn-primary" onclick="login()">登录</button>
+      <button class="btn btn-block btn-primary" onclick="login_getvalue()">登录</button>
       <p class="login-message" id="message"></p>
     </div>
     <a href="register.html">还没有账号？点击这里注册</a>
