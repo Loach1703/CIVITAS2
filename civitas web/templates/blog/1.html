@@ -2,6 +2,7 @@
 <html>
     
 <link rel="stylesheet" href="civitas/css/style.css">
+<link rel="stylesheet" href="civitas/css/login/style_login.css">
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <link rel="icon" href="civitas/icon/favicon2.ico" />
 <link rel="Bookmark" href="civitas/icon/favicon1.ico" />
@@ -9,14 +10,13 @@
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/status.js"></script>
 <script src="civitas/js/dropdown.js"></script>
-<script src="civitas/js/ajax-time.js"></script>
-<script src="civitas/js/ajax-speech.js"></script>
-<script src="civitas/js/ajax-weather.js"></script>
-<script src="civitas/js/onload.js"></script>
+<script src="civitas/js/login/time.js"></script>
+<script src="civitas/js/login/onload.js"></script>
+
 
 <head>
 <meta charset="utf-8">
-<title>我的主页 - 古典社会模拟 CIVITAS2</title>
+<title>开发者日志1 天气与生产 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -42,15 +42,11 @@
         </div>
     </span>
     <span>
-      <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
+      <a href="blog.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
     </span>
     <span class="signup-in">
         <img src="civitas/img/1.png" width="40px" height="40px"/>
         <a href="#market">注销</a>
-    </span>
-    <span class="signup-in">
-        <a href="login.html">登录</a>
-        <a href="register.html">注册</a>
     </span>
 </nav>
 
@@ -117,69 +113,11 @@
 
 <!--主体结构div-->
 <div class="main">
-
-<!--主页面主体内容-->
-<div class="main-center">
-
-<!--快捷栏-->
-<div>
-    <p class="mainchar">我的CIVITAS</p>
-    <div>
-        <p class="location" id="location">位于京兆郡，长安<span id="season"></span><span id="day"></span></p>
-        <span id="weather-svg"></span>
-        <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
-    </div>
-    <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
-    <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
-    <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
-    <button type="button" class="btn btn-warning" onclick="eat()">吃炭拌粉</button>
-    <button type="button" class="btn btn-warning" onclick="load_updata()">测试</button>
-    <p id="change"></p>
-</div>
-
-<!--技能-->
-<div>
-    <p class="mainchar">我的技能</p>
-    <p><img src="civitas/icon/work/java.ico" width="80px" height="80px"/>耕作 学徒 1.00</p>
-    <p><img src="civitas/icon/work/python.ico" width="80px" height="80px"/>建筑 学徒 1.00</p>
-</div>
-
-</div>
-
-<!--演讲栏-->
-<div class="main-right">
-    <p class="mainchar">本地演讲</p>
-    <div class="deliver-speech">
-        <p>在这里发表演讲，不超过140个字:</p>
-        <textarea class="form-control resize-none" rows="5" id="comment" name="text" type="text"></textarea>
-        <button class="btn btn-primary" onclick="give_speech()">发表</button>
-    </div>
-    <div id="speech"></div>
-    <div id="speech-page-paginator" class="speech-page-paginator"></div>
-</div>
-
-
-<!--工作模态框-->
-<div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<div class="modal-dialog">
-    <div class="modal-content work-modal">
-        <div class="work-title">
-            <p>选择工作策略</p>
-            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        </div>
-        <div class="modal-body work-strategy">
-            <p class="">如同往常一样，你又开始了一天的工作。今天你打算......</p>
-            <button class="btn" onclick="work(1)" data-dismiss="modal"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>闲散  快乐，健康消耗-25%<br>产出产能-10% 技能增长-10%</button>
-            <button class="btn" onclick="work(2)" data-dismiss="modal"><img src="civitas/icon/work/normal.ico" width="40px" height="40px"/>正常 无特殊加成</button>
-            <button class="btn" onclick="work(3)" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>勤奋 快乐，健康消耗+25%<br>产出产能+10% 技能增长+10%</button>
-            <button class="btn" onclick="work(4)" data-dismiss="modal"><img src="civitas/icon/work/python.ico" width="40px" height="40px"/>蛮干 快乐，健康消耗+25%<br>产出产能+20% 技能增长-10%</button>
-            <button class="btn" onclick="work(5)" data-dismiss="modal"><img src="civitas/icon/work/java.ico" width="40px" height="40px"/>怠工 快乐恢复1，健康消耗-50% 精力，饥饿消耗-25%<br>产出产能-75% 技能增长-75%</button>
-        </div>
-    </div>
-</div>
-</div>
-
+    <p class="mainchar">天气与生产</p>
+    <p class="author">作者：时间 2021/07/15</p>
+    <p>不同于老版的civitas，新版游戏中，粮食的生产是以四天为一个周期，每隔四天，粮食才会收获。而这四天的天气变化会影响粮食的产量。天气是随机的，但是大体上符合当地的气候特征，如下图为模拟罗马和亚历山大的气候变化。</p>
+    <p>由于温度降雨量都会影响粮食的产量，所以玩家需要及时的改产自己的作物，值得注意的是，示例图只是一个模拟情况，真实的情况千变万化，虽然有迹可循，但是又未必完全一样。所以，玩家可能碰到自身判断错误或者极端天气造成的减产乃至颗粒无收的情况。</p>
+    <p>在新版游戏中，由于粮食种植合成了一个大类，所以一个粮食种植者是可以种植各种不同的粮食而不会收到影响。但是切换作物，会影响土地的开发度，在切换的前几天，收获会受到影响。不过，影响也是十分有限的。</p>
 </div>
 
 </body>
