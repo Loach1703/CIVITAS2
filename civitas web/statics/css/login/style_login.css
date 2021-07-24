@@ -35,3 +35,22 @@
 {
     margin: 25px 0;
 }
+
+.login-message
+{
+    color: red;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.login-tiantang
+{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.author
+{
+    font-size: 14px;
+    color: rgb(100,100,100);
+}
