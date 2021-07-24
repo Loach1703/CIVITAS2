@@ -1,0 +1,26 @@
+{% extends  'base_login.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Log in to your account</h4>
+
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="next" value="{{ next }}">
+
+{{ form|crispy }}
+<!-- 更改布局：https://django-crispy-forms.readthedocs.io/en/latest/crispy_tag_forms.html -->
+<div class="form-group">
+    {{ login_form.captcha.errors }}
+    {{ login_form.captcha.label_tag }}
+    {{ login_form.captcha }}
+</div>
+<button type="submit" class="btn btn-primary btn-block">Log in</button>
+</form>
+{# Assumes you setup the password_reset view in your URLconf #}
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div>
+</div>
+{% endblock %}

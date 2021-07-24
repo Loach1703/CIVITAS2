@@ -31,12 +31,26 @@ urlpatterns = [
 #     path('accounts/', include('django.contrib.auth.urls')),
     
 # ]
+#使用内置轮子进行登入和找回
+#如果独立轮子，参考https://www.cnblogs.com/derek1184405959/p/8567522.html
 urlpatterns += [
-    path('login/',loginViews.LoginView.as_view(), name='login'),
-    path('logout/',loginViews.LogoutView.as_view(), name='logout'),
+    path('', include('django.contrib.auth.urls')),
+    # path('login/',loginViews.LoginView.as_view(), name='login'),
+    # path('logout/',loginViews.LogoutView.as_view(), name='logout'),
 
-    path('password-reset/', loginViews.PasswordResetView.as_view(), name='password_reset'),
-    path('password-reset/done/', loginViews.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', loginViews.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', loginViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    # path('password-reset/', loginViews.PasswordResetView.as_view(), name='password_reset'),
+    # path('password-reset/done/', loginViews.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    # path('reset/<uidb64>/<token>/', loginViews.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # path('reset/done/', loginViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('login',loginViews.LoginView.as_view(), name='login'),
+]
+# 增加验证码的路径
+# urlpatterns +=[
+#     path('captcha', include('captcha.urls'))
+# ]
+urlpatterns +=[
+    
+    # path('regis/',views.otherview),
+    path('regis/', views.regisview, name='regis'),
+    
 ]
