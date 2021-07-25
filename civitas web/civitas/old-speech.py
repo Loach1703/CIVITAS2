@@ -1,3 +1,4 @@
+'''
 from TestModel.models import speech
 from django.shortcuts import redirect,render
 from django.views.decorators import csrf
@@ -12,3 +13,4 @@ def rspeech(request):
         return redirect("/")
     else:
         return redirect("/",{"status":"演讲字数超过140字，当前字数：{}".format(len(request.POST['text']))})
+'''

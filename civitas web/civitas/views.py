@@ -15,3 +15,12 @@ def views(request):
         i+=1
     list2=list(dict1.values())
     return render(request, "index.html", {"list":list2})
+
+def login(req):
+    return render(req, "login/login.html")
+
+def blog1(req):
+    return render(req, "blog/1.html")
+
+def register(req):
+    return render(req, "login/register.html")
