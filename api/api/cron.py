@@ -1,11 +1,7 @@
 import numpy
 import random
 import pymysql
-
-dbdict={
-	#可不能乱看
-        }
-
+from secret import dbdict
 
 #定义城市类
 class city(object):
@@ -355,7 +351,7 @@ class city(object):
         total_day=(int(self.year)-1)*80+(int(self.season)-1)*20+int(self.day)
         db=pymysql.connect(host=dbdict["ip"],user=dbdict["user"],password=dbdict["password"],database=dbdict["database"])
         cursor=db.cursor()
-        sql = "INSERT INTO testmodel_weather (city, total_day, year, season, day, weather, temperature, rain_num) VALUES ('{0}', {1}, {2}, '{3}', {4}, '{5}', {6}, {7})".format(self.name,total_day,self.year,season_dict[self.season],self.day,self.weather,round(self.temperature,5),round(self.rain_num,5))
+        sql = "INSERT INTO TestModel_weather (city, total_day, year, season, day, weather, temperature, rain_num) VALUES ('{0}', {1}, {2}, '{3}', {4}, '{5}', {6}, {7})".format(self.name,total_day,self.year,season_dict[self.season],self.day,self.weather,round(self.temperature,5),round(self.rain_num,5))
         try:
         # 执行sql语句
             cursor.execute(sql)
@@ -369,7 +365,7 @@ class city(object):
 def weather():
     db=pymysql.connect(host=dbdict["ip"],user=dbdict["user"],password=dbdict["password"],database=dbdict["database"])
     cursor=db.cursor()
-    sql='select * from testmodel_weather order by id desc limit 1 offset 0;'
+    sql='select * from TestModel_weather order by id desc limit 1 offset 0;'
     cursor.execute(sql)
     list1=cursor.fetchall()
     for var in list1:

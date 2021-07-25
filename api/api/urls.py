@@ -24,4 +24,6 @@ urlpatterns = [
     path('getweather/',views.getweather1),
     path('getdate/',views.getdate1),
     path('islogin/',views.islogin1),
+    path('login/',views.login1),
+    path('register/',views.register1),
 ]
