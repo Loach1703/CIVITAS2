@@ -2,6 +2,8 @@ from django.shortcuts import render
 from TestModel.models import speech
 import datetime
 
+from .forms import RegisterForm
+
 def views(request):
     list1 = speech.objects.order_by('-id')[0:5]
     i=0
@@ -24,3 +26,6 @@ def blog1(req):
 
 def register(req):
     return render(req, "login/register.html")
+
+def logout(req):
+    return render(req, "registration/logout.html")
