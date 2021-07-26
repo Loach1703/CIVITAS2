@@ -8,7 +8,7 @@
   integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <!-- Add additional CSS in static file -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -22,24 +22,14 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <!-- <div class="col-sm-2">
-      {% block sidebar %}
-        <ul class="sidebar-nav">
-          
-          <li><a href="">你爱我</a></li>
-          <li><a href="">我爱你</a></li>
-          <li><a href="">蜜雪冰城甜蜜蜜</a></li>
-          <li><a href="{% url 'logout' %}">登出</a></li>
-        </ul>
-     {% endblock %}
-      </div> -->
+
       <div class="col-sm-10 ">
         <div  class="container">
         <div  class="row justify-content-center">
           <div  class="col-4">
           <h1  class="text-center">CIVITAS 2077 login</h1>
           <h2  class="text-center">进程</h2>
-          {% block main %}
+          {% block content %}
           {% endblock %}
           </div>
         </div>
