@@ -1,11 +1,21 @@
 from django.shortcuts import redirect,render,HttpResponse
-from TestModel.models import speech,weather,usersession
+from TestModel.models import speech,weather,usersession,speech_attitude
 from django.contrib.sessions.models import Session
 from django.contrib import auth
+from django.db.models import Avg,Max,Min,Count,Sum,F,Q
 import datetime
 import json
 import random
 import re
+
+def is_login(req,sessionid):
+    if not sessionid:
+        return 0
+    if not req.session.exists(sessionid):
+        return 0
+    return 1
+        
+    
 
 def getspeech1(req):    #获取演讲，参数：page
     num_every_page=10
@@ -14,40 +24,56 @@ def getspeech1(req):    #获取演讲，参数：page
     list2=[]
     total_page=0
     num=0
-    if req.GET.get("page")!=None:
-        page = int(req.GET.get("page"))
-        count=len(speech.objects.all())
-        if count%num_every_page==0:
-            total_page=count/num_every_page
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        attuid=session.get_decoded()["_auth_user_id"]
+        if req.GET.get("page")!=None:
+            page = int(req.GET.get("page"))
+            count=len(speech.objects.all())
+            if count%num_every_page==0:
+                total_page=count/num_every_page
+            else:
+                total_page=(count+num_every_page)//num_every_page
+            if count-num_every_page*page<-num_every_page or page<=0:
+                status=0
+                meg='失败，错误的页数'
+            else:
+                list1 = speech.objects.order_by('-id')[0+num_every_page*(page-1):num_every_page*page]
+                i=0
+                num=len(list1)
+                for var in list1:
+                    my_att=None
+                    cheer=0
+                    onlooker=0
+                    catcall=0
+                    r = var.text
+                    textid = var.id
+                    uid=var.uid
+                    user=auth.models.User.objects.filter(pk=uid)
+                    if user.exists():
+                        user.first()
+                        username=user[0].username
+                    else:
+                        username="用户不存在"
+                    d = str(var.date)[0:10]
+                    a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
+                    b=str(var.date)[11:19]
+                    dbatt=speech_attitude.objects.filter(uid=attuid).filter(textid=textid)
+                    if dbatt.exists():
+                        my_att=dbatt[0].att
+                    cheer=speech_attitude.objects.filter(textid=textid).filter(att=1).count()
+                    onlooker=speech_attitude.objects.filter(textid=textid).filter(att=2).count()
+                    catcall=speech_attitude.objects.filter(textid=textid).filter(att=3).count()
+                    list2.append({"textid":textid,"text":r,"day":a,"time":b,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall})
+                    i+=1
+                status=1
+                meg='成功'
         else:
-            total_page=(count+num_every_page)//num_every_page
-        if count-num_every_page*page<-num_every_page or page<=0:
             status=0
-            meg='失败，错误的页数'
-        else:
-            list1 = speech.objects.order_by('-id')[0+num_every_page*(page-1):num_every_page*page]
-            i=0
-            num=len(list1)
-            for var in list1:
-                r = var.text
-                textid = var.id
-                uid=var.uid
-                user=auth.models.User.objects.filter(pk=uid)
-                if user.exists():
-                    user.first()
-                    username=user[0].username
-                else:
-                    username="用户不存在"
-                d = str(var.date)[0:10]
-                a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
-                b=str(var.date)[11:19]
-                list2.append({"textid":textid,"text":r,"day":a,"time":b,"username":username})
-                i+=1
-            status=1
-            meg='成功'
+            meg='失败，没有提供页码'
     else:
-        status=0
-        meg='失败，没有提供页码'
+        meg='您还没有登录'
     result={
                 "status":status,
                 "message":meg,
@@ -63,15 +89,10 @@ def speech1(req):   #发送演讲，参数：text
     status=0
     meg="失败"
     sessionid=req.COOKIES.get("sessionid")
-    if sessionid != None:
-        if req.session.exists(sessionid)==False:
-            meg="您还没有登录"
-        else:
-            status=1
-            meg="发表成功"
-            session = Session.objects.filter(pk=sessionid).first()
-            uid=session.get_decoded()["_auth_user_id"]
-            text=req.POST.get("text")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid=session.get_decoded()["_auth_user_id"]
+        text=req.POST.get("text")
         if text!=None:
             if 0<len(text)<=140:
                 date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -85,9 +106,9 @@ def speech1(req):   #发送演讲，参数：text
         else:
             status=0
             meg='失败，没有提供POST参数'
-
     else:
-        meg="您还没有登录"
+        status=0
+        meg='您还没有登录'
     result={
                 "status":status,
                 "message":meg,
@@ -300,6 +321,105 @@ def register1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
+def assess1(req):
+    status=0
+    meg="失败"
+    att=req.POST.get("attitude")
+    textid=req.POST.get("textid")
+    sessionid=req.COOKIES.get("sessionid")
+    attdict={"1":"欢呼","2":"关注","3":"倒彩"}
+    if is_login(req,sessionid):
+        if att==None or textid==None:
+            meg="缺少必要参数"
+        else:
+            if att=="1" or att=="2" or att=="3":
+                if speech.objects.filter(pk=textid).exists():
+                    session=Session.objects.filter(pk=sessionid).first()
+                    uid=session.get_decoded()["_auth_user_id"]
+                    if speech_attitude.objects.filter(textid=textid).filter(uid=uid).exists():
+                        if speech_attitude.objects.filter(textid=textid).filter(uid=uid)[0].att==att:
+                            speech_attitude.objects.filter(textid=textid).filter(uid=uid).delete()
+                            meg="您已经撤销对这个演讲的态度"
+                        else:
+                            meg="您已经对这个演讲发表过态度了,请先取消之前的态度再点击"
+                    else:
+                        sendatt=speech_attitude(uid=uid,textid=textid,att=att)
+                        sendatt.save()
+                        status=1
+                        meg="{}成功".format(attdict[att])
+                else:
+                    meg="您将要发表观点的演讲不存在"
+            else:
+                meg="您的态度无效"
+    else:
+        meg='您还没有登录'
+    result={
+                "status":status,
+                "message":meg,
+                "data":{}
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
-
+def hotspeech1(req):
+    status=0
+    meg="失败"
+    now=datetime.datetime.now()
+    speech_in_24h=speech.objects.filter(date__gte=now-datetime.timedelta(days=1),date__lte=now)
+    order=speech_in_24h.order_by('id')
+    num=0
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        attuid=session.get_decoded()["_auth_user_id"]
+        if order.exists():
+            min1=order.first().id
+            max1=order.last().id
+            satisfied_attitude=speech_attitude.objects.filter(textid__range=[min1,max1])
+            table1=satisfied_attitude.values("textid","att").annotate(count_divide=Count("att"))
+            table2=table1.values("textid").annotate(clout=F("count_divide")).order_by("-clout","-textid").first()
+            textid=table2["textid"]
+            hot_speech=speech_in_24h.filter(id=textid)
+            for var in hot_speech:
+                my_att=None
+                cheer=0
+                onlooker=0
+                catcall=0
+                list2=[]
+                r = var.text
+                textid = var.id
+                uid=var.uid
+                user=auth.models.User.objects.filter(pk=uid)
+                if user.exists():
+                    user.first()
+                    username=user[0].username
+                else:
+                    username="用户不存在"
+                d = str(var.date)[0:10]
+                a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
+                b=str(var.date)[11:19]
+                dbatt=speech_attitude.objects.filter(uid=attuid).filter(textid=textid)
+                if dbatt.exists():
+                    my_att=dbatt[0].att
+                cheer=speech_attitude.objects.filter(textid=textid).filter(att=1).count()
+                onlooker=speech_attitude.objects.filter(textid=textid).filter(att=2).count()
+                catcall=speech_attitude.objects.filter(textid=textid).filter(att=3).count()
+                clout=cheer+catcall
+                list3=[]
+                list2.append({"textid":textid,"text":r,"day":a,"time":b,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall,"clout":clout})
+                num+=1
+            status=1
+            meg="热门演讲获取成功"
+        else:
+            meg="24小时内无人发言"
+    else:
+        meg='您还没有登录'
+    result={
+                "status":status,
+                "message":meg,
+                "data":{
+                            "num":num,
+                            "datalist":list2,
+                        }
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
     
