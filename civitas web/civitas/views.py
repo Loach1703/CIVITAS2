@@ -18,7 +18,6 @@ def views(request):
     list2=list(dict1.values())
     return render(request, "index.html", {"list":list2})
 
-<<<<<<< HEAD
 def regisview(request):
   return render(request,"regis/regis.html")
 
@@ -63,7 +62,6 @@ def register(request):
 
     #return render(request,"regis/regis.html", locals())
     return render(request, 'regis/regis.html', {'form': form})
-=======
 def login(req):
     return render(req, "login/login.html")
 
@@ -72,4 +70,3 @@ def blog1(req):
 
 def register(req):
     return render(req, "login/register.html")
->>>>>>> bcbbcb0305aa4622b5de4ad4c9dbd33f31de907c

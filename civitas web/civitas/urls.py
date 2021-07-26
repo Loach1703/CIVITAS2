@@ -38,7 +38,6 @@ urlpatterns = [
 #使用内置轮子进行登入和找回
 #如果独立轮子，参考https://www.cnblogs.com/derek1184405959/p/8567522.html
 urlpatterns += [
-<<<<<<< HEAD
     path('', include('django.contrib.auth.urls')),
     # path('login/',loginViews.LoginView.as_view(), name='login'),
     # path('logout/',loginViews.LogoutView.as_view(), name='logout'),
@@ -55,15 +54,8 @@ urlpatterns += [
 # ]
 urlpatterns +=[
     
-    # path('regis/',views.otherview),
-    path('regis/', views.regisview, name='regis'),
-    
-=======
-    #path('login/',loginViews.LoginView.as_view(), name='login'),
+    # path('regis/', views.regisview, name='regis'),
     path('logout/',loginViews.LogoutView.as_view(), name='logout'),
-    path('password-reset/', loginViews.PasswordResetView.as_view(), name='password_reset'),
-    path('password-reset/done/', loginViews.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', loginViews.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', loginViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
->>>>>>> bcbbcb0305aa4622b5de4ad4c9dbd33f31de907c
+
+
 ]
