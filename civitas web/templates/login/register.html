@@ -8,8 +8,12 @@
 <link rel="Bookmark" href="civitas/icon/favicon1.ico" />
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/login/time.js"></script>
+<script src="civitas/js/time.js"></script>
+<script src="civitas/js/login/register.js"></script>
+<script src="civitas/js/login/is-login.js"></script>
+<script src="civitas/js/redirection/redirection-nologin.js"></script>
 <script src="civitas/js/login/onload.js"></script>
+<script src="civitas/js/login/login.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -26,7 +30,7 @@
         <p id="time" class="time"></p>
     </span>
     <span>
-      <a href="blog.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
+      <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
     </span>
     <span class="signup-in">
         <a href="login.html">登录</a>
@@ -38,16 +42,17 @@
   <div class="col-md-6 col-md-offset-3 container login-box">
     <p class="login-main">注册CIVITAS2</p>
     <div class="login-inputdiv">
-      <input type="text" class="form-control login-input" id="account" placeholder="邮箱">
+      <input type="text" class="form-control login-input" id="email" placeholder="邮箱">
       <input type="text" class="form-control login-input" id="account" placeholder="用户名">
       <input type="password" class="form-control login-input" id="password" placeholder="密码">
-      <input type="password" class="form-control login-input" id="password-repeat" placeholder="再次输入密码">
-      <button class="btn btn-block btn-primary">注册</button>
+      <input type="password" class="form-control login-input" id="repeat-password" placeholder="再次输入密码">
+      <button class="btn btn-block btn-primary" onclick="register()">注册</button>
+      <p class="login-message" id="message"></p>
     </div>
     <a href="login.html">已有账号？点击这里登录</a>
     <div class="form-check login-tiantang">
       <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">我同意接受<span class="no">CIVITAS</span>服务条款<br>并遵守严格禁止一人多身份的底线
+        <input type="radio" class="form-check-input" name="optradio">我同意接受CIVITAS服务条款<br>并遵守严格禁止一人多身份的底线
       </label>
     </div>
   </div>

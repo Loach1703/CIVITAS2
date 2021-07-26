@@ -27,7 +27,7 @@ function load_speech2(xml,page)
     for (i = 0; i <= json_str["data"]["num"]-1; i++)
     { 
         speech += "<div class=\"speech\"><img src=\"civitas/img/1.png\" class=\"img-thumbnail speech-avatar\" width=\"50px\" height=\"50px\"\
-            /><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">CIVITAS2团队</a><p>："
+            /><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">"+json_str["data"]["datalist"][i]["username"]+"</a><p>："
             +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
             +json_str["data"]["datalist"][i]["day"]+"天，"+json_str["data"]["datalist"][i]["time"]+
             "</p></div><div class=\"speech-bottom\"><a href=\"#\">欢呼(0) </a><a href=\"#\">关注(0) </a><a href=\"#\">倒彩(0)</a></div></div>";
@@ -127,12 +127,13 @@ function give_speech()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
-            document.getElementById("comment").value="";
+            document.getElementById("comment").value = "";
             load_speech(1)
 		}
 	}
     xmlhttp.open("POST","https://api.trickydeath.xyz/speech/",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.withCredentials = true;
     xmlhttp.send("text="+content);
 }
 
