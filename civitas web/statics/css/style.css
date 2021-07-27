@@ -180,7 +180,12 @@
   left: 0%;
 }
 
-.mainchar
+.resize-none
+{
+  resize: none;
+}
+
+.main-char
 {
   padding-left: 10px;
   font-size: 30px;
@@ -238,110 +243,6 @@
   border-right: 2px solid rgb(204,204,204);
   width: 50%;
   left: 50%;
-}
-
-.deliver-speech
-{
-  margin-bottom: 10px;
-}
-
-.deliver-speech button
-{
-  margin: 10px 0 10px 0;
-}
-
-.resize-none
-{
-  resize: none;
-}
-
-.speech
-{
-  padding: 10px 0;
-  border-top: 2px dashed rgba(150,150,150,0.3);
-  font-size: 14px;
-}
-
-.speech:hover
-{
-  background-color: rgba(204,204,204,0.3);
-}
-
-.speech p
-{
-  display: inline;
-  line-height: 25px;
-  font-size: 16px;
-  word-wrap:break-word;
-}
-
-.speech a
-{
-  font-size: 16px;
-}
-
-.speech a:hover
-{
-  text-decoration: none;
-}
-
-.speech-avatar
-{
-  position: relative;
-}
-
-.speech-content
-{
-  position: relative;
-  margin-left: 10px;
-}
-
-.speech-content p
-{
-  position: relative;
-}
-
-.speech-bottom
-{
-  margin: 0 auto;
-  text-align: center;
-  position: relative;
-  margin-left: 10px;
-}
-
-.speech-page-paginator
-{
-  margin: 0 auto;
-  text-align: center;
-  border-top: 2px dashed rgba(150,150,150,0.3);
-}
-
-.speech-page-paginator a
-{
-  font-size: 18px;
-  padding: 0 10px;
-}
-
-.speech-page-paginator a:hover
-{
-  text-decoration: none;
-  background-color: rgba(204,204,204,0.3);
-}
-
-.speech-page-paginator span
-{
-  font-size: 18px;
-  padding: 0 10px;
-}
-
-.speech-page-swap-input
-{
-  margin:  0 10px 0 140px;
-}
-
-.speech-page-swap-button
-{
-  margin: 0 140px 0 10px;
 }
 
 .work-modal
