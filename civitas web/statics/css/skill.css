@@ -1,0 +1,78 @@
+.skill-picture img  
+{
+    width: 80px;
+    height: 80px;
+}
+.skill-box
+{
+  
+    width: 100%;
+    height:160px;
+    margin: 5px auto;
+}
+.skill-picture
+{
+   
+    width: 80px;
+    height: 160px;
+    margin: 5px auto;
+    float: left;
+}
+.skill-name-box
+{
+    
+    float: left;
+    width: 43%;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 120%;
+   
+}
+.skill-name-box-right
+{
+    
+    float: right;
+    width: 40%;
+    height: 40px;
+    padding-top: 10px;
+    text-align: right;
+    padding-right: 10px;
+    color: red;
+    font-size: 120%;
+}
+
+.skill-picture-mini
+{
+   
+    width: 40px;
+    height: 40px;
+    float:left;
+    margin-left: 10px;
+    margin-top: 10px;
+   
+}
+.skill-picture-mini img
+{
+    width: 40px;
+    height: 40px;
+   
+}
+.skill-name-box-mini
+{
+    float: left;
+    width:  110px;
+    height: 40px;
+    padding-top: 10px;
+    margin-left: 5px;
+    margin-top: 10px;
+  
+}
+
+.mainchar-skill
+{       
+    color: rgb(57,85,115);
+    font-weight: bold;
+    border-bottom: 2px solid rgb(211,227,254);
+    width: 200%
+}

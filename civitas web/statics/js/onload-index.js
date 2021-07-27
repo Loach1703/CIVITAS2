@@ -15,6 +15,7 @@ function load_updata()
     load_date();
     //获取演讲
     load_speech(1);
+    popular_speech();
 }
 
 window.onload = load_updata;

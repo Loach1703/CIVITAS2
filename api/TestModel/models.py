@@ -6,7 +6,6 @@ class speech(models.Model):
     text = models.CharField(max_length=280)
     date = models.DateTimeField()
 
-
 class weather(models.Model):
     city = models.CharField(max_length=20)
     total_day = models.CharField(max_length=20)
@@ -20,3 +19,8 @@ class weather(models.Model):
 class usersession(models.Model):
     uid = models.CharField(max_length=20)
     sessionid = models.CharField(max_length=32)
+
+class speech_attitude(models.Model):
+    uid = models.CharField(max_length=20)
+    textid = models.CharField(max_length=20)
+    att = models.CharField(max_length=20)
