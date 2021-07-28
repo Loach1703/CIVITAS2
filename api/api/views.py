@@ -422,4 +422,47 @@ def hotspeech1(req):
                         }
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+def siwei(req)
+    status = 0
+    uid = 0
+    
+    '''
+    sessionid=req.COOKIES.get("sessionid")
+    session=Session.objects.filter(pk=sessionid).first()
+    uid=session.get_decoded()["_auth_user_id"]
+    '''
+
+def siwei_test(req)
+    uid = 1
+    siwei = personal_attributes.objects.get(pk=uid)
+    for var in siwei:
+        happy = var.happy
+        energy = var.energy
+        healthy = var.happy
+        Hunger = var.Hunger
+        data=[
+            "uid":uid
+            "happy":happy
+            "energy":energy
+            "healthy":healthy
+            "Hunger":Hunger
+        ]
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+        
+        
+
+
+    
+
+
+
+
+
+
+def logout(req)
+    status = 0
+    sessionid=req.COOKIES.get("sessionid")
+
     
