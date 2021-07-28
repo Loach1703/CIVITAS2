@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from TestModel.models import speech
+
 import datetime
 
 from .forms import RegisterForm
@@ -29,3 +29,6 @@ def register(req):
 
 def logout(req):
     return render(req, "registration/logout.html")
+
+def test(req):
+    return render(req,"test.html")

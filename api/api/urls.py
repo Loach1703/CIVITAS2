@@ -27,6 +27,6 @@ urlpatterns = [
     path('login/',views.login1),
     path('register/',views.register1),
     path('assess/',views.assess1),
-    path('hotspeech/',views.hotspeech1)
-    path('siwei/',views.siwei_test)
+    path('hotspeech/',views.hotspeech1),
+    path('siwei/',views.siwei_test),
 ]

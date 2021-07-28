@@ -423,7 +423,7 @@ def hotspeech1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def siwei(req)
+def siwei(req):
     status = 0
     uid = 0
     
@@ -433,7 +433,7 @@ def siwei(req)
     uid=session.get_decoded()["_auth_user_id"]
     '''
 
-def siwei_test(req)
+def siwei_test(req):
     uid = 1
     siwei = personal_attributes.objects.get(pk=uid)
     for var in siwei:
@@ -441,13 +441,13 @@ def siwei_test(req)
         energy = var.energy
         healthy = var.happy
         Hunger = var.Hunger
-        data=[
-            "uid":uid
-            "happy":happy
-            "energy":energy
-            "healthy":healthy
-            "Hunger":Hunger
-        ]
+        data={
+            "uid":uid,
+            "happy":happy,
+            "energy":energy,
+            "healthy":healthy,
+            "Hunger":Hunger,
+        }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
         
@@ -461,7 +461,7 @@ def siwei_test(req)
 
 
 
-def logout(req)
+def logout(req):
     status = 0
     sessionid=req.COOKIES.get("sessionid")
 

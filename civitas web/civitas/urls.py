@@ -46,7 +46,9 @@ urlpatterns += [
 
 urlpatterns +=[
     
-    path('logout.html',views.logout)
+    path('logout.html',views.logout),
+    path('test.html',views.test)
+
 
 
 ]
