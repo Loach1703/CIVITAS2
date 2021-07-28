@@ -1,5 +1,5 @@
 from django.shortcuts import redirect,render,HttpResponse
-from TestModel.models import speech,weather,usersession,speech_attitude
+from TestModel.models import speech,weather,usersession,speech_attitude,personal_attributes
 from django.contrib.sessions.models import Session
 from django.contrib import auth
 from django.db.models import Avg,Max,Min,Count,Sum,F,Q
@@ -435,19 +435,29 @@ def siwei(req):
 
 def siwei_test(req):
     uid = 1
-    siwei = personal_attributes.objects.get(pk=uid)
-    for var in siwei:
-        happy = var.happy
-        energy = var.energy
-        healthy = var.happy
-        Hunger = var.Hunger
-        data={
-            "uid":uid,
-            "happy":happy,
-            "energy":energy,
-            "healthy":healthy,
-            "Hunger":Hunger,
-        }
+    siwei = None
+    data = {}
+    siwei_db = personal_attributes.objects.order_by('id')
+    siwei=personal_attributes.objects.filter(uid=uid)
+    if siwei != None and siwei !=None:
+        for var in siwei:
+            happy = var.happy
+            energy = var.energy
+            healthy = var.happy
+            Hunger = var.Hunger
+            data={
+                "uid":uid,
+                "happy":happy,
+                "energy":energy,
+                "healthy":healthy,
+                "Hunger":Hunger,
+            }
+
+    result={
+                "status":"1",
+                "message":"成功",
+                "data":data,
+            }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
         
