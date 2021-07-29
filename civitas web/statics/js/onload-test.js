@@ -9,7 +9,7 @@ function load_siwei()
             load_siwei2(this)
 		}
 	}
-    xmlhttp.open("GET","http://127.0.0.1:8000/siwei/",true);
+    xmlhttp.open("GET","http://127.0.0.1:8000/siwei/",true); 
     xmlhttp.send();
 }
 
