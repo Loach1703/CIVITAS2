@@ -450,7 +450,7 @@ def siwei_test(req):
                 "happy":happy,
                 "energy":energy,
                 "healthy":healthy,
-                "Hunger":Hunger,
+                "hunger":Hunger,
             }
 
     result={
