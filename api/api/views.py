@@ -426,12 +426,45 @@ def hotspeech1(req):
 def siwei(req):
     status = 0
     uid = 0
-    
-    '''
+    meg="失败"
+    data={}
     sessionid=req.COOKIES.get("sessionid")
-    session=Session.objects.filter(pk=sessionid).first()
-    uid=session.get_decoded()["_auth_user_id"]
-    '''
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid=session.get_decoded()["_auth_user_id"]
+
+        siwei_db = None
+        siwei = None
+        
+        siwei_db = personal_attributes.objects.order_by('id')
+        siwei=personal_attributes.objects.filter(uid=uid)
+        if siwei_db != None and siwei !=None:
+            for var in siwei:
+                happy = var.happy
+                energy = var.energy
+                healthy = var.happy
+                Hunger = var.Hunger
+                data={
+                    "uid":uid,
+                    "happy":happy,
+                    "energy":energy,
+                    "healthy":healthy,
+                    "hunger":Hunger,
+                }
+        else:
+            meg='数据库连接失败'
+
+
+    else:
+        meg='您还没有登录'
+    
+    result={
+                "status":status,
+                "message":meg,
+                "data":data,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
 
 def siwei_test(req):
     uid = 1
@@ -439,7 +472,7 @@ def siwei_test(req):
     data = {}
     siwei_db = personal_attributes.objects.order_by('id')
     siwei=personal_attributes.objects.filter(uid=uid)
-    if siwei != None and siwei !=None:
+    if siwei_db != None and siwei !=None:
         for var in siwei:
             happy = var.happy
             energy = var.energy
