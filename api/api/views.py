@@ -425,7 +425,7 @@ def hotspeech1(req):
 
 def siwei(req):
     status = 0
-    uid = 0
+    uid = None
     meg="失败"
     data={}
     sessionid=req.COOKIES.get("sessionid")
@@ -438,20 +438,39 @@ def siwei(req):
 
         siwei_db = personal_attributes.objects.order_by('id')
         siwei=personal_attributes.objects.filter(uid=uid)
-        if siwei_db != None and siwei !=None:
-            meg ='成功'
-            for var in siwei:
-                happy = var.happy
-                energy = var.energy
-                healthy = var.happy
-                Hunger = var.Hunger
-                data={
-                    "uid":uid,
-                    "happy":happy,
-                    "energy":energy,
-                    "healthy":healthy,
-                    "hunger":Hunger,
-                }
+        if siwei_db != None :
+            if siwei !=None:
+                meg ='成功'
+                for var in siwei:
+                    happy = var.happy
+                    energy = var.energy
+                    healthy = var.happy
+                    Hunger = var.Hunger
+                    status = 1
+                    data={
+                        "uid":uid,
+                        "happy":happy,
+                        "energy":energy,
+                        "healthy":healthy,
+                        "hunger":Hunger,
+                    }
+            else:
+                if(uid != None ):
+                    status = 1
+                    meg = '新用户'
+                    new_user_add = personal_attributes(uid =uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
+                    new_user_add.save()
+                    data={
+                        "uid":uid,
+                        "happy":100,
+                        "energy":100,
+                        "healthy":100,
+                        "hunger":100,
+                    }
+                else:
+                    meg = '找不到用户资料'
+
+
         else:
             meg='数据库连接失败'
 
