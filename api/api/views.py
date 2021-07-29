@@ -435,10 +435,11 @@ def siwei(req):
 
         siwei_db = None
         siwei = None
-        
+
         siwei_db = personal_attributes.objects.order_by('id')
         siwei=personal_attributes.objects.filter(uid=uid)
         if siwei_db != None and siwei !=None:
+            meg ='成功'
             for var in siwei:
                 happy = var.happy
                 energy = var.energy
