@@ -1,5 +1,5 @@
 from django.shortcuts import redirect,render,HttpResponse
-from TestModel.models import speech,weather,usersession,speech_attitude
+from TestModel.models import speech,weather,usersession,speech_attitude,personal_attributes
 from django.contrib.sessions.models import Session
 from django.contrib import auth
 from django.db.models import Avg,Max,Min,Count,Sum,F,Q
@@ -422,4 +422,91 @@ def hotspeech1(req):
                         }
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+def siwei(req):
+    status = 0
+    uid = 0
+    meg="失败"
+    data={}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid=session.get_decoded()["_auth_user_id"]
+
+        siwei_db = None
+        siwei = None
+
+        siwei_db = personal_attributes.objects.order_by('id')
+        siwei=personal_attributes.objects.filter(uid=uid)
+        if siwei_db != None and siwei !=None:
+            meg ='成功'
+            for var in siwei:
+                happy = var.happy
+                energy = var.energy
+                healthy = var.happy
+                Hunger = var.Hunger
+                data={
+                    "uid":uid,
+                    "happy":happy,
+                    "energy":energy,
+                    "healthy":healthy,
+                    "hunger":Hunger,
+                }
+        else:
+            meg='数据库连接失败'
+
+
+    else:
+        meg='您还没有登录'
+    
+    result={
+                "status":status,
+                "message":meg,
+                "data":data,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def siwei_test(req):
+    uid = 1
+    siwei = None
+    data = {}
+    siwei_db = personal_attributes.objects.order_by('id')
+    siwei=personal_attributes.objects.filter(uid=uid)
+    if siwei_db != None and siwei !=None:
+        for var in siwei:
+            happy = var.happy
+            energy = var.energy
+            healthy = var.happy
+            Hunger = var.Hunger
+            data={
+                "uid":uid,
+                "happy":happy,
+                "energy":energy,
+                "healthy":healthy,
+                "hunger":Hunger,
+            }
+
+    result={
+                "status":"1",
+                "message":"成功",
+                "data":data,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+        
+        
+
+
+    
+
+
+
+
+
+
+def logout(req):
+    status = 0
+    sessionid=req.COOKIES.get("sessionid")
+
     

@@ -24,3 +24,11 @@ class speech_attitude(models.Model):
     uid = models.CharField(max_length=20)
     textid = models.CharField(max_length=20)
     att = models.CharField(max_length=20)
+
+class personal_attributes(models.Model):
+    uid = models.CharField(max_length=20)
+    energy = models.CharField(max_length=20)
+    healthy = models.CharField(max_length=20)
+    happy = models.CharField(max_length=20)
+    Hunger = models.CharField(max_length=20) 
+
