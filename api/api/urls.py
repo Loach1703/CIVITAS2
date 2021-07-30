@@ -29,4 +29,8 @@ urlpatterns = [
     path('assess/',views.assess1),
     path('hotspeech/',views.hotspeech1),
     path('siwei/',views.siwei),
+    path('logout/',views.logout1),
+    path('upload-avatar/',user.upload_avatar),
+    path('getavatar/',user.get_avatar),
+    path('test.html',views.test),
 ]
