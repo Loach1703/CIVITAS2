@@ -3,16 +3,21 @@
     
 <link rel="stylesheet" href="civitas/css/style.css">
 <link rel="stylesheet" href="civitas/css/login/style_login.css">
+
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
-<link rel="icon" href="civitas/icon/favicon2.ico" />
-<link rel="Bookmark" href="civitas/icon/favicon1.ico" />
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/time.js"></script>
-<script src="civitas/js/login/login.js"></script>
-<script src="civitas/js/login/is-login.js"></script>
-<script src="civitas/js/redirection/redirection-nologin.js"></script>
-<script src="civitas/js/login/onload.js"></script>
+
+<link rel="icon" href="civitas/icon/favicon2.ico"/>
+<link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
+
+<script src="civitas/js/essential/is-login.js"></script>
+<script src="civitas/js/essential/navigator.js"></script>
+<script src="civitas/js/essential/redirection/redirection-nologin.js"></script>
+
+<script src="civitas/js/userstatus/login.js"></script>
+
+<script src="civitas/js/onload/onload-nologin.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -21,21 +26,7 @@
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
-<!--上导航栏-->
-<nav class="navigator">
-    <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
-    <span class="vertime">
-        Pre-Alpha 0.0.4
-        <p id="time" class="time"></p>
-    </span>
-    <span>
-      <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
-    </span>
-    <span class="signup-in">
-        <a href="login.html">登录</a>
-        <a href="register.html">注册</a>
-    </span>
-</nav>
+<nav class="navigator" id="navigator"></nav>
 
 <div class="container">
   <div class="col-md-6 col-md-offset-3 container login-box">
@@ -47,7 +38,7 @@
       <p class="login-message" id="message"></p>
     </div>
     <a href="register.html">还没有账号？点击这里注册</a>
-    <a href="{% url 'password_reset' %}">忘记密码</a>
+    <a href="#password_reset.html">忘记密码</a>
   </div>
 </div>
 

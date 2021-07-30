@@ -1,0 +1,12 @@
+$(document).ready(function(){
+    $("#market").hover(
+        function()
+        {
+            $("#market-down").removeClass("hide");
+        },
+        function()
+        {
+            $("#market-down").addClass("hide");
+        }
+    )
+})
