@@ -8,16 +8,31 @@
   margin: 10px 0 10px 0;
 }
 
-.popular-speech
+.speech-tips
 {
-  padding: 10px 0;
-  font-size: 14px;
+  display: inline;
+  float: right;
+  margin: 15px 20px 0 0;
+  font-size: 18px;
+}
+
+.speech-tips-over
+{
+  display: inline;
+  float: right;
+  margin: 15px 20px 0 0;
+  font-size: 18px;
+  color: red;
+}
+
+.speech-bottomline
+{
+  border-bottom: 2px dashed rgba(150,150,150,0.3);
 }
 
 .speech
 {
   padding: 10px 0;
-  border-bottom: 2px dashed rgba(150,150,150,0.3);
   font-size: 14px;
 }
 
@@ -47,7 +62,7 @@
 .speech-avatar
 {
   position: relative;
-  height: 100%;
+  height: inherit;
 }
 
 .speech-content

@@ -43,7 +43,7 @@ function load_speech(page)
                 {
                     attitude3 = " class=\"speech-attitude\" ";
                 }
-                speech += "<div class=\"speech\"><span class=\"speech-avatar\"><img src=\"civitas/img/1.png\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
+                speech += "<div class=\"speech speech-bottomline\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
                     /></span><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">"
                     +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                     +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
@@ -156,7 +156,7 @@ function give_speech()
     var content = document.getElementById("comment").value;
     if (content.length > 300)
     {
-        return 0
+        return;
     }
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
@@ -217,7 +217,7 @@ function popular_speech()
             {
                 attitude3 = " class=\"speech-attitude\" ";
             }
-            document.getElementById("popular-speech").innerHTML = "<div class=\"popular-speech\"><span class=\"speech-avatar\"><img src=\"civitas/img/1.png\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
+            document.getElementById("popular-speech").innerHTML = "<div class=\"speech\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
                 /></span><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">"
                 +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                 +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"

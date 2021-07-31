@@ -10,7 +10,7 @@ function load_updata()
     //重定向
     redirection(json_str_login["status"]);
     //获取导航栏
-    navigator(json_str_login["status"]);
+    navigator(json_str_login["status"],json_str_login["data"]["uid"]);
 }
 
 window.onload = load_updata;
