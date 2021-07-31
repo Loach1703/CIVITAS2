@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class speech(models.Model):
@@ -32,3 +33,16 @@ class personal_attributes(models.Model):
     happy = models.CharField(max_length=20)
     Hunger = models.CharField(max_length=20) 
 
+class Avatar(models.Model):
+    user = models.OneToOneField(
+         settings.AUTH_USER_MODEL,
+         on_delete=models.DO_NOTHING,
+         primary_key=True,
+    )
+    avatar = models.ImageField(
+        verbose_name="头像",
+        upload_to=avatar_path,
+    )
+
+    def __str__(self):
+        return self.name

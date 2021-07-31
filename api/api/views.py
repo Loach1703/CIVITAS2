@@ -485,7 +485,6 @@ def siwei(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-
 def siwei_test(req):
     uid = 1
     siwei = None
@@ -513,19 +512,25 @@ def siwei_test(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-        
-        
-
-
-    
-
-
-
-
-
-
-def logout(req):
-    status = 0
+def logout1(req):
+    status=0
+    mes="失败"
     sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        filter_sessionid=Session.objects.filter(pk=sessionid)
+        if filter_sessionid.exists():
+            filter_usersessionid=usersession.objects.filter(sessionid=sessionid)
+            if filter_sessionid.exists():
+                filter_usersessionid.delete()
+            req.session.flush()
+            status=1
+            meg="注销成功"
+    else:
+        meg="您还没有登录"
+    result={
+                "status":status,
+                "message":meg,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
     
