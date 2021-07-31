@@ -35,10 +35,22 @@
 <!--主体结构div-->
 <div class="main">
 
-<input type="file" id="photoFile">
-<img id="preview_photo" src="" width="200px" height="200px">
-<button class="btn btn-warning" onclick="upload()">好啊</button>
-<p id="comment"></p>
+<p class="main-char">我的设置</p>
+
+<div>
+    <p class="main-subchar">上传头像</p>
+    <button class="btn btn-info" href="javascript:void(0)" onclick="click_upload_avatar()">选择图片</button>
+    <input class="hide" type="file" id="upload_avatar" accept="image/jpeg,image/png,image/jpg">
+    <button class="btn btn-warning" onclick="upload_avatar()">确定</button>
+    <p class="tips" id="tips"></p>
+</div>
+
+<div>
+    <p class="main-subchar">更改昵称</p>
+    <input type="text" class="form-control" id="nickname" placeholder="更改昵称">
+    <button class="btn btn-warning" onclick="">确定</button>
+    <p class="tips" id="tips"></p>
+</div>
 
 </div>
 

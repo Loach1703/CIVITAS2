@@ -82,7 +82,7 @@
   font-size: 14px;
 }
 
-.leftnavigator
+.left-navigator
 {
   display: inline-block;
   position: absolute;
@@ -147,7 +147,7 @@
   margin: 0 30px 25px 18px;
 }
 
-.leftnavigatoroption a
+.left-navigator-option a
 {
   color: rgb(41,41,41);
   font-size: 16px;
@@ -155,7 +155,7 @@
   display: block;
 }
 
-.leftnavigatoroption a:hover
+.left-navigator-option a:hover
 {
   color: rgb(41,41,41);
   background-color: white;
@@ -191,6 +191,15 @@
   font-size: 30px;
   color: rgb(57,85,115);
   font-weight: bold;
+  border-bottom: 2px solid rgb(211,227,254);
+}
+
+.main-subchar
+{
+  margin: 20px 0 20px 0;
+  padding-left: 10px;
+  font-size: 20px;
+  color: rgb(57,85,115);
   border-bottom: 2px solid rgb(211,227,254);
 }
 
@@ -277,4 +286,10 @@
   margin: 5px auto;
   text-align: center;
   background: rgba(0,0,0,0.1);
+}
+
+.tips
+{
+  display: inline;
+  color: red;
 }
