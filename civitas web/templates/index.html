@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="civitas/css/speech.css">
 <link rel="stylesheet" href="civitas/css/skill.css">
 
-<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
@@ -15,6 +15,7 @@
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
+<script src="civitas/js/essential/tips.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/index/speech.js"></script>
@@ -45,40 +46,200 @@
 <div>
     <p class="main-char">我的CIVITAS</p>
     <div>
-        <p class="location" id="location">位于京兆郡，长安<span id="season"></span><span id="day"></span></p>
+        <p class="location" id="location">位于京兆尹，长安县<span id="season"></span><span id="day"></span></p>
         <span id="weather-svg"></span>
         <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
     </div>
-    <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
-    <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
-    <button type="button" class="btn btn-success" onclick="day_change()">换日（Q1宅院）</button>
+    <div>
+        <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
+        <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
+    </div>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
-    <button type="button" class="btn btn-warning" onclick="eat()">吃炭拌粉</button>
-    <button type="button" class="btn btn-warning" onclick="load_updata()">测试</button>
-    <p id="change"></p>
 </div>
 
 <!--技能-->
 <div>
     <p class="main-char">我的技能</p>
     <div class="skill-box">
-        <div class="skill-picture">   <!--大图-->
-            <img src="civitas/icon/skill/1/s.png" />
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/1/s.png" width="80px" height="80px"/>
         </div>
-        <div class="skill-name-box"> 耕作 宗师  <!--大类技能名称-->
-            <div class="mainchar-skill"></div>
-        </div><!--分割线-->
-        <div class="skill-name-box-right">12.23</div>
-        <div class="skill-picture-mini"><img src="civitas/icon/skill/1/1.png" /></div>
-        <div class="skill-name-box-mini">粮食种植 45% </div>
-        <div class="skill-picture-mini"><img src="civitas/icon/skill/1/2.png" /></div>
-        <div class="skill-name-box-mini">蔬果种植 45% </div>
-        <div class="skill-picture-mini"><img src="civitas/icon/skill/1/3.png" /></div>
-        <div class="skill-name-box-mini">经济作物种植 45% </div>
-        <div class="skill-picture-mini"><img src="civitas/icon/skill/1/4.png" /></div>
-        <div class="skill-name-box-mini">开垦 45% </div>
+        <div class="skill-name">
+            <p class="skill-name-left">耕作</p>
+            <p class="skill-name-right skill-name-right7">大宗师 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/1/1.png" width="40px" height="40px"/>
+                <p>粮食种植 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/1/2.png" width="40px" height="40px"/>
+                <p>蔬果种植 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/1/3.png" width="40px" height="40px"/>
+                <p>经济作物种植 45% </p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/1/4.png" width="40px" height="40px"/>
+                <p>开垦 45% </p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/2/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">采伐</p>
+            <p class="skill-name-right skill-name-right6">宗师 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/2/1.png" width="40px" height="40px"/>
+                <p>采集 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/2/2.png" width="40px" height="40px"/>
+                <p>伐木 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/2/3.png" width="40px" height="40px"/>
+                <p>开采 45% </p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/2/4.png" width="40px" height="40px"/>
+                <p>勘探 45% </p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/3/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">建设</p>
+            <p class="skill-name-right skill-name-right5">大师 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/3/1.png" width="40px" height="40px"/>
+                <p>建筑 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/3/2.png" width="40px" height="40px"/>
+                <p>修缮 45%</p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/4/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">加工</p>
+            <p class="skill-name-right skill-name-right4">专家 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/4/1.png" width="40px" height="40px"/>
+                <p>冶炼 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/4/2.png" width="40px" height="40px"/>
+                <p>金属锻造 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/4/3.png" width="40px" height="40px"/>
+                <p>纺织 45% </p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/4/4.png" width="40px" height="40px"/>
+                <p>食品加工 45% </p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/4/5.png" width="40px" height="40px"/>
+                <p>木石加工 45% </p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/5/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">社交</p>
+            <p class="skill-name-right skill-name-right3">匠师 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/5/1.png" width="40px" height="40px"/>
+                <p>雄辩 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/5/2.png" width="40px" height="40px"/>
+                <p>交际 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/5/3.png" width="40px" height="40px"/>
+                <p>文书 45% </p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/5/4.png" width="40px" height="40px"/>
+                <p>管理 45% </p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/6/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">舟车</p>
+            <p class="skill-name-right skill-name-right2">匠人 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/6/1.png" width="40px" height="40px"/>
+                <p>陆上运输 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/6/2.png" width="40px" height="40px"/>
+                <p>水上运输 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/6/3.png" width="40px" height="40px"/>
+                <p>捕捞 45% </p>
+            </div>
+        </div>
+    </div>
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img src="civitas/icon/skill/7/s.png" width="80px" height="80px"/>
+        </div>
+        <div class="skill-name">
+            <p class="skill-name-left">畜牧</p>
+            <p class="skill-name-right skill-name-right1">学徒 12.34</p>
+        </div>
+        <div class="skill-mini-div">
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/7/1.png" width="40px" height="40px"/>
+                <p>狩猎 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/7/2.png" width="40px" height="40px"/>
+                <p>家禽养殖 45%</p>
+            </div>
+            <div class="skill-mini">
+                <img src="civitas/icon/skill/7/3.png" width="40px" height="40px"/>
+                <p>家畜养殖 45% </p>
+            </div>
+        </div>
     </div>
 </div>
+
+<button type="button" class="btn btn-primary" id="liveToastBtn">测试</button>
 
 </div>
 
@@ -118,6 +279,8 @@
     </div>
 </div>
 </div>
+
+
 
 </div>
 

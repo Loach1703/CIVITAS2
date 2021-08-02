@@ -1,78 +1,90 @@
-.skill-picture img  
-{
-    width: 80px;
-    height: 80px;
-}
 .skill-box
 {
-  
-    width: 100%;
-    height:160px;
-    margin: 5px auto;
+    margin-top: 20px;
 }
+
 .skill-picture
 {
-   
-    width: 80px;
-    height: 160px;
-    margin: 5px auto;
+    margin: 5px 0;
     float: left;
-}
-.skill-name-box
-{
-    
-    float: left;
-    width: 43%;
-    height: 40px;
-    padding-top: 10px;
-    padding-left: 10px;
-    font-size: 120%;
-   
-}
-.skill-name-box-right
-{
-    
-    float: right;
-    width: 40%;
-    height: 40px;
-    padding-top: 10px;
-    text-align: right;
-    padding-right: 10px;
-    color: red;
-    font-size: 120%;
 }
 
-.skill-picture-mini
+.skill-name
 {
-   
-    width: 40px;
-    height: 40px;
-    float:left;
-    margin-left: 10px;
-    margin-top: 10px;
-   
-}
-.skill-picture-mini img
-{
-    width: 40px;
-    height: 40px;
-   
-}
-.skill-name-box-mini
-{
-    float: left;
-    width:  110px;
-    height: 40px;
-    padding-top: 10px;
-    margin-left: 5px;
-    margin-top: 10px;
-  
+    border-bottom: 2px dashed rgb(211,227,254);
 }
 
-.mainchar-skill
-{       
-    color: rgb(57,85,115);
+.skill-name p
+{
+    display: inline;
     font-weight: bold;
-    border-bottom: 2px solid rgb(211,227,254);
-    width: 200%
+}
+
+.skill-name-left
+{
+    padding-left: 2%;
+    color: rgb(57,85,115);
+    font-size: 20px;
+}
+
+.skill-name-right
+{
+    margin-top: 5px;
+    font-size: 16px;
+    text-align: right;
+    float: right;
+    -webkit-text-stroke: 0px black;
+}
+
+.skill-name-right1
+{
+    color: rgb(104,104,104);
+}
+
+.skill-name-right2
+{
+    color: rgb(20, 90, 20);
+}
+
+.skill-name-right3
+{
+    color: rgb(50, 105, 155);
+}
+
+.skill-name-right4
+{
+    color: rgb(255, 120, 0);
+}
+
+.skill-name-right5
+{
+    color: rgb(180, 55, 45);
+}
+
+.skill-name-right6
+{
+    color: rgb(155, 0, 35);
+}
+
+.skill-name-right7
+{
+    color: rgb(240, 190, 90);
+}
+
+.skill-mini-div
+{
+    margin-left: 17%;
+}
+
+.skill-mini
+{
+    display: inline-block;
+    margin: 8px 0 0 8px;
+}
+
+.skill-mini p
+{
+    display: inline-block;
+    margin: 0;
+    white-space: nowrap;
 }
