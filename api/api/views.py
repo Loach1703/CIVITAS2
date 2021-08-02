@@ -439,21 +439,22 @@ def siwei(req):
         siwei_db = personal_attributes.objects.order_by('id')
         siwei=personal_attributes.objects.filter(uid=uid)
         if siwei_db != None :
-            if siwei !=None:
+            if siwei.exists():
                 meg ='成功'
                 for var in siwei:
                     happy = var.happy
                     energy = var.energy
-                    healthy = var.happy
+                    healthy = var.healthy
                     Hunger = var.Hunger
                     status = 1
                     data={
                         "uid":uid,
-                        "happy":happy,
-                        "energy":energy,
-                        "healthy":healthy,
-                        "hunger":Hunger,
+                        "happiness":happy,
+                        "stamina":energy,
+                        "health":healthy,
+                        "starvation":Hunger,
                     }
+                reply_data = status_recover(energy,happy,healthy,Hunger,0,1)
             else:
                 if(uid != None ):
                     status = 1
@@ -462,11 +463,12 @@ def siwei(req):
                     new_user_add.save()
                     data={
                         "uid":uid,
-                        "happy":100,
-                        "energy":100,
-                        "healthy":100,
-                        "hunger":100,
+                        "happiness":100,
+                        "stamina":100,
+                        "health":100,
+                        "starvation":100,
                     }
+                    reply_data = status_recover(100,100,100,100,0,1)
                 else:
                     meg = '找不到用户资料'
 
@@ -482,35 +484,81 @@ def siwei(req):
                 "status":status,
                 "message":meg,
                 "data":data,
+                "reply_data":reply_data
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
+def status_recover(stamina,happiness,health,starvation,house_type,house_level):
+    #睡大街
+    if house_type == 0:
+        stamina_house_bonus = 0
+        happiness_house_bonus = 0
+        health_house_bonus = 0
+    #楼房
+    if house_type == 1:
+        stamina_house_bonus = 10 * house_level
+        happiness_house_bonus = 0.4 * (house_level - 1)
+        health_house_bonus = 0.4 * (house_level - 1)
+    #宅院
+    if house_type == 2:
+        stamina_house_bonus = 10 * house_level
+        happiness_house_bonus = 0.2 + 0.6 * (house_level - 1)
+        health_house_bonus = 0.2 + 0.6 * (house_level - 1)
+    stamina_change = (30 + stamina_house_bonus) * (1 + ((health - 60) / 80))
+    happiness_change = 3 + 0.2 * (min(60,starvation,health) - happiness) + 0.05 * (max(0,stamina + stamina_change - 100)) + happiness_house_bonus
+    health_change = 3 + 0.2 * (min(60,starvation,stamina + 40) - health) + 0.05 * (max(0,stamina + stamina_change - 100)) + health_house_bonus
+    starvation_change = 0.08 * starvation + 2
+    stamina += stamina_change
+    happiness += happiness_change
+    health += health_change
+    starvation -= starvation_change
+    #处理超界
+    if stamina > 100:
+        stamina = 100
+    elif stamina < 0:
+        stamina = 0
+    if happiness > 100:
+        happiness = 100
+    elif happiness < 0:
+        happiness = 0
+    if health > 100:
+        health = 100
+    elif health < 0:
+        health = 0
+    if starvation > 100:
+        starvation = 100
+    elif starvation < 0:
+        starvation = 0
+    stamina = round(stamina,4)
+    happiness = round(happiness,4)
+    health = round(health,4)
+    starvation = round(starvation,4)
+    return stamina,happiness,health,starvation,stamina_change,happiness_change,health_change,starvation_change
+# def siwei_test(req):
+#     uid = 1
+#     siwei = None
+#     data = {}
+#     siwei_db = personal_attributes.objects.order_by('id')
+#     siwei=personal_attributes.objects.filter(uid=uid)
+#     if siwei_db != None and siwei !=None:
+#         for var in siwei:
+#             happy = var.happy
+#             energy = var.energy
+#             healthy = var.happy
+#             Hunger = var.Hunger
+#             data={
+#                 "uid":uid,
+#                 "happy":happy,
+#                 "energy":energy,
+#                 "healthy":healthy,
+#                 "hunger":Hunger,
+#             }
 
-def siwei_test(req):
-    uid = 1
-    siwei = None
-    data = {}
-    siwei_db = personal_attributes.objects.order_by('id')
-    siwei=personal_attributes.objects.filter(uid=uid)
-    if siwei_db != None and siwei !=None:
-        for var in siwei:
-            happy = var.happy
-            energy = var.energy
-            healthy = var.happy
-            Hunger = var.Hunger
-            data={
-                "uid":uid,
-                "happy":happy,
-                "energy":energy,
-                "healthy":healthy,
-                "hunger":Hunger,
-            }
-
-    result={
-                "status":"1",
-                "message":"成功",
-                "data":data,
-            }
-    return HttpResponse(json.dumps(result), content_type="application/json")
+#     result={
+#                 "status":"1",
+#                 "message":"成功",
+#                 "data":data,
+#             }
+#     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def logout1(req):
     status=0
