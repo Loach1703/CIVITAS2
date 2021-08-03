@@ -31,7 +31,11 @@ class personal_attributes(models.Model):
     energy = models.CharField(max_length=20)
     healthy = models.CharField(max_length=20)
     happy = models.CharField(max_length=20)
-    Hunger = models.CharField(max_length=20) 
+    Hunger = models.CharField(max_length=20)
+
+def avatar_path(instance, filename):
+    filename = str(instance.user.id) + '.jpg'
+    return 'avatar/{0}'.format(filename)
 
 class Avatar(models.Model):
     user = models.OneToOneField(
@@ -46,3 +50,5 @@ class Avatar(models.Model):
 
     def __str__(self):
         return self.name
+
+    
