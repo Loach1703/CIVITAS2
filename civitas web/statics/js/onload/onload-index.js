@@ -17,6 +17,8 @@ function load_updata()
     //获取演讲
     load_speech(1);
     popular_speech();
+    //获取技能
+    load_skill()
 }
 
 window.onload = load_updata;

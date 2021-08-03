@@ -1,6 +1,7 @@
 .skill-box
 {
     margin-top: 20px;
+    width: 100%;
 }
 
 .skill-picture
@@ -74,6 +75,12 @@
 .skill-mini-div
 {
     margin-left: 17%;
+}
+
+.skill-mini-div-none
+{
+    margin-left: 17%;
+    height: 40px;
 }
 
 .skill-mini
