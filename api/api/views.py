@@ -428,66 +428,6 @@ def hotspeech1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def siwei(req):
-    status = 0
-    uid = None
-    meg="失败"
-    data={}
-    sessionid=req.COOKIES.get("sessionid")
-    if is_login(req,sessionid):
-        session = Session.objects.filter(pk=sessionid).first()
-        uid=session.get_decoded()["_auth_user_id"]
-
-        siwei_db = None
-        siwei = None
-
-        siwei_db = personal_attributes.objects.order_by('id')
-        siwei=personal_attributes.objects.filter(uid=uid)
-        if siwei_db != None :
-            if siwei !=None:
-                meg ='成功'
-                for var in siwei:
-                    happy = var.happy
-                    energy = var.energy
-                    healthy = var.happy
-                    Hunger = var.Hunger
-                    status = 1
-                    data={
-                        "uid":uid,
-                        "happy":happy,
-                        "energy":energy,
-                        "healthy":healthy,
-                        "hunger":Hunger,
-                    }
-            else:
-                if(uid != None ):
-                    status = 1
-                    meg = '新用户'
-                    new_user_add = personal_attributes(uid =uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
-                    new_user_add.save()
-                    data={
-                        "uid":uid,
-                        "happy":100,
-                        "energy":100,
-                        "healthy":100,
-                        "hunger":100,
-                    }
-                else:
-                    meg = '找不到用户资料'
-        else:
-            meg='数据库连接失败'
-
-
-    else:
-        meg='您还没有登录'
-    
-    result={
-                "status":status,
-                "message":meg,
-                "data":data,
-            }
-    return HttpResponse(json.dumps(result), content_type="application/json")
-
 def siwei_test(req):
     uid = 1
     siwei = None
@@ -540,9 +480,8 @@ def siwei(req):
                     Hunger = eval(var.Hunger)
                     status = 1
                     data={
-                        "uid":uid,
-                        "happiness":happy,
                         "stamina":energy,
+                        "happiness":happy,
                         "health":healthy,
                         "starvation":Hunger,
                     }
@@ -551,7 +490,7 @@ def siwei(req):
                 if(uid != None ):
                     status = 1
                     meg = '新用户'
-                    new_user_add = personal_attributes(uid =uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
+                    new_user_add = personal_attributes(uid = uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
                     new_user_add.save()
                     data={
                         "happiness":100,
