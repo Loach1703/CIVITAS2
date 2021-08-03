@@ -205,10 +205,10 @@
 
 .location
 {
-  margin: 0 auto;
-  text-align: center;
   font-size: 20px;
   font-weight: 500;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .weather-main
@@ -220,9 +220,9 @@
 .address
 {
   display: inline-block;
-  padding: 15%;
+  padding: 16%;
   margin: 10px 0 10px 0;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: rgb(126,56,120);
 }
 
@@ -234,9 +234,9 @@
 .work
 {
   display: inline-block;
-  padding: 15%;
-  margin: 10px 0 10px 0;
-  border-radius: 10px;
+  padding: 16%;
+  margin: 10px 10px 10px 0;
+  border-radius: 5px;
   background-color: rgb(0,171,169);
 }
 
@@ -256,7 +256,7 @@
 
 .work-modal
 {
-  background: url(../img/background1.png);
+  background: url(./img/background1.png);
   background-size: 800px 400px;
 }
 

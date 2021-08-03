@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
-from . import user
+from . import views,user,skill
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,9 +30,10 @@ urlpatterns = [
     path('register/',views.register1),
     path('assess/',views.assess1),
     path('hotspeech/',views.hotspeech1),
-    path('siwei/',views.siwei),
     path('logout/',views.logout1),
     path('upload-avatar/',user.upload_avatar),
     path('getavatar/',user.get_avatar),
     path('test.html',views.test),
+    path('getskill/',skill.getUserSkill),
+    path('getstatus/',views.siwei),
 ]
