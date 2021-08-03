@@ -1,5 +1,5 @@
 from django.shortcuts import redirect,render,HttpResponse
-from TestModel.models import speech,weather,usersession,speech_attitude,personal_attributes
+from TestModel.models import speech,weather,usersession,speech_attitude,personal_attributes,work_record
 from django.contrib.sessions.models import Session
 from django.contrib import auth
 from django.db.models import Avg,Max,Min,Count,Sum,F,Q
@@ -363,6 +363,7 @@ def assess1(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
+    #热门演讲
 def hotspeech1(req):
     status=0
     meg="失败"
@@ -455,6 +456,7 @@ def siwei_test(req):
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
+#显示四维和换日回复值
 def siwei(req):
     status = 0
     uid = None
@@ -469,7 +471,7 @@ def siwei(req):
         siwei = None
 
         siwei_db = personal_attributes.objects.order_by('id')
-        siwei=personal_attributes.objects.filter(uid=uid)
+        siwei=personal_attributes.objects.filter(uid=uid).first()
         if siwei_db != None :
             if siwei.exists():
                 meg ='成功'
@@ -581,6 +583,71 @@ def status_recover(stamina,happiness,health,starvation,house_type,house_level):
         "starvation_change":really_starvation_change,
     }
     return reply_data
+
+def work(req):
+    uid =None
+    status = 0
+    meg = "失败"
+    data={}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid=int(session.get_decoded()["_auth_user_id"])
+        work_record_db = None
+        work_record_list = None
+        #work_record_db = personal_attributes.objects.order_by('id')
+        work_record_list=work_record.objects.filter(uid=uid).first()
+        if work_record_list.exists():
+            work_id =work_record_list.work_id
+            work_station_id = work_record_list.work_station_id
+            work_date = work_record_list.work_date
+            d=datetime.datetime.now().strftime('%Y-%m-%d')
+            today=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
+            if today != work_date:
+                
+                #获得工作策略
+                #工作策略id=req.POST.get("工作策略")
+                    #work-四维消耗
+                        #修改四维值
+                    #work-技能增长
+                        #技能增长
+                            #是否突破
+                            #return 新技能值数据
+                    #work-获得产物
+                            #return 产出数据
+
+                meg = "成功"
+                work_record.work_date = today
+                work_record.save()
+                status = 1
+                data ={
+                    'work_id':work_id,
+                    'work_station_id':work_station_id,
+                    'work_date':work_date,
+                    #'技能类':技能类
+                    #'产出类':产出类
+
+
+                }
+            else:
+                meg = "您今天已经工作了，无法继续工作"
+        else:
+            meg = "请先获得工作" 
+    else:
+        meg='您还没有登录'
+    
+    result={
+            "status":status,
+            "message":meg,
+            "data":data,
+        }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+    
+
+
+
 
 # def siwei_test(req):
 #     uid = 1

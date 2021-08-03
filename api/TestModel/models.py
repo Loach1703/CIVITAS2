@@ -51,4 +51,10 @@ class Avatar(models.Model):
     def __str__(self):
         return self.name
 
+class work_record(models.Model):
+    uid = models.CharField(max_length=20)
+    work_id = models.CharField(max_length=20)
+    work_station_id = models.CharField(max_length=20)
+    work_date = models.CharField(max_length=20)
+
     
