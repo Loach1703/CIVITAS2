@@ -8,14 +8,15 @@ import json
 import random
 import re
 
+def test(req):
+    return render(req,"test.html")
+
 def is_login(req,sessionid):
     if not sessionid:
         return 0
     if not req.session.exists(sessionid):
         return 0
     return 1
-        
-    
 
 def getspeech1(req):    #获取演讲，参数：page
     num_every_page=10
@@ -54,8 +55,10 @@ def getspeech1(req):    #获取演讲，参数：page
                     if user.exists():
                         user.first()
                         username=user[0].username
+                        uid=int(uid)
                     else:
                         username="用户不存在"
+                        uid=0
                     d = str(var.date)[0:10]
                     a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
                     b=str(var.date)[11:19]
@@ -65,7 +68,7 @@ def getspeech1(req):    #获取演讲，参数：page
                     cheer=speech_attitude.objects.filter(textid=textid).filter(att=1).count()
                     onlooker=speech_attitude.objects.filter(textid=textid).filter(att=2).count()
                     catcall=speech_attitude.objects.filter(textid=textid).filter(att=3).count()
-                    list2.append({"textid":textid,"text":r,"day":a,"time":b,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall})
+                    list2.append({"textid":textid,"text":r,"day":a,"time":b,"uid":uid,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall})
                     i+=1
                 status=1
                 meg='成功'
@@ -392,8 +395,10 @@ def hotspeech1(req):
                 if user.exists():
                     user.first()
                     username=user[0].username
+                    uid=int(uid)
                 else:
                     username="用户不存在"
+                    uid=0
                 d = str(var.date)[0:10]
                 a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
                 b=str(var.date)[11:19]
@@ -405,7 +410,7 @@ def hotspeech1(req):
                 catcall=speech_attitude.objects.filter(textid=textid).filter(att=3).count()
                 clout=cheer+catcall
                 list3=[]
-                list2.append({"textid":textid,"text":r,"day":a,"time":b,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall,"clout":clout})
+                list2.append({"textid":textid,"text":r,"day":a,"time":b,"uid":uid,"username":username,"my_attitude":my_att,"cheer":cheer,"onlooker":onlooker,"catcall":catcall,"clout":clout})
                 num+=1
             status=1
             meg="热门演讲获取成功"
@@ -439,13 +444,100 @@ def siwei(req):
         siwei_db = personal_attributes.objects.order_by('id')
         siwei=personal_attributes.objects.filter(uid=uid)
         if siwei_db != None :
-            if siwei.exists():
+            if siwei !=None:
                 meg ='成功'
                 for var in siwei:
                     happy = var.happy
                     energy = var.energy
-                    healthy = var.healthy
+                    healthy = var.happy
                     Hunger = var.Hunger
+                    status = 1
+                    data={
+                        "uid":uid,
+                        "happy":happy,
+                        "energy":energy,
+                        "healthy":healthy,
+                        "hunger":Hunger,
+                    }
+            else:
+                if(uid != None ):
+                    status = 1
+                    meg = '新用户'
+                    new_user_add = personal_attributes(uid =uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
+                    new_user_add.save()
+                    data={
+                        "uid":uid,
+                        "happy":100,
+                        "energy":100,
+                        "healthy":100,
+                        "hunger":100,
+                    }
+                else:
+                    meg = '找不到用户资料'
+        else:
+            meg='数据库连接失败'
+
+
+    else:
+        meg='您还没有登录'
+    
+    result={
+                "status":status,
+                "message":meg,
+                "data":data,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def siwei_test(req):
+    uid = 1
+    siwei = None
+    data = {}
+    siwei_db = personal_attributes.objects.order_by('id')
+    siwei=personal_attributes.objects.filter(uid=uid)
+    if siwei_db != None and siwei !=None:
+        for var in siwei:
+            happy = var.happy
+            energy = var.energy
+            healthy = var.happy
+            Hunger = var.Hunger
+            data={
+                "uid":uid,
+                "happy":happy,
+                "energy":energy,
+                "healthy":healthy,
+                "hunger":Hunger,
+            }
+
+    result={
+                "status":"1",
+                "message":"成功",
+                "data":data,
+            }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def siwei(req):
+    status = 0
+    uid = None
+    meg="失败"
+    data={}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid=int(session.get_decoded()["_auth_user_id"])
+
+        siwei_db = None
+        siwei = None
+
+        siwei_db = personal_attributes.objects.order_by('id')
+        siwei=personal_attributes.objects.filter(uid=uid)
+        if siwei_db != None :
+            if siwei.exists():
+                meg ='成功'
+                for var in siwei:
+                    happy = eval(var.happy)
+                    energy = eval(var.energy)
+                    healthy = eval(var.healthy)
+                    Hunger = eval(var.Hunger)
                     status = 1
                     data={
                         "uid":uid,
@@ -462,7 +554,6 @@ def siwei(req):
                     new_user_add = personal_attributes(uid =uid,energy = 100,healthy = 100,happy = 100 ,Hunger=100)
                     new_user_add.save()
                     data={
-                        "uid":uid,
                         "happiness":100,
                         "stamina":100,
                         "health":100,
@@ -483,10 +574,10 @@ def siwei(req):
     result={
                 "status":status,
                 "message":meg,
-                "data":data,
-                "reply_data":reply_data
+                "data":{"uid":uid,"today":data,"tomorrow":reply_data},
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
+
 def status_recover(stamina,happiness,health,starvation,house_type,house_level):
     #睡大街
     if house_type == 0:
@@ -506,33 +597,52 @@ def status_recover(stamina,happiness,health,starvation,house_type,house_level):
     stamina_change = (30 + stamina_house_bonus) * (1 + ((health - 60) / 80))
     happiness_change = 3 + 0.2 * (min(60,starvation,health) - happiness) + 0.05 * (max(0,stamina + stamina_change - 100)) + happiness_house_bonus
     health_change = 3 + 0.2 * (min(60,starvation,stamina + 40) - health) + 0.05 * (max(0,stamina + stamina_change - 100)) + health_house_bonus
-    starvation_change = 0.08 * starvation + 2
-    stamina += stamina_change
-    happiness += happiness_change
-    health += health_change
-    starvation -= starvation_change
+    starvation_change = -(0.08 * starvation + 2)
+    really_stamina_change = stamina_change
+    really_happiness_change = happiness_change
+    really_health_change = health_change
+    really_starvation_change = starvation_change
     #处理超界
-    if stamina > 100:
-        stamina = 100
-    elif stamina < 0:
-        stamina = 0
-    if happiness > 100:
-        happiness = 100
-    elif happiness < 0:
-        happiness = 0
-    if health > 100:
-        health = 100
-    elif health < 0:
-        health = 0
-    if starvation > 100:
-        starvation = 100
-    elif starvation < 0:
-        starvation = 0
-    stamina = round(stamina,4)
-    happiness = round(happiness,4)
-    health = round(health,4)
-    starvation = round(starvation,4)
-    return stamina,happiness,health,starvation,stamina_change,happiness_change,health_change,starvation_change
+    if stamina + stamina_change > 100:
+        really_stamina_change = 100 - stamina
+    elif stamina + stamina_change < 0:
+        really_stamina_change = stamina
+    if happiness + happiness_change > 100:
+        really_happiness_change = 100 - happiness
+    elif happiness + happiness_change < 0:
+        really_happiness_change = happiness
+    if health + health_change > 100:
+        really_health_change = 100 - health
+    elif health + health_change < 0:
+        really_health_change = health
+    if starvation + starvation_change > 100:
+        really_starvation_change = 100 - starvation
+    elif starvation + starvation_change < 0:
+        really_starvation_change = starvation
+    stamina += really_stamina_change
+    happiness += really_happiness_change
+    health += really_health_change
+    starvation += really_starvation_change
+    stamina = round(stamina,1)
+    happiness = round(happiness,1)
+    health = round(health,1)
+    starvation = round(starvation,1)
+    really_stamina_change = round(really_stamina_change,1)
+    really_happiness_change = round(really_happiness_change,1)
+    really_health_change = round(really_health_change,1)
+    really_starvation_change = round(really_starvation_change,1)
+    reply_data = {
+        "stamina":stamina,
+        "happiness":happiness,
+        "health":health,
+        "starvation":starvation,
+        "stamina_change":really_stamina_change,
+        "happiness_change":really_happiness_change,
+        "health_change":really_health_change,
+        "starvation_change":really_starvation_change,
+    }
+    return reply_data
+
 # def siwei_test(req):
 #     uid = 1
 #     siwei = None
