@@ -17,7 +17,7 @@ function load_updata()
     //获取技能
     load_skill(get_parameter_value("uid"))
     //获取用户名，头像，同时判断是否存在该用户
-    load_user_detail(get_parameter_value("uid"))
+    load_user_detail(get_parameter_value("uid"),json_str_login["data"]["uid"])
 }
 
 window.onload = load_updata;

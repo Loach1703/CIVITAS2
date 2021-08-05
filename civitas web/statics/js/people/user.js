@@ -3,8 +3,16 @@
 load_user_detail：获得用户详细信息
 */
 
-function load_user_detail(uid=null)
+function load_user_detail(uid,uid_self)
 {
+    /*参数说明：
+    uid：用户id
+    uid_self：当前登录用户uid
+    */
+    if (uid == null)
+    {
+        uid = uid_self
+    }
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function()
     {
@@ -20,14 +28,7 @@ function load_user_detail(uid=null)
             +get_parameter_value("uid")+"\"  class=\"img-thumbnail\" width=\"100px\" height=\"100px\"/>"
             +json_str["data"]["username"]+"</p>";
     }
-    if (uid == null)
-    {
-        xmlhttp.open("GET","https://api.trickydeath.xyz/getuserdetail/",true);
-    }
-    else
-    {
-        xmlhttp.open("GET","https://api.trickydeath.xyz/getuserdetail/?uid=" + uid,true);
-    }
+    xmlhttp.open("GET","https://api.trickydeath.xyz/getuserdetail/?uid=" + uid,true);
     xmlhttp.withCredentials = true;
     xmlhttp.send();
 }
