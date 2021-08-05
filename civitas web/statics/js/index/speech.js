@@ -169,7 +169,7 @@ function speech_swap()
 
 function give_speech()
 {
-    var content = document.getElementById("speech").value;
+    var content = document.getElementById("speech-input").value;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
 	{
@@ -179,7 +179,7 @@ function give_speech()
             var json_str = JSON.parse(str);
             if (json_str["status"] == 1)
             {
-                document.getElementById("speech").value = "";
+                document.getElementById("speech-input").value = "";
                 now_page = 1;
                 load_speech(now_page,now_uid);
                 speech_length_tips("");
