@@ -36,4 +36,5 @@ urlpatterns = [
     path('test.html',views.test),
     path('getskill/',skill.getUserSkill),
     path('getstatus/',views.siwei),
+    path('getuserdetail/',user.get_userdetail),
 ]
