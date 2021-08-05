@@ -1,5 +1,6 @@
 from django.shortcuts import redirect,render,HttpResponse
 from TestModel.models import speech,weather,usersession,speech_attitude,personal_attributes
+from SkillModel.models import UserSkill,social
 from django.contrib.sessions.models import Session
 from django.contrib import auth
 from django.db.models import Avg,Max,Min,Count,Sum,F,Q
@@ -7,9 +8,72 @@ import datetime
 import json
 import random
 import re
+import math
+
+
 
 def test(req):
     return render(req,"test.html")
+
+#增加技能
+#参数说明
+#skill_now：当前技能
+#type_buff：类型修正，范围0-1，如工作则为1，演讲为0.2，等等
+#skill_level：门槛，学徒，匠人等
+#happiness：当前快乐
+#strategy_buff：工作策略加成，如果不是工作，则为1
+def skill_increase(skill_now,type_buff,skill_level,happiness,strategy_buff=1):
+    #技能增长e^(-技能等级/4)
+    change = math.exp(-skill_now / 4)
+    #进门槛降低技能增长速度
+    if math.floor((skill_now / 4) + 1) > skill_level:
+        diff = skill_now - skill_level * 4
+        change *= (1 - math.sqrt(diff))
+        #直接突破，临时的，以后要算概率
+        skill_level += 1
+    #快乐修正，20快乐-10%增长速度
+    change *= (1 + ((happiness - 60) / 200))
+    #类型修正
+    change *= type_buff
+    #工作策略修正
+    change *= strategy_buff
+    #返回值
+    return skill_now + change,skill_level
+
+#增加小类技能
+#参数说明
+#skill_mini_now：当前小类技能
+#skill_now：当前技能
+#type_buff：类型修正，范围0-1，如工作则为1，演讲为0.2，等等
+#happiness：当前快乐
+#strategy_buff：工作策略加成，如果不是工作，则为1
+def skill_mini_increase(skill_mini_now,skill_now,type_buff,happiness,strategy_buff=1):
+    #基础增长3%
+    change = 0.03
+    #当前技能每高12点，则增长速度翻一倍
+    change *= 1 + (skill_now / 12)
+    #当前小类技能越高，增长越慢，达到100%时增长速度减半
+    change *= 1 - (skill_mini_now / 2)
+    #快乐修正，20快乐-10%增长速度
+    change *= (1 + ((happiness - 60) / 200))
+    #类型修正
+    change *= type_buff
+    #工作策略修正
+    change *= strategy_buff
+    #返回值
+    return skill_mini_now + change
+
+#小类技能衰减，换日时调用
+#参数说明
+#skill_mini_now：当前小类技能
+#skill_now：当前技能
+def skill_mini_decrease(skill_mini_now,skill_now):
+    #基础衰减2%+原小类的8%
+    change = 0.02 + 0.08 * skill_mini_now
+    #当前技能每高12点，衰减减慢一半
+    change *= (1 / 2) ** (skill_now / 12)
+    #返回值
+    return skill_mini_now - change
 
 def is_login(req,sessionid):
     if not sessionid:
@@ -30,8 +94,33 @@ def getspeech1(req):    #获取演讲，参数：page
         session = Session.objects.filter(pk=sessionid).first()
         attuid=session.get_decoded()["_auth_user_id"]
         if req.GET.get("page")!=None:
+            uid = req.GET.get("uid")
+            if uid == None:
+                userspeech = speech.objects.all()
+            else:
+                user=auth.models.User.objects.filter(pk=uid)
+                if user.exists():
+                    userspeech = speech.objects.filter(uid=uid)
+                    if not userspeech.exists():
+                        status=1
+                        meg='该用户没有发过演讲'
+                        result={
+                            "status":status,
+                            "message":meg,
+                            "data":{}
+                            }
+                        return HttpResponse(json.dumps(result), content_type="application/json")
+                else:
+                    meg='对应uid的用户不存在'
+                    result={
+                        "status":status,
+                        "message":meg,
+                        "data":{}
+                    }
+                    return HttpResponse(json.dumps(result), content_type="application/json")
+                
             page = int(req.GET.get("page"))
-            count=len(speech.objects.all())
+            count=len(userspeech)
             if count%num_every_page==0:
                 total_page=count/num_every_page
             else:
@@ -40,7 +129,7 @@ def getspeech1(req):    #获取演讲，参数：page
                 status=0
                 meg='失败，错误的页数'
             else:
-                list1 = speech.objects.order_by('-id')[0+num_every_page*(page-1):num_every_page*page]
+                list1 = userspeech.order_by('-id')[0+num_every_page*(page-1):num_every_page*page]
                 i=0
                 num=len(list1)
                 for var in list1:
@@ -64,7 +153,7 @@ def getspeech1(req):    #获取演讲，参数：page
                     b=str(var.date)[11:19]
                     dbatt=speech_attitude.objects.filter(uid=attuid).filter(textid=textid)
                     if dbatt.exists():
-                        my_att=dbatt[0].att
+                        my_att=int(dbatt[0].att)
                     cheer=speech_attitude.objects.filter(textid=textid).filter(att=1).count()
                     onlooker=speech_attitude.objects.filter(textid=textid).filter(att=2).count()
                     catcall=speech_attitude.objects.filter(textid=textid).filter(att=3).count()
@@ -91,30 +180,53 @@ def getspeech1(req):    #获取演讲，参数：page
 def speech1(req):   #发送演讲，参数：text
     status=0
     meg="失败"
+    data={}
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
         uid=session.get_decoded()["_auth_user_id"]
         text=req.POST.get("text")
-        if text!=None:
-            if 0<len(text)<=140:
-                date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                dbspeech = speech(text=text,date=date,uid=uid)
-                dbspeech.save()
-                status=1
-                meg="演讲发布成功"
+        getuserstatus = personal_attributes.objects.filter(uid=uid).first()
+        energy = eval(getuserstatus.energy)
+        if energy - 15 < 0 :
+            meg="发表失败，您当前的精力不足"
+        else:
+            if text!=None:
+                if 0<len(text)<=300:
+                    date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    dbspeech = speech(text=text,date=date,uid=uid)
+                    dbspeech.save()
+                    getuserskill = UserSkill.objects.filter(user_id=uid).first()
+                    skill_now = getuserskill.social.skill_num   #获取当前大类——社交技能点
+                    skill_level = getuserskill.social.level   #获取当前大类技能等级
+                    happiness = eval(getuserstatus.happy)         #获取当前用户幸福值
+                    skill_mini_now = getuserskill.social.eloquence  #获取当前小类——雄辩技能点
+                    skill_num_now , skill_level_now = skill_increase(skill_now,0.2,skill_level,happiness,strategy_buff=1)    #大类技能增加
+                    mini_increase = skill_mini_increase(skill_mini_now,skill_now,0.2,happiness,strategy_buff=1)    #小类技能增加
+                    #修改大类——社交技能点、大类技能等级、小类——雄辩技能点
+                    usersocialskill = social.objects.filter(user_id=uid).first()
+                    usersocialskill.skill_num = skill_num_now
+                    usersocialskill.level = skill_level_now
+                    usersocialskill.eloquence = mini_increase
+                    getuserstatus.energy = energy - 15
+                    usersocialskill.save()
+                    getuserstatus.save()
+                    status=1
+                    meg="演讲发布成功"
+                    data={"skill_num_change":skill_num_now,"level_change":skill_level_now,"eloquence_skill_change":mini_increase}
+                else:
+                    status=0
+                    meg="失败，提交字数应该在1~300之间，当前字数：{}".format(len(text))
             else:
                 status=0
-                meg="失败，提交字数应该在1~140之间，当前字数：{}".format(len(text))
-        else:
-            status=0
-            meg='失败，没有提供POST参数'
+                meg='失败，没有提供POST参数'
     else:
         status=0
         meg='您还没有登录'
     result={
                 "status":status,
                 "message":meg,
+                "data":data,
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 

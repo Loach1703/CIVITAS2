@@ -91,8 +91,31 @@ def get_avatar(req):
         default_path=os.path.join(settings.BASE_DIR, "media/avatar/default.jpg")
         with open(default_path, 'rb') as f:
             image_data = f.read()
-        result={
-            "status":0,
-            "meg":"头像获取失败",
-        }
         return HttpResponse(image_data,content_type="image/jpg")
+
+def get_userdetail(req):
+    status = 0
+    meg = "失败"
+    data = {}
+    sessionid = req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid = req.GET.get("uid")
+        if uid == None:
+            uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.filter(pk=uid)
+        if user.exists():
+            username = user.first().username
+            data = {"username":username}
+            meg = "成功"
+            status = 1
+        else:
+            meg = "对应uid的用户不存在"
+    else:
+        meg = "您还没有登录"
+    result={
+            "status":status,
+            "message":meg,
+            "data":data
+        }
+    return HttpResponse(json.dumps(result), content_type="application/json")
