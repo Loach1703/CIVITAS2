@@ -12,12 +12,21 @@ function load_updata()
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
     left_navigator(json_str_login["data"]["username"],json_str_login["data"]["uid"]);
+    //找不到参数，查看自己的主页
+    if (isNaN(get_parameter_value("uid")))
+    {
+        uid = json_str_login["data"]["uid"];
+    }
+    else
+    {
+        uid = get_parameter_value("uid");
+    }
     //获取演讲
-    load_speech(1,get_parameter_value("uid"));
+    load_speech(1,uid);
     //获取技能
-    load_skill(get_parameter_value("uid"))
+    load_skill(uid)
     //获取用户名，头像，同时判断是否存在该用户
-    load_user_detail(get_parameter_value("uid"),json_str_login["data"]["uid"])
+    load_user_detail(uid)
 }
 
 window.onload = load_updata;

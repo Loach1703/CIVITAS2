@@ -51,8 +51,9 @@ function load_speech(page,uid=now_uid)
                 {
                     attitude3 = " class=\"speech-attitude\" ";
                 }
-                speech += "<div class=\"speech speech-bottomline\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
-                    /></span><span class=\"speech-content\"><a href=\"people.html?uid="
+                speech += "<div class=\"speech speech-bottomline\"><a href=\"people.html?uid="
+                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
+                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
                     +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
                     +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                     +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
@@ -243,8 +244,9 @@ function popular_speech()
             {
                 attitude3 = " class=\"speech-attitude\" ";
             }
-            document.getElementById("popular-speech").innerHTML = "<div class=\"speech\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
-                /></span><span class=\"speech-content\"><a href=\"people.html?uid="
+            document.getElementById("popular-speech").innerHTML = "<div class=\"speech\"><a href=\"people.html?uid="
+                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
+                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
                 +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
                 +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                 +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
