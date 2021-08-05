@@ -3,10 +3,14 @@
 load_skill：加载技能
 */
 
-function load_skill()
+function load_skill(uid=null)
 {
-    var xmlhttp=new XMLHttpRequest();
-    xmlhttp.onreadystatechange= function()
+    /*参数说明：
+    uid：需要读取技能的用户uid
+    额外说明：这个函数是主页/个人主页通用的，所以需要一个判别的uid，在主页使用时，不需要加uid，api会返回当前登录cookie对应用户的技能
+    */
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
@@ -17,7 +21,14 @@ function load_skill()
             var skill_inner = "";
             var skill_data = json_str["data"];
             var skill_dict = {1:"学徒",2:"匠人",3:"匠师",4:"专家",5:"大师",6:"宗师",7:"大宗师"}
-            skill_html.innerHTML = "<p class=\"main-char\">我的技能</p>";
+            if (uid == null)
+            {
+                skill_html.innerHTML = "<p class=\"main-char\">我的技能</p>";
+            }
+            else
+            {
+                skill_html.innerHTML = "<p class=\"main-char\">他的技能</p>";
+            }
             for (i = 0; i < skill_data.length ; i++)
             {
                 var skill_data_detail = skill_data[i];
@@ -61,12 +72,26 @@ function load_skill()
             }
             if (skill_inner == "")
             {
-                skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\">您还没有技能，去工作或是演讲，副业以获得技能。</p></div>"
+                if (uid == null)
+                {
+                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\">您还没有技能，去工作或是演讲，副业以获得技能。</p></div>"
+                }
+                else
+                {
+                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\">他还没有技能。</p></div>"
+                }
             }
             skill_html.innerHTML += skill_inner
 		}
 	}
-    xmlhttp.open("GET","https://api.trickydeath.xyz/getskill/",true);
+    if (uid == null)
+    {
+        xmlhttp.open("GET","https://api.trickydeath.xyz/getskill/",true);
+    }
+    else
+    {
+        xmlhttp.open("GET","https://api.trickydeath.xyz/getskill/?uid=" + uid,true);
+    }
     xmlhttp.withCredentials = true;
     xmlhttp.send();
 }

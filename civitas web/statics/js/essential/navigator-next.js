@@ -3,7 +3,7 @@
 navigator：根据是否登录，写入不同的导航栏
 date：获取日期，显示在导航栏上
 left_navigator：显示左侧导航栏
-username_left_navigator：显示左侧导航栏的用户名
+status_left_navigator：显示左侧导航栏的用户状态
 */
 
 function navigator(status,uid)
@@ -67,17 +67,8 @@ function left_navigator(username,uid)
         uid = 0;
     }
     var nav = document.getElementById("left-navigator");
-    nav.innerHTML = "<div class=\"bottomline\"><span class=\"avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+uid+"\" class=\"img-thumbnail\" width=\"80px\" height=\"80px\"/></span><div class=\"level\"><a href=\"#\" id=\"username\"></a><p>等级 100级</p><div class=\"progress levelbar\"><div class=\"progress-bar bg-warning progress-bar-striped progress-bar-animated\" style=\"width: 50%\" id=\"energy\"><p class=\"xp\">经验 1000 / 2000</p></div></div></div></div><div class=\"bottomline\"><p class=\"menu\">我的状态</p><div id=\"status\"></div></div><div class=\"left-navigator-option\"><div class=\"bottomline\"><p class=\"menu\">我的CIVITAS</p><a href=\"../index.html\">我的CIVITAS</a><a href=\"#news\">我的通知</a><a href=\"../settings.html\">我的设置</a></div><div class=\"bottomline\"><p class=\"menu\">我的生活</p><a href=\"#home\">我的食谱</a><a href=\"#home\">我的藏书</a><a href=\"#news\">我的副业</a><a href=\"#news\">我的教育</a></div><div class=\"bottomline\"><p class=\"menu\">我的交际圈</p><a href=\"#home\">我的人际关系</a><a href=\"#news\">我的社交活动</a></div><div class=\"bottomline\"><p class=\"menu\">我的资产</p><a href=\"#home\">我的库房</a><a href=\"#news\">我的私人交易</a><a href=\"#news\">我管理的不动产</a><a href=\"#home\">我拥有的不动产</a></div></div>";
-    username_left_navigator(username);
+    nav.innerHTML = "<div class=\"bottomline\"><span class=\"avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+uid+"\" class=\"img-thumbnail\" width=\"80px\" height=\"80px\"/></span><div class=\"level\"><a href=\"../people.html?uid="+uid+"\" id=\"username\">"+username+"</a><p>等级 100级</p><div class=\"progress levelbar\"><div class=\"progress-bar bg-warning progress-bar-striped progress-bar-animated\" style=\"width: 50%\" id=\"energy\"><p class=\"xp\">经验 1000 / 2000</p></div></div></div></div><div class=\"bottomline\"><p class=\"menu\">我的状态</p><div id=\"status\"></div></div><div class=\"left-navigator-option\"><div class=\"bottomline\"><p class=\"menu\">我的CIVITAS</p><a href=\"../index.html\">我的CIVITAS</a><a href=\"#news\">我的通知</a><a href=\"../settings.html\">我的设置</a></div><div class=\"bottomline\"><p class=\"menu\">我的生活</p><a href=\"#home\">我的食谱</a><a href=\"#home\">我的藏书</a><a href=\"#news\">我的副业</a><a href=\"#news\">我的教育</a></div><div class=\"bottomline\"><p class=\"menu\">我的交际圈</p><a href=\"#home\">我的人际关系</a><a href=\"#news\">我的社交活动</a></div><div class=\"bottomline\"><p class=\"menu\">我的资产</p><a href=\"#home\">我的库房</a><a href=\"#news\">我的私人交易</a><a href=\"#news\">我管理的不动产</a><a href=\"#home\">我拥有的不动产</a></div></div>";
     status_left_navigator();
-}
-
-function username_left_navigator(username)
-{
-    /*参数说明：
-    username：用户名
-    */
-    document.getElementById("username").innerHTML = username;
 }
 
 function status_left_navigator()

@@ -293,3 +293,9 @@
   display: inline;
   color: red;
 }
+
+.author
+{
+    font-size: 14px;
+    color: rgb(100,100,100);
+}

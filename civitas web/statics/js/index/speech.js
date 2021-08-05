@@ -1,6 +1,7 @@
 /*
 演讲相关
 now_page：当前页面，全局变量
+now_uid：当前uid，全局变量
 load_speech：加载全部演讲
 speech_swap：演讲翻页
 give_speech：发表演讲
@@ -10,11 +11,18 @@ speech_tips：提示字数限制
 */
 
 var now_page = 1;
+var now_uid = null;
 
-function load_speech(page)
+function load_speech(page,uid=now_uid)
 {
+    /*参数说明：
+    page：需要加载的页数
+    uid：需要读取技能的用户uid
+    额外说明：这个函数是主页/个人主页通用的，所以需要一个判别的uid，在主页使用时，不需要加uid，api会返回当前登录cookie对应用户的技能
+    */
     var xmlhttp=new XMLHttpRequest();
     now_page = page
+    now_uid = uid
     xmlhttp.onreadystatechange= function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -44,7 +52,8 @@ function load_speech(page)
                     attitude3 = " class=\"speech-attitude\" ";
                 }
                 speech += "<div class=\"speech speech-bottomline\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
-                    /></span><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">"
+                    /></span><span class=\"speech-content\"><a href=\"people.html?uid="
+                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
                     +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                     +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
                     +json_str["data"]["datalist"][i]["day"]+"天，"
@@ -140,7 +149,14 @@ function load_speech(page)
             document.getElementById("speech").innerHTML = speech;
 		}
 	}
-    xmlhttp.open("GET","https://api.trickydeath.xyz/getspeech/?page=" + page,true);
+    if (uid == null)
+    {
+        xmlhttp.open("GET","https://api.trickydeath.xyz/getspeech/?page=" + page,true);
+    }
+    else
+    {
+        xmlhttp.open("GET","https://api.trickydeath.xyz/getspeech/?page=" + page +"&uid="+ uid,true);
+    }
     xmlhttp.withCredentials = true;
     xmlhttp.send();
 }
@@ -148,24 +164,30 @@ function load_speech(page)
 function speech_swap()
 {
     now_page = document.getElementById("speech-page-swap-input").value;
-    load_speech(now_page)
+    load_speech(now_page,now_uid)
 }
 
 function give_speech()
 {
-    var content = document.getElementById("comment").value;
-    if (content.length > 300)
-    {
-        return;
-    }
-    var xmlhttp=new XMLHttpRequest();
+    var content = document.getElementById("speech").value;
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
-            document.getElementById("comment").value = "";
-            now_page = 1;
-            load_speech(now_page);
+            var str = xmlhttp.responseText;
+            var json_str = JSON.parse(str);
+            if (json_str["status"] == 1)
+            {
+                document.getElementById("speech").value = "";
+                now_page = 1;
+                load_speech(now_page,now_uid);
+                speech_length_tips("");
+                status_left_navigator();
+                load_skill();
+            }
+            else{}
+            document.getElementById("speech-tips").innerHTML = json_str["message"];
 		}
 	}
     xmlhttp.open("POST","https://api.trickydeath.xyz/speech/",true);
@@ -176,13 +198,17 @@ function give_speech()
 
 function speech_attitude(attitude,textid)
 {
-    var xmlhttp=new XMLHttpRequest();
-    xmlhttp.onreadystatechange=function()
+    /*参数说明：
+    attitude：态度，1欢呼，2关注，3倒彩
+    textid：演讲id
+    */
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
             //可能点的是热门的欢呼/其他演讲的欢呼，所以都刷新
-            load_speech(now_page);
+            load_speech(now_page,now_uid);
             popular_speech();
 		}
 	}
@@ -194,7 +220,7 @@ function speech_attitude(attitude,textid)
 
 function popular_speech()
 {
-    var xmlhttp=new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -218,7 +244,8 @@ function popular_speech()
                 attitude3 = " class=\"speech-attitude\" ";
             }
             document.getElementById("popular-speech").innerHTML = "<div class=\"speech\"><span class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"\
-                /></span><span class=\"speech-content\"><a href=\"#\" class=\"speech-name\">"
+                /></span><span class=\"speech-content\"><a href=\"people.html?uid="
+                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
                 +json_str["data"]["datalist"][i]["username"]+"</a><p>："
                 +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
                 +json_str["data"]["datalist"][i]["day"]+"天，"
@@ -239,20 +266,23 @@ function popular_speech()
     xmlhttp.send();
 }
 
-function speech_tips(input)
+function speech_length_tips(input)
 {
+    /*参数说明：
+    input：输入框内容
+    */
     var len = input.length;
     var str_len = String(len);
-    var tips = document.getElementById("speech-tips");
+    var tips = document.getElementById("speech-length-tips");
     if (len <= 300)
     {
         tips.innerHTML = str_len + "/300";
-        tips.setAttribute("class","speech-tips")
+        tips.setAttribute("class","speech-length-tips")
     }
     else
     {
         tips.innerHTML = str_len + "/300";
-        tips.setAttribute("class","speech-tips-over")
+        tips.setAttribute("class","speech-length-tips-over")
     }
 }
 
