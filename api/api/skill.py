@@ -35,8 +35,21 @@ def getUserSkill(req):
                 6:{1:"land_transport",2:"water_transport",3:"fishing"},
                 7:{1:"hunt",2:"fowl",3:"livestock"},
             }
-        session = Session.objects.filter(pk=sessionid).first()
-        uid = session.get_decoded()["_auth_user_id"]
+        uid_exists = req.GET.get("uid")
+        if uid_exists != None:
+            if auth.models.User.objects.filter(pk=uid_exists).exists():
+                uid = uid_exists
+            else:
+                meg="对应uid的用户不存在"
+                result={
+                    "status":status,
+                    "message":meg,
+                    "data":data
+                }
+                return HttpResponse(json.dumps(result), content_type="application/json")
+        else:
+            session = Session.objects.filter(pk=sessionid).first()
+            uid = session.get_decoded()["_auth_user_id"]
         user_detail = auth.models.User.objects.filter(pk=uid).first()
         userskill = UserSkill.objects.filter(user__id=uid)
         if not userskill.exists():

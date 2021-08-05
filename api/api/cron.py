@@ -1,7 +1,7 @@
 import numpy
 import random
 import pymysql
-from . import secret
+import secret
 
 #定义城市类
 class city(object):
@@ -376,4 +376,12 @@ def weather():
     ca = city("长安",14.7,27.1,542.2,82.6,"tem",1872.7,total_day,temperature,rain_num,weather)
     ca.weather_simulation()
 
+def changeday():
+    db=pymysql.connect(host=secret.dbdict["ip"],user=secret.dbdict["user"],password=secret.dbdict["password"],database=secret.dbdict["database"])
+    cursor=db.cursor()
+    sql='update TestModel_personal_attributes SET energy=100,healthy=100,happy=100,Hunger=100;'
+    cursor.execute(sql)
+    db.commit()
+
 weather()
+changeday()
