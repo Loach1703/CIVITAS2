@@ -4,6 +4,12 @@ from django.contrib import auth
 from django.shortcuts import redirect,render,HttpResponse
 import json
 
+def is_int(para):
+    try:
+        return int(para)
+    except:
+        return "error"
+
 def is_login(req,sessionid):
     if not sessionid:
         return 0
@@ -37,6 +43,15 @@ def getUserSkill(req):
             }
         uid_exists = req.GET.get("uid")
         if uid_exists != None:
+            uid_exists = is_int(req.GET.get("uid"))
+            if uid_exists == "error":
+                meg = "存在需要传入数字的参数传入的不是数字"
+                result={
+                    "status":status,
+                    "message":meg,
+                    "data":{}
+                }
+                return HttpResponse(json.dumps(result), content_type="application/json")
             if auth.models.User.objects.filter(pk=uid_exists).exists():
                 uid = uid_exists
             else:

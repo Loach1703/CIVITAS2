@@ -10,7 +10,11 @@ import random
 import re
 import math
 
-
+def is_int(para):
+    try:
+        return int(para)
+    except:
+        return "error"
 
 def test(req):
     return render(req,"test.html")
@@ -93,11 +97,29 @@ def getspeech1(req):    #获取演讲，参数：page
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
         attuid=session.get_decoded()["_auth_user_id"]
+        uid = req.GET.get("uid")
         if req.GET.get("page")!=None:
-            uid = req.GET.get("uid")
+            page = is_int(req.GET.get("page"))
+            if page == "error":
+                meg = "存在需要传入数字的参数传入的不是数字"
+                result={
+                    "status":status,
+                    "message":meg,
+                    "data":{}
+                }
+                return HttpResponse(json.dumps(result), content_type="application/json")
             if uid == None:
                 userspeech = speech.objects.all()
             else:
+                uid = is_int(req.GET.get("uid"))
+                if uid == "error":
+                    meg = "存在需要传入数字的参数传入的不是数字"
+                    result={
+                        "status":status,
+                        "message":meg,
+                        "data":{}
+                    }
+                    return HttpResponse(json.dumps(result), content_type="application/json")
                 user=auth.models.User.objects.filter(pk=uid)
                 if user.exists():
                     userspeech = speech.objects.filter(uid=uid)
@@ -118,8 +140,6 @@ def getspeech1(req):    #获取演讲，参数：page
                         "data":{}
                     }
                     return HttpResponse(json.dumps(result), content_type="application/json")
-                
-            page = int(req.GET.get("page"))
             count=len(userspeech)
             if count%num_every_page==0:
                 total_page=count/num_every_page
@@ -230,15 +250,23 @@ def speech1(req):   #发送演讲，参数：text
             }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
-def getweather1(req):   #获取天气，无参数
+def getweather1(req):   #获取天气，参数：day、city
     status=0
     meg='失败'
     data={}
     if req.GET.get("day")!=None and req.GET.get("city")!=None:
         last1=weather.objects.order_by('-id')[0]
         count=int(last1.total_day)
+        day = is_int(req.GET.get("day"))
+        if day == "error":
+            meg = "存在需要传入数字的参数传入的不是数字"
+            result={
+                "status":status,
+                "message":meg,
+                "data":{}
+            }
+            return HttpResponse(json.dumps(result), content_type="application/json")
         if 1<=int(req.GET.get("day"))<=count:
-            day=req.GET.get("day")
             city=req.GET.get("city")
             list1=weather.objects.filter(city=city)
             if bool(list1)!=False:
@@ -247,13 +275,13 @@ def getweather1(req):   #获取天气，无参数
                 meg='成功'
                 for var in list1:
                     city=var.city
-                    total_day=var.total_day
-                    year=var.year
+                    total_day=int(var.total_day)
+                    year=int(var.year)
                     season=var.season
-                    day=var.day
+                    day=int(var.day)
                     weather1=var.weather
-                    temperature=var.temperature
-                    rain_num=var.rain_num
+                    temperature=eval(var.temperature)
+                    rain_num=eval(var.rain_num)
                     data = {
                                 "city":city,
                                 "total_day":total_day,
@@ -448,7 +476,8 @@ def assess1(req):
             meg="缺少必要参数"
         else:
             if att=="1" or att=="2" or att=="3":
-                if speech.objects.filter(pk=textid).exists():
+                now = datetime.datetime.now()
+                if speech.objects.filter(pk=textid,date__gte=now-datetime.timedelta(days=1),date__lte=now).exists():
                     session=Session.objects.filter(pk=sessionid).first()
                     uid=session.get_decoded()["_auth_user_id"]
                     if speech_attitude.objects.filter(textid=textid).filter(uid=uid).exists():
@@ -463,7 +492,7 @@ def assess1(req):
                         status=1
                         meg="{}成功".format(attdict[att])
                 else:
-                    meg="您将要发表观点的演讲不存在"
+                    meg="您将要发表观点的演讲不存在或已经超过24小时"
             else:
                 meg="您的态度无效"
     else:
@@ -576,10 +605,8 @@ def siwei(req):
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
         uid=int(session.get_decoded()["_auth_user_id"])
-
         siwei_db = None
         siwei = None
-
         siwei_db = personal_attributes.objects.order_by('id')
         siwei=personal_attributes.objects.filter(uid=uid)
         if siwei_db != None :
