@@ -25,10 +25,7 @@ function load_skill(uid=null)
             {
                 skill_html.innerHTML = "<p class=\"main-char\">我的技能</p>";
             }
-            else
-            {
-                skill_html.innerHTML = "<p class=\"main-char\">他的技能</p>";
-            }
+            else{}
             for (i = 0; i < skill_data.length ; i++)
             {
                 var skill_data_detail = skill_data[i];

@@ -170,6 +170,7 @@
   height: 100%;
   left: 27%;
   top: 50px;
+  border-right: 2px solid rgb(204,204,204);
 }
 
 .main-center
@@ -249,7 +250,6 @@
 {
   display: inline-block;
   position: absolute;
-  border-right: 2px solid rgb(204,204,204);
   width: 50%;
   left: 50%;
 }
@@ -298,4 +298,14 @@
 {
     font-size: 14px;
     color: rgb(100,100,100);
+}
+
+.bottomline
+{
+  border-bottom: 2px solid rgb(204,204,204);
+}
+
+.bottomline-dashed
+{
+  border-bottom: 2px dashed rgba(150,150,150,0.3);
 }
