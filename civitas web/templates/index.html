@@ -16,7 +16,7 @@
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/tips.js"></script>
-<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/index/speech.js"></script>
 <script src="civitas/js/index/weather.js"></script>
@@ -37,13 +37,10 @@
 
 <div class="left-navigator" id="left-navigator"></div>
 
-<!--主体结构div-->
 <div class="main">
 
-<!--主页面主体内容-->
 <div class="main-center">
 
-<!--快捷栏-->
 <div>
     <p class="main-char">我的CIVITAS</p>
     <div>
@@ -58,19 +55,18 @@
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
 </div>
 
-<!--技能-->
 <div id="skill"></div>
 
 </div>
 
-<!--演讲栏-->
 <div class="main-right">
     <p class="main-char">本地演讲</p>
     <div class="deliver-speech">
         <p>在这里发表演讲，不超过300个字:</p>
-        <textarea class="form-control resize-none" rows="5" id="comment" name="text" type="text" onkeyup="speech_tips(this.value)"></textarea>
+        <textarea class="form-control resize-none" rows="5" id="speech-input" name="text" type="text" onkeyup="speech_length_tips(this.value)"></textarea>
         <button class="btn btn-primary" onclick="give_speech()">发表</button>
-        <p class="speech-tips" id="speech-tips">0/300</p>
+        <p class="speech-tips" id="speech-tips"></p>
+        <p class="speech-length-tips" id="speech-length-tips">0/300</p>
     </div>
     <p class="main-char">热门演讲</p>
     <div id="popular-speech"></div>

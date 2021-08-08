@@ -11,23 +11,25 @@
 .speech-tips
 {
   display: inline;
+  font-size: 16px;
+  color: red;
+}
+
+.speech-length-tips
+{
+  display: inline;
   float: right;
   margin: 15px 20px 0 0;
   font-size: 18px;
 }
 
-.speech-tips-over
+.speech-length-tips-over
 {
   display: inline;
   float: right;
   margin: 15px 20px 0 0;
   font-size: 18px;
   color: red;
-}
-
-.speech-bottomline
-{
-  border-bottom: 2px dashed rgba(150,150,150,0.3);
 }
 
 .speech
