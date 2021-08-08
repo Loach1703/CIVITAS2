@@ -1,9 +1,10 @@
 /*
 导航栏
 navigator：根据是否登录，写入不同的导航栏
-date：获取日期，显示在导航栏上
+date_navigator：获取日期，显示在导航栏上
 left_navigator：显示左侧导航栏
 status_left_navigator：显示左侧导航栏的用户状态
+status_update：刷新用户状态
 */
 
 function navigator(status,uid)
@@ -30,10 +31,10 @@ function navigator(status,uid)
     {
         nav.innerHTML = "<img src=\"civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.7<p id=\"time\" class=\"time\"></p></span><span><a href=\"blog/1.html\"><img src=\"civitas/svg/common/blog.svg\" width=\"22px\" height=\"22px\"/>开发日志</a></span><span class=\"signup-in\"><a href=\"login.html\">登录</a><a href=\"register.html\">注册</a></span>"
     }
-    date();
+    date_navigator();
 }
 
-function date()
+function date_navigator()
 {
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange= function()
@@ -205,15 +206,166 @@ function status_left_navigator()
             {
                 starvation_change = " + " + starvation_change.toFixed(1);
             }
-            status_html.innerHTML = "<div class=\"progress status\"><div class=\""
+            status_html.innerHTML = "<div class=\"progress status\"><div id=\"stamina\" class=\""
             +status_dict["stamina"]+"\" style=\"width: "+stamina+"%\">精力 "+stamina+" / 100"
-            +stamina_change+"</div></div><div class=\"progress status\"><div class=\""
+            +stamina_change+"</div></div><div class=\"progress status\"><div id=\"happiness\" class=\""
             +status_dict["happiness"]+"\" style=\"width: "+happiness+"%\">快乐 "+happiness+" / 100"
-            +happiness_change+"</div></div><div class=\"progress status\"><div class=\""
+            +happiness_change+"</div></div><div class=\"progress status\"><div id=\"health\" class=\""
             +status_dict["health"]+"\" style=\"width: "+health+"%\">健康 "+health+" / 100"
-            +health_change+"</div></div><div class=\"progress status\"><div class=\""
+            +health_change+"</div></div><div class=\"progress status\"><div id=\"starvation\" class=\""
             +status_dict["starvation"]+"\" style=\"width: "+starvation+"%\">饥饿 "+starvation+" / 100"
             +starvation_change+"</div></div>"
+		}
+	}
+    xmlhttp.open("GET","https://api.trickydeath.xyz/getstatus/",true);
+    xmlhttp.withCredentials = true;
+    xmlhttp.send();
+}
+
+function status_update()
+{
+    var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange= function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+            var str = xmlhttp.responseText;
+            var json_str = JSON.parse(str);
+            var status_data = json_str["data"];
+            var stamina = status_data["today"]["stamina"];
+            var happiness = status_data["today"]["happiness"];
+            var health = status_data["today"]["health"];
+            var starvation = status_data["today"]["starvation"];
+            var stamina_html = document.getElementById("stamina");
+            var happiness_html = document.getElementById("happiness");
+            var health_html = document.getElementById("health");
+            var starvation_html = document.getElementById("starvation");
+            //状态对应颜色
+            if (stamina < 20)
+            {
+                stamina_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-danger");
+            }
+            else if (stamina < 40)
+            {
+                stamina_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-warning");
+            }
+            else if (stamina < 60)
+            {
+                stamina_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-success");
+            }
+            else if (stamina < 80)
+            {
+                stamina_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-info");
+            }
+            else if (stamina <= 100)
+            {
+                stamina_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated");
+            }
+            if (happiness < 20)
+            {
+                happiness_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-danger");
+            }
+            else if (happiness < 40)
+            {
+                happiness_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-warning");
+            }
+            else if (happiness < 60)
+            {
+                happiness_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-success");
+            }
+            else if (happiness < 80)
+            {
+                happiness_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-info");
+            }
+            else if (happiness <= 100)
+            {
+                happiness_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated");
+            }
+            if (health < 20)
+            {
+                health_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-danger");
+            }
+            else if (health < 40)
+            {
+                health_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-warning");
+            }
+            else if (health < 60)
+            {
+                health_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-success");
+            }
+            else if (health < 80)
+            {
+                health_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-info");
+            }
+            else if (health <= 100)
+            {
+                health_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated");
+            }
+            if (starvation < 20)
+            {
+                starvation_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-danger");
+            }
+            else if (starvation < 40)
+            {
+                starvation_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-warning");
+            }
+            else if (starvation < 60)
+            {
+                starvation_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-success");
+            }
+            else if (starvation < 80)
+            {
+                starvation_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated bg-info");
+            }
+            else if (starvation <= 100)
+            {
+                starvation_html.setAttribute("class","progress-bar progress-bar-striped progress-bar-animated");
+            }
+            //换日回复值
+            var stamina_change = status_data["tomorrow"]["stamina_change"];
+            var happiness_change = status_data["tomorrow"]["happiness_change"];
+            var health_change = status_data["tomorrow"]["health_change"];
+            var starvation_change = status_data["tomorrow"]["starvation_change"];
+            if (stamina_change < 0)
+            {
+                stamina_change = " - " + Math.abs(stamina_change).toFixed(1);
+            }
+            else if(stamina_change >= 0)
+            {
+                stamina_change = " + " + stamina_change.toFixed(1);
+            }
+            if (happiness_change < 0)
+            {
+                happiness_change = " - " + Math.abs(happiness_change).toFixed(1);
+            }
+            else if(happiness_change >= 0)
+            {
+                happiness_change = " + " + happiness_change.toFixed(1);
+            }
+            if (health_change < 0)
+            {
+                health_change = " - " + Math.abs(health_change).toFixed(1);
+            }
+            else if(health_change >= 0)
+            {
+                health_change = " + " + health_change.toFixed(1);
+            }
+            if (starvation_change < 0)
+            {
+                starvation_change = " - " + Math.abs(starvation_change).toFixed(1);
+            }
+            else if(starvation_change >= 0)
+            {
+                starvation_change = " + " + starvation_change.toFixed(1);
+            }
+            stamina_html.style.width = stamina + "%";
+            happiness_html.style.width = happiness + "%";
+            health_html.style.width = health + "%";
+            starvation_html.style.width = starvation + "%";
+            stamina_html.innerHTML = "精力 "+stamina+" / 100"+stamina_change
+            happiness_html.innerHTML = "快乐 "+happiness+" / 100"+happiness_change
+            health_html.innerHTML = "健康 "+health+" / 100"+health_change
+            starvation_html.innerHTML = "饥饿 "+starvation+" / 100"+starvation_change
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/getstatus/",true);
