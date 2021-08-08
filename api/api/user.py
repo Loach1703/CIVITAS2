@@ -10,6 +10,11 @@ from django.conf import settings
 import os
 import json
 
+def is_int(para):
+    try:
+        return int(para)
+    except:
+        return "error"
 
 def is_login(req,sessionid):
     if not sessionid:
@@ -82,7 +87,17 @@ def upload_avatar(req):
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def get_avatar(req):
-    uid=req.GET.get("uid")
+    status = 0
+    meg = "失败"
+    uid = is_int(req.GET.get("uid"))
+    if uid == "error":
+        meg = "存在需要传入数字的参数传入的不是数字"
+        result={
+            "status":status,
+            "message":meg,
+            "data":{}
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
     Avatar_exists = Avatar.objects.filter(user__id=uid)
     if Avatar_exists.exists():
         image_data=Avatar_exists.first().avatar
@@ -100,7 +115,15 @@ def get_userdetail(req):
     sessionid = req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
-        uid = req.GET.get("uid")
+        uid = is_int(req.GET.get("uid"))
+        if uid == "error":
+            meg = "存在需要传入数字的参数传入的不是数字"
+            result={
+                "status":status,
+                "message":meg,
+                "data":{}
+            }
+            return HttpResponse(json.dumps(result), content_type="application/json")
         if uid == None:
             uid = session.get_decoded()["_auth_user_id"]
         user = auth.models.User.objects.filter(pk=uid)
