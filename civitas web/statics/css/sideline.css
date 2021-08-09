@@ -1,0 +1,59 @@
+.sideline-box
+{
+    height: 80px;
+    padding-top: 5px;
+}
+
+.sideline-box p
+{
+    display: inline;
+}
+
+.sideline-mainimg
+{
+    float: left;
+}
+
+.sideline-box button
+{
+    float: right;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.sideline-text1
+{
+    float: left;
+    width: 30%;
+}
+
+.sideline-name
+{
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(50,100,150);
+}
+
+.sideline-skill
+{
+    font-weight: bold;
+    color: rgb(50,100,150);
+}
+
+.sideline-skill-mini
+{
+    font-weight: bold;
+    color: rgb(10,100,10);
+}
+
+.sideline-need
+{
+    font-size: 12px;
+    color: rgb(150,150,150);
+}
+
+.sideline-text2
+{
+    float: left;
+    width: 30%;
+}
