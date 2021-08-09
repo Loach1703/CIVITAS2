@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html>
     
-<link rel="stylesheet" href="civitas/css/style.css">
-<link rel="stylesheet" href="civitas/css/speech.css">
-<link rel="stylesheet" href="civitas/css/skill.css">
+<link rel="stylesheet" href="../..//statics/css/style.css">
+<link rel="stylesheet" href="../..//statics/css/speech.css">
+<link rel="stylesheet" href="../..//statics/css/skill.css">
 
-<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
-<script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
-<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../..//statics/css/bootstrap/bootstrap.min.css"/>
+<script src="../../statics/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../statics/js/bootstrap/bootstrap.min.js"></script>
 
-<link rel="icon" href="civitas/icon/favicon2.ico" />
-<link rel="Bookmark" href="civitas/icon/favicon1.ico" />
+<link rel="icon" href="../../statics/icon/favicon2.ico" />
+<link rel="Bookmark" href="../../statics/icon/favicon1.ico" />
 
 <script src="civitas/js/status.js"></script>
 <script src="civitas/js/dropdown.js"></script>
 <script src="civitas/js/time-index.js"></script>
 <script src="civitas/js/ajax-speech.js"></script>
 <script src="civitas/js/ajax-weather.js"></script>
-
-<script src="civitas/js/login/is-login.js"></script>
+<style>
+    .div1{
+        position:fixed;
+        right:0;
+        
+    }
+    .nav1{
+        padding: 0 150px 0 150px;
+        border-bottom: 3px solid rgb(140,140,140);
+        background-color: rgb(69,69,69);
+        width: 100%;
+        z-index: 100;
+    }
+</style>
+<!-- <script src="civitas/js/login/is-login.js"></script> -->
 <!-- <script src="civitas/js/redirection/redirection-login.js"></script> -->
 
 <!-- <script src="civitas/js/onload-index.js"></script> -->
@@ -28,11 +41,15 @@
 <title>我的主页 - 古典社会模拟 CIVITAS2</title>
 </head>
 
-<body background="civitas/img/background.png" style="background-attachment: fixed;">
-
+<body background="../../statics/img/background.png" style="background-attachment: fixed;" >
+<nav class="navbar nav1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+    </div>
+</nav>
 <!--上导航栏-->
 <nav class="navigator">
-    <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
+    <img src="../../statics/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
     <span class="vertime">
         Pre-Alpha 0.0.5
         <p id="time" class="time"></p>
@@ -42,29 +59,29 @@
         <a href="#square"><img src="civitas/svg/common/square.svg" width="22px" height="22px"/>广场</a>
         <a href="map.html"><img src="civitas/svg/common/map.svg" width="22px" height="22px"/>地图</a>
     </span>
-    <span class="market-main" id="market">
+    <div class="market-main" id="market">
         <a href="#market"><img src="civitas/svg/common/market.svg" width="22px" height="22px"></img>市场</a>
         <div id="market-down" class="market-dropdown hide">
             <a href="#square"><img src="civitas/svg/common/goods.svg" width="22px" height="22px"></img>物资市场</a>
             <a href="#square"><img src="civitas/svg/common/recruit.svg" width="22px" height="22px"></img>招聘市场</a>
             <a href="#square"><img src="civitas/svg/common/estate.svg" width="22px" height="22px"></img>不动产市场</a>
         </div>
-    </span>
-    <span>
-      <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
-    </span>
-    <span class="signup-in">
+    </div>
+    
+    <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发者日志</a>
+    <div class="div1">
+    
         <img src="civitas/img/1.png" width="40px" height="40px"/>
         <a href="logout.html">注销</a>
-    </span>
-    <span class="signup-in">
+    
+    
         <a href="login.html">登录</a>
         <a href="register.html">注册</a>
-    </span>
+    </div>
 </nav>
 
 <!--左侧导航栏-->
-<div class="leftnavigator">
+<div class="left-navigator">
     <!--头像和个人信息-->
     <div class="bottomline">
         <span class="avatar">
@@ -95,7 +112,7 @@
         </div>
     </div>
     <!--选项-->
-    <div class="leftnavigatoroption">
+    <div class="left-navigator-option">
         <div class="bottomline">
             <p class="menu">我的CIVITAS</p>
             <a href="index.html">我的CIVITAS</a>
