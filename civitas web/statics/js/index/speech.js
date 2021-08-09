@@ -184,7 +184,7 @@ function give_speech()
                 now_page = 1;
                 load_speech(now_page,now_uid);
                 speech_length_tips("");
-                status_left_navigator();
+                sstatus_update();
                 load_skill();
             }
             else{}
