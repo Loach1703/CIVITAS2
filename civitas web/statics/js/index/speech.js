@@ -19,9 +19,9 @@ function load_speech(page,uid=now_uid,tagid=now_tagid)
     /*参数说明：
     page：需要加载的页数
     uid：需要读取技能的用户uid
-    tag
+    tagid：话题id，为数字
     额外说明：这个函数是主页/个人主页/演讲话题页面通用的，所以需要一个判别的uid，在主页使用时，不需要加uid，api会返回当前登录cookie对应用户的技能
-    只在
+    只在话题页面会使用tagid
     */
     var xmlhttp=new XMLHttpRequest();
     now_page = page;
@@ -35,43 +35,50 @@ function load_speech(page,uid=now_uid,tagid=now_tagid)
             var str = xmlhttp.responseText;
             var json_str = JSON.parse(str);
             var total_page = json_str["data"]["total_page"];
+            var json_datalist = json_str["data"]["datalist"];
             var speech = "";
             var speech_paginator = "";
+            //在话题页面，如果返回状态0，显示该话题不存在
+            if (now_tagid != null && json_str["status"] == 0)
+            {
+                document.getElementById("speech-tag").innerHTML = "话题不存在！";
+                document.title = "话题不存在 - 古典社会模拟 CIVITAS2";
+            }
             //显示演讲
             for (i = 0; i <= json_str["data"]["num"]-1; i++)
             { 
                 var attitude1 = " ";
                 var attitude2 = " ";
                 var attitude3 = " ";
-                if (json_str["data"]["datalist"][i]["my_attitude"] == 1)
+                if (json_datalist[i]["my_attitude"] == 1)
                 {
                     attitude1 = " class=\"speech-attitude\" ";
                 }
-                else if (json_str["data"]["datalist"][i]["my_attitude"] == 2)
+                else if (json_datalist[i]["my_attitude"] == 2)
                 {
                     attitude2 = " class=\"speech-attitude\" ";
                 }
-                else if (json_str["data"]["datalist"][i]["my_attitude"] == 3)
+                else if (json_datalist[i]["my_attitude"] == 3)
                 {
                     attitude3 = " class=\"speech-attitude\" ";
                 }
                 speech += "<div class=\"speech bottomline-dashed\"><a href=\"people.html?uid="
-                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
-                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
-                    +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
-                    +json_str["data"]["datalist"][i]["username"]+"</a><p>："
-                    +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
-                    +json_str["data"]["datalist"][i]["day"]+"天，"
-                    +json_str["data"]["datalist"][i]["time"]+"</p></div><div class=\"speech-bottom\"><a"
+                    +json_datalist[i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
+                    +json_datalist[i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
+                    +json_datalist[i]["uid"]+"\" class=\"speech-name\">"
+                    +json_datalist[i]["username"]+"</a><p>："
+                    +json_datalist[i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
+                    +json_datalist[i]["day"]+"天，"
+                    +json_datalist[i]["time"]+"</p></div><div class=\"speech-bottom\"><a"
                     +attitude1+"href=\"javascript:void(0)\" onclick=\"speech_attitude(1,"
-                    +json_str["data"]["datalist"][i]["textid"]+")\">欢呼("
-                    +json_str["data"]["datalist"][i]["cheer"]+") </a><a"
+                    +json_datalist[i]["textid"]+")\">欢呼("
+                    +json_datalist[i]["cheer"]+") </a><a"
                     +attitude2+"href=\"javascript:void(0)\" onclick=\"speech_attitude(2,"
-                    +json_str["data"]["datalist"][i]["textid"]+")\">关注("
-                    +json_str["data"]["datalist"][i]["onlooker"]+") </a><a"
+                    +json_datalist[i]["textid"]+")\">关注("
+                    +json_datalist[i]["onlooker"]+") </a><a"
                     +attitude3+"href=\"javascript:void(0)\" onclick=\"speech_attitude(3,"
-                    +json_str["data"]["datalist"][i]["textid"]+")\">倒彩("
-                    +json_str["data"]["datalist"][i]["catcall"]+")</a></div></div>";
+                    +json_datalist[i]["textid"]+")\">倒彩("
+                    +json_datalist[i]["catcall"]+")</a></div></div>";
             }
             //小于等于7页演讲，直接显示所有页数
             if (total_page <= 7)
@@ -247,38 +254,39 @@ function popular_speech()
             var i = 0;
             var str = xmlhttp.responseText;
             var json_str = JSON.parse(str);
+            var json_datalist = json_str["data"]["datalist"];
             var attitude1 = " ";
             var attitude2 = " ";
             var attitude3 = " ";
-            if (json_str["data"]["datalist"][i]["my_attitude"] == 1)
+            if (json_datalist[i]["my_attitude"] == 1)
             {
                 attitude1 = " class=\"speech-attitude\" ";
             }
-            else if (json_str["data"]["datalist"][i]["my_attitude"] == 2)
+            else if (json_datalist[i]["my_attitude"] == 2)
             {
                 attitude2 = " class=\"speech-attitude\" ";
             }
-            else if (json_str["data"]["datalist"][i]["my_attitude"] == 3)
+            else if (json_datalist[i]["my_attitude"] == 3)
             {
                 attitude3 = " class=\"speech-attitude\" ";
             }
             document.getElementById("popular-speech").innerHTML = "<div class=\"speech\"><a href=\"people.html?uid="
-                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
-                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
-                +json_str["data"]["datalist"][i]["uid"]+"\" class=\"speech-name\">"
-                +json_str["data"]["datalist"][i]["username"]+"</a><p>："
-                +json_str["data"]["datalist"][i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
-                +json_str["data"]["datalist"][i]["day"]+"天，"
-                +json_str["data"]["datalist"][i]["time"]+"</p></div><div class=\"speech-bottom\"><a"
+                +json_datalist[i]["uid"]+"\" class=\"speech-avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
+                +json_datalist[i]["uid"]+"\" class=\"img-thumbnail\" width=\"50px\" height=\"50px\"/></a><span class=\"speech-content\"><a href=\"people.html?uid="
+                +json_datalist[i]["uid"]+"\" class=\"speech-name\">"
+                +json_datalist[i]["username"]+"</a><p>："
+                +json_datalist[i]["text"]+"</p></span><div class=\"speech-bottom\"><p>本地演讲，第"
+                +json_datalist[i]["day"]+"天，"
+                +json_datalist[i]["time"]+"</p></div><div class=\"speech-bottom\"><a"
                 +attitude1+"href=\"javascript:void(0)\" onclick=\"speech_attitude(1,"
-                +json_str["data"]["datalist"][i]["textid"]+")\">欢呼("
-                +json_str["data"]["datalist"][i]["cheer"]+") </a><a"
+                +json_datalist[i]["textid"]+")\">欢呼("
+                +json_datalist[i]["cheer"]+") </a><a"
                 +attitude2+"href=\"javascript:void(0)\" onclick=\"speech_attitude(2,"
-                +json_str["data"]["datalist"][i]["textid"]+")\">关注("
-                +json_str["data"]["datalist"][i]["onlooker"]+") </a><a"
+                +json_datalist[i]["textid"]+")\">关注("
+                +json_datalist[i]["onlooker"]+") </a><a"
                 +attitude3+"href=\"javascript:void(0)\" onclick=\"speech_attitude(3,"
-                +json_str["data"]["datalist"][i]["textid"]+")\">倒彩("
-                +json_str["data"]["datalist"][i]["catcall"]+")</a></div></div>";
+                +json_datalist[i]["textid"]+")\">倒彩("
+                +json_datalist[i]["catcall"]+")</a></div></div>";
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/hotspeech/",true);
