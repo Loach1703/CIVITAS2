@@ -1,0 +1,17 @@
+模型：
+在models中，已经在settings.py中设置过路径
+UserModel——储存用户相关数据（头像、用户表、四维）
+SkillModel——储存技能相关数据
+MaterialModel——储存物资相关数据
+CivitasModel——储存civitas内部数据（天气）
+SpeechModel——储存演讲数据（演讲、演讲态度）
+
+视图层函数：
+在api/function中，已经在url.py中设置过路径
+user.py——用户相关接口函数（头像、用户表、四维）
+skill.py——技能相关接口函数
+civitas.py——civitas系统相关接口函数（天气）
+material.py——物资相关接口函数
+speech.py——演讲相关接口函数（演讲、演讲态度）
+assist.py——创建的各项辅助用函数（is_login,is_int,skill_increase）等
+views.py——测试界面、非接口页面视图函数
