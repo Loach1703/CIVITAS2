@@ -37,6 +37,7 @@ def material_depository(req):
                 name = large_class_material.name
                 unitmass = 0                  #预留，单位质量
                 wastage = 0                   #预留，损耗率
+                real_material_id = large_class_material.material_id
                 filter_by_id = usermaterial.filter(material_detail__material_id=material_id)
                 total = filter_by_id.aggregate(Sum('count'))['count__sum']
                 find_material = filter_by_id.order_by('material_detail__level')
@@ -45,7 +46,7 @@ def material_depository(req):
                     count = var.count
                     level = var.material_detail.level
                     levellist.append({"level":level,"count":count})
-                datalist.append({"id":material_id,"name":name,"unitmass":unitmass,"wastage":wastage,"total":total,"detail":levellist})
+                datalist.append({"id":real_material_id,"name":name,"unitmass":unitmass,"wastage":wastage,"total":total,"detail":levellist})
             status = 1
             meg = "查询成功"
             result = {

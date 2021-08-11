@@ -32,10 +32,6 @@ function load_skill(uid=null)
                 var skill_id = skill_data_detail["id"];
                 var level = skill_data_detail["level"];
                 var skill_num = skill_data_detail["skill"].toFixed(2);
-                if (skill_num == 0)
-                {
-                    continue;
-                }
                 skill_inner += "<div class=\"skill-box\"><div class=\"skill-picture\"><img src=\"civitas/icon/skill/"
                 +skill_id+"/s.png\" width=\"80px\" height=\"80px\"/></div><div class=\"skill-name\"><p class=\"skill-name-left\">"
                 +skill_data_detail["name"]+"</p><p class=\"skill-name-right skill-name-right"+level+"\">"+skill_dict[level]+" "
@@ -48,10 +44,6 @@ function load_skill(uid=null)
                     var skill_mini_data_detail = skill_mini_list[j];
                     var skill_mini_id = skill_mini_data_detail["id"];
                     var skill_mini_num = (skill_mini_data_detail["skill"] * 100).toFixed(1);
-                    if (skill_mini_num == 0)
-                    {
-                        continue
-                    }
                     skill_mini_inner += "<div class=\"skill-mini\"><img src=\"civitas/icon/skill/"
                     +skill_id+"/"+skill_mini_id+".png\" width=\"40px\" height=\"40px\"/><p>"
                     +skill_mini_data_detail["name"]+" "+skill_mini_num+"%</p></div>"
@@ -75,7 +67,7 @@ function load_skill(uid=null)
                 }
                 else
                 {
-                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\">他还没有技能。</p></div>"
+                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\" id=\"skill-none\"></p></div>"
                 }
             }
             skill_html.innerHTML += skill_inner

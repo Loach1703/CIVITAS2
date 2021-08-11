@@ -22,6 +22,11 @@ function load_user_detail(uid)
         document.title = json_str["data"]["username"]+"的主页 - 古典社会模拟 CIVITAS2";
         document.getElementById("speech-username").innerHTML = json_str["data"]["username"]+"的演讲"
         document.getElementById("skill-username").innerHTML = json_str["data"]["username"]+"的技能"
+        try
+        {
+            document.getElementById("skill-none").innerHTML = json_str["data"]["username"]+"还没有技能"
+        }
+        catch(e){}
         document.getElementById("avatar").innerHTML = "<p class=\" main-subchar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="
             +uid+"\" class=\"img-thumbnail\" width=\"100px\" height=\"100px\"/>"
             +json_str["data"]["username"]+"</p>";
