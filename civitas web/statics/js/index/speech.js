@@ -157,7 +157,11 @@ function load_speech(page,uid=now_uid,tagid=now_tagid)
             speech_paginator += "<div class=\"input-group input-group-sm\"><input type=\"text\" class=\"form-control speech-page-swap-input\" \
                 id=\"speech-page-swap-input\" placeholder=\"跳转到某页\"><button type=\"submit\" class=\"btn btn-primary speech-page-swap-button\" \
                 onclick=\"speech_swap()\">跳转</button></div>";
-            document.getElementById("speech-page-paginator").innerHTML = speech_paginator;
+            try 
+            {
+                document.getElementById("speech-page-paginator").innerHTML = speech_paginator;
+            }
+            catch(e){}
             document.getElementById("speech").innerHTML = speech;
             //话题名
             if (tagid != null)
