@@ -18,7 +18,7 @@ import os
 import sys
 #将django根目录下的api/function中的路径导入
 sys.path.insert(0,os.path.join(settings.BASE_DIR,'api/function'))
-#导入后请直接使用import导入对应的识图python文件（创建function文件夹的原因：便于整理和管理）
+#导入后请直接使用import导入对应的视图python文件（创建function文件夹的原因：便于整理和管理）
 '''
 user.py——用户相关接口函数（头像、用户表、四维）
 skill.py——技能相关接口函数
@@ -32,8 +32,6 @@ import views,user,skill,civitas,material,speech
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
-
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
