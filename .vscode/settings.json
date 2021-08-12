@@ -1,0 +1,10 @@
+{
+    "python.linting.pylintArgs": [
+        "--load-plugins", "pylint_django"
+    ],
+    "python.analysis.extraPaths": [
+        "./api/models/UserModel",
+        "./api/api/function",
+        "./api/models"
+    ],
+}

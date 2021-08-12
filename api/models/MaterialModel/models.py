@@ -15,7 +15,7 @@ class Material(models.Model):
 class Recipe(models.Model):
     raw_material_detail = ForeignKey('MaterialDetail',related_name='raw_material_detail',on_delete=models.CASCADE,verbose_name='所需物资详情')
     needed_count = FloatField(verbose_name='所需数量')
-    material_detail = ForeignKey('MaterialDetail',related_name='material_detail',on_delete=models.CASCADE,verbose_name='产出详情')
+    material_detail = ForeignKey('MaterialDetail',related_name='material_detail',on_delete=models.CASCADE,verbose_name='产出物资')
     produce_count = FloatField(verbose_name='产出物资数量',default=1)
 
     class Meta:
