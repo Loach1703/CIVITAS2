@@ -15,15 +15,17 @@
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
+<script src="civitas/js/essential/parameter.js"></script>
 
 <script src="civitas/js/people/depository.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-login.js"></script>
+<script src="civitas/js/onload/onload-depository.js"></script>
 
 <head>
 <meta charset="utf-8">
+<title></title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -34,34 +36,7 @@
 
 <div class="main">
     <p id="depository-name" class="main-char"></p>
-    <div class="depository-box-top bottomline-dashed">
-        <span class="depository-text-top">
-            <p class="depository-name">物品名</p>
-        </span>
-        <span class="depository-text2">
-            <p class="depository-num">总数量</p>
-        </span>
-        <span class="depository-text2">
-            <p class="depository-num">总质量</p>
-        </span>
-    </div>
-    <div id="depository-detail">
-        <div class="depository-box bottomline-dashed">
-            <img src="civitas/icon/goods/1.png" width="60px" height="60px" class="depository-mainimg"/>
-            <span class="depository-text1">
-                <p class="depository-name">小麦<br></p>
-                <p class="depository-loss">仓储损耗 10%</p>
-            </span>
-            <span class="depository-text2">
-                <p class="depository-num">100<br></p>
-                <p class="depository-loss">总量</p>
-            </span>
-            <span class="depository-text2">
-                <p class="depository-num">100<br></p>
-                <p class="depository-loss">每单位重量 1.00</p>
-            </span>
-        </div>
-    </div>
+    <div id="depository-detail"></div>
 </div>
 
 </body>

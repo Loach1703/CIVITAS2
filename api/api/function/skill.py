@@ -45,8 +45,8 @@ def getUserSkill(req):
         t = 0
         for i in range(1,(int(len(bigskill)/2)+1)):
             big_skillnum = bigskill[2*i-2]
+            getname = SkillName.objects.filter(big_id=i)
             if big_skillnum:
-                getname = SkillName.objects.filter(big_id=i)
                 small_skill_count = len(getname) + 1
                 name_object = getname.first()
                 bigname = name_object.big_name
@@ -59,8 +59,8 @@ def getUserSkill(req):
                         name_object = getsmallname.first()
                         smallname = name_object.small_name
                         small_skill_list.append({'id':j,'name':smallname,'skill':small_skillnum})
-                t += len(getname)
                 datalist.append({'id':i,'name':bigname,'skill':big_skillnum,'level':big_level,'list':small_skill_list})
+            t += len(getname)
         status = 1
         meg = '查询技能成功'
         result = {

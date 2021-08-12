@@ -9,7 +9,7 @@ class recipelist(admin.ModelAdmin):
     list_display = ('material_detail','produce_count','raw_material_detail','needed_count')
 
 class materiallist(admin.ModelAdmin):
-    list_display = ('id','name')
+    list_display = ('material_id','name')
 
 class materialdetaillist(admin.ModelAdmin):
     list_display = ('material','productivity','level')
