@@ -134,7 +134,7 @@ def get_sideline(req):
 
                     #统计
                     sideline_list.sideline_day = datetime.datetime.now().strftime('%Y-%m-%d')
-                    
+                    d=datetime.datetime.now().strftime('%Y-%m-%d')
                     today=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
                     sideline.sidline_day_c = today
                     
