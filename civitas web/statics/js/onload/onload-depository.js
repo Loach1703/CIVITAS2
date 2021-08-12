@@ -1,5 +1,5 @@
 /*
-演讲话题页面使用的加载
+个人仓库页面使用的加载
 load_updata：读取页面
 */
 
@@ -13,13 +13,13 @@ function load_updata()
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
     left_navigator(json_str_login["data"]["username"],json_str_login["data"]["uid"]);
     //找不到参数，重定向至主页
-    if (isNaN(get_parameter_value("tagid")))
+    if (isNaN(get_parameter_value("uid")))
     {
         window.location.href = "index.html";
         return;
     }
-    //获取指定话题的演讲
-    load_speech(1,null,get_parameter_value("tagid"));
+    //获取指定用户的仓库
+    load_depository(get_parameter_value("uid"));
 }
 
 window.onload = load_updata;
