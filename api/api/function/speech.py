@@ -10,6 +10,7 @@ import datetime
 import json
 import re
 
+
 def getspeech1(req):    #获取演讲，参数：page
     num_every_page=10
     status=0

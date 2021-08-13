@@ -28,7 +28,7 @@ speech.py——演讲相关接口函数（演讲、演讲态度）
 assist.py——创建的各项辅助用函数（is_login,is_int,skill_increase）等
 views.py——测试界面、非接口页面视图函数
 '''
-import views,user,skill,civitas,material,speech
+import views,user,skill,civitas,material,speech,work
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
@@ -52,5 +52,6 @@ urlpatterns = [
     path('getstatus/',user.siwei),
     path('getuserdetail/',user.get_userdetail),
     path('getmaterial/',material.material_depository),
+    path('sideline/',work.get_sideline)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

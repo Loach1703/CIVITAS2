@@ -66,8 +66,11 @@ class UserSmallSkill(models.Model):
 class SkillName(models.Model):
     big_id = models.SmallIntegerField(verbose_name='大类id')
     big_name = models.CharField(max_length=20,verbose_name='大类名称')
+    db_big_name = models.CharField(max_length=20,verbose_name='数据库大类名称')
     small_id = models.SmallIntegerField(verbose_name='大类下的小类id')
     small_name = models.CharField(max_length=20,verbose_name='小类名称')
+    db_small_name = models.CharField(max_length=20,verbose_name='数据库小类名称')
+
 
     def __str__(self):
         return self.big_name + "——" + self.small_name
