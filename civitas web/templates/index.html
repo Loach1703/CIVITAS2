@@ -8,6 +8,7 @@
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/vue/vue.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
@@ -59,14 +60,13 @@
 
 </div>
 
-<div class="main-right">
+<div class="main-right" id="main-right">
     <p class="main-char">本地演讲</p>
     <div class="deliver-speech">
-        <p>在这里发表演讲，不超过300个字:</p>
-        <textarea class="form-control resize-none" rows="5" id="speech-input" name="text" type="text" onkeyup="speech_length_tips(this.value)"></textarea>
+        <textarea class="form-control resize-none" rows="5" id="speech-input" type="text" v-model="speech_input" placeholder="在这里发表演讲，不超过300个字"></textarea>
         <button class="btn btn-primary" onclick="give_speech()">发表</button>
         <p class="speech-tips" id="speech-tips"></p>
-        <p class="speech-length-tips" id="speech-length-tips">0/300</p>
+        <p class="speech-length-tips">{{ speech_input.length }}300</p>
     </div>
     <p class="main-char">热门演讲</p>
     <div id="popular-speech"></div>
@@ -75,8 +75,6 @@
     <div id="speech-page-paginator" class="speech-page-paginator"></div>
 </div>
 
-
-<!--工作模态框-->
 <div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog">
     <div class="modal-content work-modal">

@@ -298,22 +298,12 @@ function popular_speech()
     xmlhttp.send();
 }
 
-function speech_length_tips(input)
+function speech_length_tips()
 {
-    /*参数说明：
-    input：输入框内容
-    */
-    var len = input.length;
-    var str_len = String(len);
-    var tips = document.getElementById("speech-length-tips");
-    if (len <= 300)
-    {
-        tips.innerHTML = str_len + "/300";
-        tips.setAttribute("class","speech-length-tips")
-    }
-    else
-    {
-        tips.innerHTML = str_len + "/300";
-        tips.setAttribute("class","speech-length-tips-over")
-    }
+    var speech_length = new Vue({
+        el: "#main-right",
+        data: {
+            speech_input: ""
+        }
+    })
 }

@@ -18,7 +18,9 @@ function load_updata()
     load_speech(1);
     popular_speech();
     //获取技能
-    load_skill()
+    load_skill();
+    //加载Vue
+    speech_length_tips();
 }
 
 window.onload = load_updata;
