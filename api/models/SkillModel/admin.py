@@ -1,5 +1,6 @@
 from django.contrib import admin
 from SkillModel.models import UserBigSkill,UserSmallSkill,SkillName
+from .models import SkillName
 
 # Register your models here.
 class biglist(admin.ModelAdmin):
