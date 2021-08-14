@@ -1,14 +1,14 @@
-
+from django.db.models.expressions import F
 from django.db.models.query_utils import Q
 from django.shortcuts import redirect,render,HttpResponse
 from SkillModel.models import SkillName, UserBigSkill, UserSmallSkill
 from assist import *
 from django.contrib.sessions.models import Session
 from django.contrib import auth
-
-from api.models.UserModel.models import *
-from api.models.WorkModel.models import *
-
+from MaterialModel.models import *
+from UserModel.models import *
+from WorkModel.models import *
+import random
 import json
 import datetime
 
@@ -34,7 +34,6 @@ def work(req):
             d=datetime.datetime.now().strftime('%Y-%m-%d')
             today=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
             if today != work_date:
-                
                 #获得工作策略
                 #工作策略id=req.POST.get("工作策略")
                     #work-四维消耗
@@ -75,88 +74,145 @@ def work(req):
 
 #副业
 def get_sideline(req):
-    uid =None
+    uid = None
     status = 0
     meg = "失败"
-    #data={}
+    data={}
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
         uid=int(session.get_decoded()["_auth_user_id"])
+        user=auth.models.User.objects.get(pk=uid)
         #调用该玩家副业统计表
-        sideline_list=sideline_record.objects.filter(user_id=uid)
-        if not sideline_record.exists():
+        sideline_list=sideline_record.objects.filter(uid=uid)
+        if not sideline_list.exists():
             create_sideline(uid)
+        sideline_list=sideline_record.objects.filter(uid=uid)
+        sideline_list = sideline_list.first()
         #检查副业日期，重置
         if(sideline_list.sideline_day != datetime.datetime.now().strftime('%Y-%m-%d')):
             sideline_list.number_of_today_sideline = 0
         #调用副业id
-        sideline_id=req.POST.get("sideline_id")
-        sideline = sideline_work.objects.filter(sideline_id)
-        
-        if(sideline_xiaohao(uid,sideline_id,sideline_list.number_of_today_sideline) == 0 ):
+        sideline_id = req.POST.get("sidelineid")
+        if sideline_id == None:
+            meg = "缺少必要参数"
+            result = {
+                "status":status,
+                "message":meg,
+                "data":data
+            }
+            return HttpResponse(json.dumps(result), content_type="application/json")
+        sideline_id = is_int(sideline_id)                       #判断uid是否为非数字
+        if sideline_id == "error":                      #如果uid非数字，返回错误信息
+            meg = "存在需要传入数字的参数传入的不是数字"
+            result = {
+                "status":status,
+                "message":meg,
+                "data":data
+            }
+            return HttpResponse(json.dumps(result), content_type="application/json")
+        sideline = sideline_work.objects.filter(sideline_id=sideline_id)
+        #逻辑修改，应该先计算产能和技能增量，再消耗四维
+        if(sideline_xiaohao_panduan(uid,sideline_id,sideline_list.number_of_today_sideline) == 0 ):
             if sideline.exists():
+                sideline = sideline.first()
                 #调用，需要的技能大类，小类，产能，各技能增长效率，产能算法种类
                 bigskills = str(sideline.sideline_bigskills).split()
                 smallskills = str(sideline.sideline_smallskills).split()
                 coefficient = str(sideline.sideline_coefficient).split()
-                skills_increase_type = None
-                skills_increase_type = str(sideline.sideline_skills_increase).split()
+                #副业type_buff修正全为0.8
+                skills_increase_type = [0.8]
+                # skills_increase_type = str(sideline.sideline_skills_increase).split()
                 c_type = None
                 c_type = sideline.c_type
-                #
-
                 len_1 = len(bigskills)
                 len_2 = len(smallskills)
                 len_3 = len(coefficient)
-                
                 if(len_1 == len_2 == len_3  and (c_type!= None)):
-                    capacity= 0 
-                    for i in len_1:
+                    capacity = 0
+                    for i in range(len_1):
                         #产能计算
                         capacity += sideline_capacity(uid,bigskills[i],smallskills[i],coefficient[i],c_type)
-
                         #技能增长计算
                         if len(skills_increase_type)>0:
                             sideline_skill_increase(uid,bigskills[i],smallskills[i],skills_increase_type[i])
                         else:
                             sideline_skill_increase(uid,bigskills[i],smallskills[i],1)
-
-                    
+                    #四维消耗
+                    sideline_xiaohao(uid,sideline_id,sideline_list.number_of_today_sideline)
                     #产出函数
-                    #副业产出物品id
+                    #副业产出物品id，注：部分产物因为有数量上的设定，例如兽肉，有大量兽肉（产量翻倍），输入类型为元组(物资id,倍率)，下面需要将元组取出
                     sideline_product = str(sideline.sideline_product).split()#*str
                     #副业产出物品的各比例
                     sideline_product_probability = str(sideline.sideline_product_probability).split()#*str
-                    #.
-                    #.
-                    #.
-
+                    t=0
+                    for i in sideline_product:
+                        sideline_product[t] = eval(i)
+                        t += 1
+                    t=0
+                    for i in sideline_product_probability:
+                        sideline_product_probability[t] = float(i)
+                        t += 1
+                    probability_sum = sum(sideline_product_probability)
+                    probability = []
+                    #根据随机选出副业产物中的物品id
+                    for i in sideline_product_probability:
+                        probability.append(i/probability_sum)
+                    #获取物资相关信息
+                    material_id = random_choice(sideline_product,probability)
+                    rate = 1
+                    if material_id == 0:
+                        meg = "成功"
+                        status = 1
+                        data ={
+                            'sideline_name':sideline.sideline_name,
+                            'capacity':capacity,
+                            'material':'一无所获',
+                            'quality':0,
+                            'count':0,
+                        }
+                        result={
+                                "status":status,
+                                "message":meg,
+                                "data":data,
+                            }
+                        return HttpResponse(json.dumps(result), content_type="application/json")
+                    if type(material_id) == type((1,2)):
+                        rate = material_id[1]
+                        material_id = material_id[0]
+                    gotmaterial = MaterialDetail.objects.filter(material_id=material_id).filter(level=1).first()
+                    material_capacity = gotmaterial.productivity
+                    material_count = (capacity/material_capacity)*rate
+                    #查找用户是否已经拥有该物品，有该物品则增加数量，没有则创建该物品
+                    user_material = UserMaterial.objects.filter(user=user).filter(material_detail=gotmaterial)
+                    if user_material.exists():
+                        user_material = user_material.first()
+                        user_material.count = F('count') + material_count
+                    else:
+                        user_material = UserMaterial.objects.create(user=user,material_detail=gotmaterial,count=material_count)
+                    user_material.save()
                     #统计
                     sideline_list.sideline_day = datetime.datetime.now().strftime('%Y-%m-%d')
                     d=datetime.datetime.now().strftime('%Y-%m-%d')
                     today=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
-                    sideline.sidline_day_c = today
-                    
-                    sideline.number_of_all_sideline +=1
+                    record = sideline_record.objects.get(uid=uid)
+                    record.sidline_day_c = today
+                    record.number_of_all_sideline = float(record.number_of_all_sideline) + 1
+                    record.number_of_today_sideline = float(record.number_of_today_sideline) + 1
+                    record.save()
                     # sideline.every_sideline_all 正式版上线之后做
-                    
-
-
-
-
                     meg = "成功"
                     status = 1
-
                     data ={
-                        'name':sideline.sideline_name,
-                        'capacity':capacity
-                        
+                        'sideline_name':sideline.sideline_name,
+                        'capacity':capacity,
+                        "material_id":material_id,
+                        'material_name':gotmaterial.material.name,
+                        'quality':gotmaterial.level,
+                        'count':material_count,
                     }
-                    
                 else:
                     meg = '数据库数据设置错误'
-                
             else:
                 meg='副业代码错误'
         else:
@@ -185,14 +241,10 @@ def sideline_capacity(uid,skill_id,skill_mini_id,coefficient,c_type = 0):
     if c_type == 0:
         if skill_mini_id != 0 :
             #获得小技能 dbname
-            smallskillname = SkillName.objects.filter(big_id = skill_id,
-                                                        small_id = skill_mini_id).first().db_small_name
+            smallskillname = SkillName.objects.filter(big_id = skill_id,small_id = skill_mini_id).first().db_small_name
             #获得小技能具体数值
             smallskill = UserSmallSkill.objects.filter(user_id=uid).values(smallskillname)[0].values()#dict.values()
-
             capacity = smallskill *coefficient
-            
-            
         else:
             capacity = bigskill * coefficient
     else:
@@ -201,8 +253,7 @@ def sideline_capacity(uid,skill_id,skill_mini_id,coefficient,c_type = 0):
                                                     small_id = skill_mini_id).first().db_small_name
         #获得小技能具体数值
         smallskill = UserSmallSkill.objects.filter(user_id=uid).values(smallskillname)[0].values()#dict.values()
-        capacity = capacity_calculation(bigskill,smallskill,1,getuserstatus.happy)
-    
+        capacity = capacity_calculation(list(bigskill)[0],list(smallskill)[0],0.8,float(getuserstatus.happy))
     return capacity
 
 #产能参考
@@ -227,54 +278,79 @@ def sideline_skill_increase(uid,big_skill_id,mini_skill_id,type_buff):
     #获得主技能dbname
     big_skill_name = SkillName.objects.filter(big_id = big_skill_id).first().db_big_name
     #获得主技能数值
-    bigskill = UserBigSkill.objects.filter(user_id=uid).values(big_skill_name)[0].values()#dict.values()
+    bigskill = list(UserBigSkill.objects.filter(user_id=uid).values(big_skill_name)[0].values())[0]#dict.values()
     #获得主技能门槛dbname
     big_skill_level_name = big_skill_name + '_level'
     #获得主技能门槛数值
-    big_skill_level = UserBigSkill.objects.filter(user_id=uid).values(big_skill_level_name)[0].values()#dict.values()
+    big_skill_level = list(UserBigSkill.objects.filter(user_id=uid).values(big_skill_level_name)[0].values())[0]#dict.values()
 
     if mini_skill_id != 0:
         #获得小技能 dbname
-        smallskillname = SkillName.objects.filter(big_id = mini_skill_id,
-                                                    small_id = mini_skill_id).first().db_small_name
+        smallskillname = SkillName.objects.filter(big_id = big_skill_id,small_id = mini_skill_id).first().db_small_name
         #获得小技能具体数值
-        smallskill = UserSmallSkill.objects.filter(user_id=uid).values(smallskillname)[0].values()#dict.values()
+        smallskill = list(UserSmallSkill.objects.filter(user_id=uid).values(smallskillname)[0].values())[0]#dict.values()
         #获得新的小技能数值
-        new_mini_skill = skill_mini_increase(smallskill,bigskill,type_buff,happiness)
+        smallskill = float(smallskill)
+        bigskill = float(bigskill)
+        happiness = float(happiness)
+        type_buff = float(type_buff)
+        new_mini_skill = skill_mini_increase(bigskill,smallskill,type_buff,happiness)
         #更改小技能数值到表
-        UserSmallSkill.objects.filter(user_id=uid).update(smallskillname = new_mini_skill)
+        command_str = 'UserSmallSkill.objects.filter(user_id=uid).update('+smallskillname+'=new_mini_skill)'
+        eval(command_str)
     
     #获得新小技能数值
-    new_big_skill = skill_increase(bigskill,type_buff,big_skill_level,happiness)
+    new_big_skill,new_level = skill_increase(bigskill,type_buff,big_skill_level,happiness)
     #更改大技能到表
-    UserBigSkill.objects.filter(user_id=uid).update(big_skill_name = new_big_skill)
-
+    command_str = 'UserBigSkill.objects.filter(user_id=uid).update('+big_skill_name+'=new_big_skill)'
+    eval(command_str)
+    command_str = 'UserBigSkill.objects.filter(user_id=uid).update('+big_skill_level_name+'=new_level)'
+    eval(command_str)
     return 0 
 
-def sideline_xiaohao(uid,sideline_id,item):
+def sideline_xiaohao_panduan(uid,sideline_id,item):
+    #次数修正，因为先消耗四维才记录副业次数，导致副业次数始终少1
+    item += 1
     getuserstatus = personal_attributes.objects.filter(uid=uid).first()
     #获得副业句柄
-    sideline = sideline_record.objects.filter(sideline_id = sideline_id)
+    sideline = sideline_work.objects.filter(sideline_id = sideline_id).first()
     #需要的四维属性 *副业次数（暂时是每次副业次数消耗翻倍）
-    if(len(sideline.sideline_happy)):
-        need_happy = sideline.sideline_happy *item
-        need_healthy = sideline.sideline_health *item
-        need_energy = sideline.sideline_energy*item
-    else:
-        need_happy = 15 *item
-        need_healthy = 15 *item
-        need_energy = 15 *item
-    if((getuserstatus.energy> need_energy) and (getuserstatus.happy >need_happy) and (getuserstatus.healthy >need_healthy)):
-        getuserstatus.energy -= need_energy
-        getuserstatus.happy -= need_happy
-        getuserstatus.healthy -= need_healthy
-        getuserstatus.save()
+    if len(sideline.sideline_happy):
+        need_happy = float(sideline.sideline_happy)*item
+        need_healthy = float(sideline.sideline_health)*item
+        need_energy = float(sideline.sideline_energy)*item
+        need_hunger = float(sideline.sideline_hunger)*item
+    if((float(getuserstatus.energy)>float(need_energy)) and (float(getuserstatus.happy)>float(need_happy)) and (float(getuserstatus.healthy)>float(need_healthy) and (float(getuserstatus.Hunger)>float(need_hunger)))):
         return 0
     else:
         return '四维属性不够'
 
+def sideline_xiaohao(uid,sideline_id,item):
+    #次数修正，因为先消耗四维才记录副业次数，导致副业次数始终少1
+    item += 1
+    getuserstatus = personal_attributes.objects.filter(uid=uid).first()
+    #获得副业句柄
+    sideline = sideline_work.objects.filter(sideline_id = sideline_id).first()
+    #需要的四维属性 *副业次数（暂时是每次副业次数消耗翻倍）
+    if len(sideline.sideline_happy):
+        need_happy = float(sideline.sideline_happy)*item
+        need_healthy = float(sideline.sideline_health)*item
+        need_energy = float(sideline.sideline_energy)*item
+        need_hunger = float(sideline.sideline_hunger)*item
+    getuserstatus.energy = float(getuserstatus.energy) - float(need_energy)
+    getuserstatus.happy = float(getuserstatus.happy) - float(need_happy)
+    getuserstatus.healthy = float(getuserstatus.healthy) - float(need_healthy)
+    getuserstatus.Hunger = float(getuserstatus.Hunger) - float(need_hunger)
+    getuserstatus.save()
 
-
+def random_choice(sequence, probability):
+    x = random.uniform(0, 1)
+    cumulative_probability = 0.0
+    for item, item_probability in zip(sequence, probability):
+        cumulative_probability += item_probability
+        if x < cumulative_probability:
+            break
+    return item
     
 
     

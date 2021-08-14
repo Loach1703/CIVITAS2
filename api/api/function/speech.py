@@ -10,7 +10,6 @@ import datetime
 import json
 import re
 
-
 def getspeech1(req):    #获取演讲，参数：page
     num_every_page=10
     status=0
@@ -126,7 +125,7 @@ def getspeech1(req):    #获取演讲，参数：page
                     r = var.text
                     speech_topic = var.topic_set.all()
                     for st in speech_topic:
-                        r = r.replace('#'+st.topic_name+'#','<a href="topic.html?tagid={0}">{1}</a>'.format(st.id,'#'+st.topic_name+'#'))
+                        r = r.replace('#'+st.topic_name+'#','<a href="speechtag.html?tagid={0}">{1}</a>'.format(st.id,'#'+st.topic_name+'#'))
                     d = str(var.date)[0:10]
                     a=(datetime.datetime.strptime(d,"%Y-%m-%d")-datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
                     b=str(var.date)[11:19]
@@ -170,6 +169,7 @@ def speech1(req):   #发送演讲，参数：text
             if text!=None:
                 if 0<len(text)<=300:
                     #存储演讲数据
+                    text=re.sub(r'</?\w+[^>]*>','',text)
                     templist = re.findall('#[^#].*?#',text)
                     if templist:
                         topiclist = list(set(templist))
