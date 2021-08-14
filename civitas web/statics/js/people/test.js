@@ -1,4 +1,4 @@
-var app;
+var main;
 
 function abc()
 {
@@ -6,7 +6,7 @@ function abc()
     props: ["material"],
     template: `
       <div class="depository-box bottomline-dashed">
-        <img v-bind:src="material.id" width="60px" height="60px" class="depository-mainimg"/>
+        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+material.id" width="60px" height="60px" class="depository-mainimg"/>
         <span class="depository-text1">
           <p class="depository-name">{{ material.name }}<br></p>
           <p class="depository-loss">仓储损耗 10%</p>
@@ -32,10 +32,38 @@ function abc()
       ]
     }
   })
-  var main_right = new Vue({
-    el: "#mainright",
+  main = new Vue({
+    el: "#main",
     data: {
-      speech_input: ""
+      day_html: "",
+      city_html: "",
+      weather: "",
+      season: "",
+      day: "",
+      rain: "",
+      temperature: ""
+    },
+    methods: {
+      get_weather: function () {
+        axios({
+          method: "get",
+          url: "https://api.trickydeath.xyz/getweather/",
+          params: {
+            day: this.day_html,
+            city: this.city_html
+          }
+        })
+        .then(function (response) {
+          main.$data.weather = response.data["data"]["weather"];
+          main.$data.season = response.data["data"]["season"];
+          main.$data.day = response.data["data"]["day"];
+          main.$data.rain = response.data["data"]["rain_num"];
+          main.$data.temperature = response.data["data"]["temperature"].toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
     }
   })
 }

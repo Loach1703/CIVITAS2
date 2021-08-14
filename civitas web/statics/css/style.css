@@ -309,3 +309,23 @@
 {
   border-bottom: 2px dashed rgba(150,150,150,0.3);
 }
+
+.inline
+{
+  display: inline;
+}
+
+.block
+{
+  display: block;
+}
+
+.inline-block
+{
+  display: inline-block;
+}
+
+.float-left
+{
+  float: left;
+}

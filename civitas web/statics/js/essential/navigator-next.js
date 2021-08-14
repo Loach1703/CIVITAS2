@@ -21,7 +21,7 @@ function navigator(status,uid)
     //已登录
     if (status == 1)
     {
-        nav.innerHTML = "<img src=\"../civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.7<p id=\"time\" class=\"time\"></p></span><span><a href=\"#street\"><img src=\"\
+        nav.innerHTML = "<img src=\"../civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.8<p id=\"time\" class=\"time\"></p></span><span><a href=\"#street\"><img src=\"\
             ../civitas/svg/common/street.svg\" width=\"22px\" height=\"22px\"/>县城</a><a href=\"../map.html\"><img src=\"../civitas/svg/common/map.svg\" width=\"22px\" height=\"22px\"/>地图</a></span><span class=\"market-main\" id=\"market\"><a \
             href=\"#market\"><img src=\"../civitas/svg/common/market.svg\" width=\"22px\" height=\"22px\"></img>市场</a><div id=\"market-down\" class=\"market-dropdown hide\"><a href=\"#square\"><img src=\"../civitas/svg/common/goods.svg\" \
             width=\"22px\" height=\"22px\"></img>物资市场</a><a href=\"#square\"><img src=\"../civitas/svg/common/recruit.svg\" width=\"22px\" height=\"22px\"></img>招聘市场</a><a href=\"#square\"><img src=\"../civitas/svg/common/estate.svg\" \
@@ -29,7 +29,7 @@ function navigator(status,uid)
     }
     else
     {
-        nav.innerHTML = "<img src=\"../civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.7<p id=\"time\" class=\"time\"></p></span><span><a href=\"1.html\"><img src=\"../civitas/svg/common/blog.svg\" width=\"22px\" height=\"22px\"/>开发日志</a></span><span class=\"signup-in\"><a href=\"../login.html\">登录</a><a href=\"../register.html\">注册</a></span>"
+        nav.innerHTML = "<img src=\"../civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.8<p id=\"time\" class=\"time\"></p></span><span><a href=\"1.html\"><img src=\"../civitas/svg/common/blog.svg\" width=\"22px\" height=\"22px\"/>开发日志</a></span><span class=\"signup-in\"><a href=\"../login.html\">登录</a><a href=\"../register.html\">注册</a></span>"
     }
     date_navigator();
 }

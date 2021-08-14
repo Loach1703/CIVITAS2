@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    
+<link rel="stylesheet" href="civitas/css/style.css">
+<link rel="stylesheet" href="civitas/css/login.css">
+
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
+<script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+
+<link rel="icon" href="civitas/icon/favicon2.ico"/>
+<link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
+
+<script src="civitas/js/essential/is-login.js"></script>
+<script src="civitas/js/essential/navigator.js"></script>
+<script src="civitas/js/essential/redirection/redirection-nologin.js"></script>
+
+<script src="civitas/js/userstatus/login.js"></script>
+
+<script src="civitas/js/onload/onload-nologin.js"></script>
+
+<head>
+<meta charset="utf-8">
+<title>登录 - 古典社会模拟 CIVITAS2</title>
+</head>
+
+<body background="civitas/img/background.png" style="background-attachment: fixed;">
+
+<nav class="navigator" id="navigator"></nav>
+
+<div class="container">
+  <div class="col-md-6 col-md-offset-3 container login-box">
+    <p class="login-main">登录CIVITAS2</p>
+    <div class="login-inputdiv">
+      <input type="text" class="form-control login-input" id="account" placeholder="账号（暂时使用用户名登录，不是邮箱）">
+      <input type="password" class="form-control login-input" id="password" placeholder="密码">
+      <button class="btn btn-block btn-primary" onclick="login_getvalue()">登录</button>
+      <p class="login-message" id="message"></p>
+    </div>
+    <a href="register.html">还没有账号？点击这里注册</a>
+    <a href="#password_reset.html">忘记密码</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -26,8 +26,8 @@ function load_depository(uid)
                 +material_data["id"]+".png\" width=\"60px\" height=\"60px\" class=\"depository-mainimg\"/><span class=\"depository-text1\"><p class=\"depository-name\">"
                 +material_data["name"]+"<br></p><p class=\"depository-loss\">仓储损耗 "
                 +material_data["wastage"]+"</p></span><span class=\"depository-text2\"><p class=\"depository-num\">"
-                +material_data["total"]+"<br></p><p class=\"depository-loss\">总量</p></span><span class=\"depository-text2\"><p class=\"depository-num\">"
-                +material_data["total"]*material_data["unitmass"]+"<br></p><p class=\"depository-loss\">每单位重量 "
+                +material_data["total"].toFixed(2)+"<br></p><p class=\"depository-loss\">总量</p></span><span class=\"depository-text2\"><p class=\"depository-num\">"
+                +(material_data["total"]*material_data["unitmass"]).toFixed(2)+"<br></p><p class=\"depository-loss\">每单位重量 "
                 +material_data["unitmass"]+"</p></span></div>"
             }
             if (material_html != "") 

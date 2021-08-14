@@ -2,10 +2,13 @@
 <html>
 
 <link rel="stylesheet" href="civitas/css/style.css"/>
+<link rel="stylesheet" href="civitas/css/recipe.css"/>
 
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/vue/vue.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
@@ -13,15 +16,17 @@
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-login.js"></script>
+<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+
+<script src="civitas/js/recipe/recipe.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-login.js"></script>
+<script src="civitas/js/onload/onload-recipe.js"></script>
 
 <head>
 <meta charset="utf-8">
-<title>地图 - 古典社会模拟 CIVITAS2</title>
+<title>新建食谱 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -31,9 +36,14 @@
 <div class="left-navigator" id="left-navigator"></div>
 
 <div class="main">
-<p class="main-char">地图</p>
-<img src="civitas/img/map-east.png"/>
-<img src="civitas/img/map-west.png" width="90%" height="60%"/>
+<p class="main-char">新建食谱</p>
+<p class="author">创建全新的食谱以供享用。<p>
+<div id="recipe-inner">
+    <button class="btn btn-warning">保存食谱</button>
+    <button class="btn btn-warning">取消新建</button>
+    <ingredient v-bind:prop="prop"></ingredient>
+    <button class="btn btn-warning">添加食材</button>
+</div>
 
 </div>
 

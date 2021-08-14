@@ -1,0 +1,92 @@
+.recipe-single
+{
+    height: 65px;
+}
+
+.recipe-single p
+{
+    margin: 0;
+    display: inline;
+}
+
+.recipe-name 
+{
+    float: left;
+    padding-top: 15px;
+}
+
+.recipe-prop
+{
+    float: left;
+    padding: 5px 10px 0 10px;
+}
+
+.recipe-number
+{
+    color: rgb(250, 100, 100);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.recipe-starvation
+{
+    color: rgb(150, 150, 50);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.recipe-health
+{
+    color: rgb(50, 150, 50);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.recipe-stamina
+{
+    color: rgb(50, 50, 150);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.recipe-taste
+{
+    padding-top: 12px;
+}
+
+.recipe-taste-text
+{
+    color: rgb(80, 80, 80);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.recipe-acid
+{
+    font-size: 18px;
+    color: rgb(120, 80, 120)
+}
+
+.recipe-sweet
+{
+    font-size: 18px;
+    color: rgb(160, 80, 80)
+}
+
+.recipe-bitter
+{
+    font-size: 18px;
+    color: rgb(80, 160, 80)
+}
+
+.recipe-salt
+{
+    font-size: 18px;
+    color: rgb(110, 110, 110)
+}
+
+.recipe-none
+{
+    font-size: 18px;
+    color: rgb(80, 80, 80)
+}

@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="/civitas/css/style.css">
-<link rel="stylesheet" href="/civitas/css/speech.css">
-<link rel="stylesheet" href="/civitas/css/skill.css">
-<link rel="stylesheet" href="/civitas/css/bootstrap/bootstrap.min.css"/>
-<script src="/civitas/js/jquery/jquery-3.6.0.min.js"></script>
-<script src="/civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="/civitas/js/onload-test.js"></script>
+
+<link rel="stylesheet" href="civitas/css/style.css"/>
+<link rel="stylesheet" href="civitas/css/depository.css"/>
+<script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
+<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/vue/vue.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
+
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+</head>
+
 <body>
-<div class="bottomline">
-<div class="progress status">
-    <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width: 100%" id="happiness">
-        <div id="label_happy">快乐</div>
-    </div>
+
+<div id="app">
+    <depository v-for="material in materials" v-bind:key="material.id" v-bind:material="material"></depository>
 </div>
-    <div class="progress status">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width: 100%" id="stamina">
-            <div id="label_energy">精力</div>
-        </div>
-    </div>
-    <div class="progress status">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width: 100%" id="health">
-            <div id="label_healthy">健康</div>
-        </div>
-    </div>
-    <div class="progress status">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width: 100%" id="starvation">
-            <div id="label_hunger">饥饿</div>
-        </div>
-    </div>
+<div class="main-right" id="main">
+    <input type="text" v-model="day_html"></input>
+    <input type="text" v-model="city_html"></input>
+    <button class="btn btn-primary" v-on:click="get_weather">发表</button>
+    <p class="location" id="location">位于京兆尹，长安县 今天是{{ season }}的第{{ day }}天</p>
+    <p class="weather-main">今日天气：{{ weather }} 温度：{{ temperature }}摄氏度 降水量：{{ rain }}mm</p>
 </div>
-</div>
+
+<script src="civitas/js/people/test.js"></script>
 </body>
+</html>
