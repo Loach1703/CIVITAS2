@@ -1,4 +1,4 @@
-from api.models.WorkModel.models import sideline_record
+
 from django.db.models.expressions import F
 from django.db.models.query_utils import Q
 from django.shortcuts import redirect,render,HttpResponse
@@ -8,6 +8,7 @@ from django.contrib.sessions.models import Session
 from django.contrib import auth
 from MaterialModel.models import *
 from UserModel.models import *
+from WorkModel.models import *
 from WorkModel.models import *
 import random
 import json
@@ -88,7 +89,7 @@ def get_sideline(req):
         sideline_list=sideline_record.objects.filter(uid=uid)
         if not sideline_list.exists():
             create_sideline(uid)
-        sideline_list=sideline_record.objects.filter(uid=uid)
+            sideline_list=sideline_record.objects.filter(uid=uid)
         sideline_list = sideline_list.first()
         #检查副业日期，重置
         if(sideline_list.sideline_day != datetime.datetime.now().strftime('%Y-%m-%d')):
