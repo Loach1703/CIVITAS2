@@ -43,14 +43,15 @@ def getUserSkill(req):
         smallskill = list(smallskilldict.values())[2::]
         datalist = []
         t = 0
-        for i in range(1,(int(len(bigskill)/2)+1)):
-            big_skillnum = bigskill[2*i-2]
+        for i in range(1,(int(len(bigskill)/3)+1)):
+            big_skillnum = bigskill[3*i-3]
             getname = SkillName.objects.filter(big_id=i)
             if big_skillnum:
                 small_skill_count = len(getname) + 1
                 name_object = getname.first()
                 bigname = name_object.big_name
-                big_level = bigskill[2*i-1]
+                big_level = bigskill[3*i-2]
+                big_wuxing = bigskill[3*i-1]
                 small_skill_list = []
                 for j in range(1,small_skill_count):
                     small_skillnum = smallskill[t+j-1]
@@ -59,7 +60,7 @@ def getUserSkill(req):
                         name_object = getsmallname.first()
                         smallname = name_object.small_name
                         small_skill_list.append({'id':j,'name':smallname,'skill':small_skillnum})
-                datalist.append({'id':i,'name':bigname,'skill':big_skillnum,'level':big_level,'list':small_skill_list})
+                datalist.append({'id':i,'name':bigname,'skill':big_skillnum,'level':big_level,'comprehension':big_wuxing,'list':small_skill_list})
             t += len(getname)
         status = 1
         meg = '查询技能成功'
