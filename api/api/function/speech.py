@@ -203,11 +203,10 @@ def speech1(req):   #发送演讲，参数：text
                     getusersmallskill = UserSmallSkill.objects.filter(user_id=uid).first()
                     happiness = eval(getuserstatus.happy)                                   #获取当前用户幸福值
                     skill_mini_now = getusersmallskill.xiongbian                            #获取当前小类——雄辩技能点
-                    skill_num_now , skill_level_now = skill_increase(skill_now,0.2,skill_level,happiness,strategy_buff=1)    #大类技能增加
+                    skill_num_now = skill_increase(skill_now,0.2,skill_level,happiness,strategy_buff=1)    #大类技能增加
                     mini_increase = skill_mini_increase(skill_mini_now,skill_now,0.2,happiness,strategy_buff=1)    #小类技能增加
                     #修改大类——社交技能点、大类技能等级、小类——雄辩技能点
                     getuserbigskill.shejiao = skill_num_now
-                    getuserbigskill.shejiao_level = skill_level_now
                     getusersmallskill.xiongbian = mini_increase
                     getuserstatus.energy = energy - 15
                     getuserbigskill.save()
@@ -215,7 +214,7 @@ def speech1(req):   #发送演讲，参数：text
                     getuserstatus.save()
                     status=1
                     meg="演讲发布成功"
-                    data={"skill_num_change":skill_num_now,"level_change":skill_level_now,"eloquence_skill_change":mini_increase}
+                    data={"skill_num_change":skill_num_now,"eloquence_skill_change":mini_increase}
                 else:
                     status=0
                     meg="失败，提交字数应该在1~300之间，当前字数：{}".format(len(text))
