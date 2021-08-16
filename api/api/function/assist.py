@@ -1,5 +1,6 @@
 import re
 import math
+import random
 
 def is_int(para):
     try:
@@ -22,32 +23,35 @@ def is_login(req,sessionid):
 #skill_level：门槛，学徒，匠人等
 #happiness：当前快乐
 #strategy_buff：工作策略加成，如果不是工作，则为1
-def skill_increase(skill_now,type_buff,skill_level,happiness,strategy_buff=1):
+#comprehension：当前悟性，只有教育需要使用
+def skill_increase(skill_now,type_buff,skill_level,happiness,strategy_buff=1,comprehension=0):
     #技能增长e^(-技能等级/4)
     change = math.exp(-skill_now / 4)
     #进门槛降低技能增长速度
-    if math.floor((skill_now / 4) + 1) > skill_level:
+    if math.floor((skill_now / 4) + 1) > skill_level and skill_now < 28:
         diff = skill_now - skill_level * 4
         change *= (1 - math.sqrt(diff))
-        #直接突破，临时的，以后要算概率
-        skill_level += 1
-    #快乐修正，20快乐-10%增长速度
+        # 直接突破，临时的，以后要算概率
+        # skill_level += 1
+    #快乐修正，20快乐---10%增长速度
     change *= (1 + ((happiness - 60) / 200))
     #类型修正
     change *= type_buff
     #工作策略修正
     change *= strategy_buff
+    #悟性修正
+    change *= 1 + comprehension / 4
     #返回值
-    return skill_now + change,skill_level
+    return skill_now + change
 
 #增加小类技能
 #参数说明
-#skill_mini_now：当前小类技能
 #skill_now：当前技能
+#skill_mini_now：当前小类技能
 #type_buff：类型修正，范围0-1，如工作则为1，演讲为0.2，等等
 #happiness：当前快乐
 #strategy_buff：工作策略加成，如果不是工作，则为1
-def skill_mini_increase(skill_mini_now,skill_now,type_buff,happiness,strategy_buff=1):
+def skill_mini_increase(skill_now,skill_mini_now,type_buff,happiness,strategy_buff=1):
     #基础增长3%
     change = 0.03
     #当前技能每高12点，则增长速度翻一倍
@@ -60,18 +64,25 @@ def skill_mini_increase(skill_mini_now,skill_now,type_buff,happiness,strategy_bu
     change *= type_buff
     #工作策略修正
     change *= strategy_buff
+    #不能超限
+    if skill_mini_now + change > 1:
+        change = 1 - skill_mini_now
     #返回值
     return skill_mini_now + change
 
+
 #小类技能衰减，换日时调用
 #参数说明
-#skill_mini_now：当前小类技能
 #skill_now：当前技能
-def skill_mini_decrease(skill_mini_now,skill_now):
+#skill_mini_now：当前小类技能
+def skill_mini_decrease(skill_now,skill_mini_now):
     #基础衰减2%+原小类的8%
     change = 0.02 + 0.08 * skill_mini_now
     #当前技能每高12点，衰减减慢一半
     change *= (1 / 2) ** (skill_now / 12)
+    #不能超限
+    if skill_mini_now - change < 0:
+        change = skill_mini_now
     #返回值
     return skill_mini_now - change
 
@@ -153,3 +164,52 @@ def status_recover(stamina,happiness,health,starvation,house_type,house_level):
         "starvation_change":really_starvation_change,
     }
     return reply_data
+
+def random_choice(sequence, probability):
+    x = random.uniform(0, 1)
+    cumulative_probability = 0.0
+    for item, item_probability in zip(sequence, probability):
+        cumulative_probability += item_probability
+        if x < cumulative_probability:
+            break
+    return item
+
+#计算是否突破
+#参数说明
+#skill_now：当前技能
+#level：等级（学徒：1，匠人：2......）
+#comprehension：悟性，数值为0-1
+def eureka(skill_now,level,comprehension):
+    if not (math.floor((skill_now / 4) + 1) > level and level < 7):
+        return False
+    #基础突破概率
+    eureka_0 = 0.5
+    #与门槛基础差值提高基础概率，最高为3倍
+    diff = skill_now - level * 4
+    eureka_really = eureka_0 * (1 + diff * 2)
+    num = random.random()
+    #悟性提高突破概率，最高为2倍
+    eureka_really *= comprehension + 1
+    #实际突破概率，每高一级等级就降低一半
+    eureka_really *= 1 / (2 ** level)
+    #判断是否突破，需要返回突破概率，因为前端要显示，如果有其他办法显示也可以不返回
+    if num < eureka_really:
+        return True
+    else:
+        return False
+
+#悟性增加
+#参数说明
+#skill_now：当前技能
+def comprehension_increase(skill_now):
+    #增加0.1+当前技能/100
+    change = 0.1 + skill_now / 100
+    return change
+
+#悟性换日减少
+#参数说明
+#comprehension：当前悟性
+def comprehension_decrease(comprehension):
+    #减少0.05+当前悟性*0.2
+    change = 0.05 + comprehension * 0.2
+    return change
