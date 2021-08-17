@@ -14,18 +14,18 @@ function recipe_vm()
                 </select>
             </div>
             <div class="recipe-name col-lg-2">
-                <input type="text" class="form-control" v-model="recipe_number" placeholder="数量"></input>
+                <input type="text" class="form-control" v-model="prop.recipe_number" placeholder="数量"></input>
             </div>
             <div class="recipe-prop">
-                <p class="recipe-number">{{ prop.recipe_prop.starvation * recipe_number }}<br></p>
+                <p class="recipe-number">{{ (prop.recipe_prop.starvation * prop.recipe_number).toFixed(2) }}<br></p>
                 <p class="recipe-starvation">饥饿变化</p>
             </div>
             <div class="recipe-prop">
-                <p class="recipe-number">{{ prop.recipe_prop.health }}<br></p>
+                <p class="recipe-number">{{ (prop.recipe_prop.health * prop.recipe_number).toFixed(2) }}<br></p>
                 <p class="recipe-health">健康变化</p>
             </div>
             <div class="recipe-prop">
-                <p class="recipe-number">{{ prop.recipe_prop.stamina }}<br></p>
+                <p class="recipe-number">{{ (prop.recipe_prop.stamina * prop.recipe_number).toFixed(2) }}<br></p>
                 <p class="recipe-stamina">精力变化</p>
             </div>
             <div class="recipe-taste">
@@ -38,8 +38,9 @@ function recipe_vm()
         el: "#recipe-inner",
         data: {
             prop: {
-                recipe_prop: { starvation: 10, health: 1, stamina: 10}
-            }
+                recipe_prop: { starvation: 10, health: 1, stamina: 10},
+                recipe_number: 0
+            },
         },
         methods: {
             add_ingredients: function (){

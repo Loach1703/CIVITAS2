@@ -189,7 +189,7 @@
 .main-char
 {
   padding-left: 10px;
-  font-size: 30px;
+  font-size: 28px;
   color: rgb(57,85,115);
   font-weight: bold;
   border-bottom: 2px solid rgb(211,227,254);
@@ -202,6 +202,36 @@
   font-size: 20px;
   color: rgb(57,85,115);
   border-bottom: 2px solid rgb(211,227,254);
+}
+
+.main-people
+{
+  margin: 20px 0 20px 0;
+  padding-left: 10px;
+  font-size: 20px;
+  color: rgb(57,85,115);
+  border-bottom: 2px solid rgb(211,227,254);
+  height: 105px
+}
+
+.main-people-text
+{
+  float: left;
+}
+
+.main-people-text p
+{
+  margin: 0;
+}
+
+.main-people-text a:hover
+{
+  text-decoration: none;
+}
+
+.main-people img
+{
+  float: left;
 }
 
 .location
@@ -323,9 +353,4 @@
 .inline-block
 {
   display: inline-block;
-}
-
-.float-left
-{
-  float: left;
 }

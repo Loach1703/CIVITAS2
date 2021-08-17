@@ -21,15 +21,45 @@ function navigator(status,uid)
     //已登录
     if (status == 1)
     {
-        nav.innerHTML = "<img src=\"civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.8<p id=\"time\" class=\"time\"></p></span><span><a href=\"#street\"><img src=\"\
-            civitas/svg/common/street.svg\" width=\"22px\" height=\"22px\"/>县城</a><a href=\"map.html\"><img src=\"civitas/svg/common/map.svg\" width=\"22px\" height=\"22px\"/>地图</a></span><span class=\"market-main\" id=\"market\"><a \
-            href=\"#market\"><img src=\"civitas/svg/common/market.svg\" width=\"22px\" height=\"22px\"></img>市场</a><div id=\"market-down\" class=\"market-dropdown hide\"><a href=\"#square\"><img src=\"civitas/svg/common/goods.svg\" \
-            width=\"22px\" height=\"22px\"></img>物资市场</a><a href=\"#square\"><img src=\"civitas/svg/common/recruit.svg\" width=\"22px\" height=\"22px\"></img>招聘市场</a><a href=\"#square\"><img src=\"civitas/svg/common/estate.svg\" \
-            width=\"22px\" height=\"22px\"></img>不动产市场</a></div></span><span><a href=\"blog/1.html\"><img src=\"civitas/svg/common/blog.svg\" width=\"22px\" height=\"22px\"/>开发日志</a></span><span class=\"signup-in\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+uid+"\" width=\"40px\" height=\"40px\"/><a  href=\"javascript:void(0)\" onclick=\"log_out()\">注销</a></span>"
+        nav.innerHTML = `
+            <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
+            <span class="vertime">Pre-Alpha 0.0.8
+                <p id="time" class="time"></p>
+            </span>
+            <span>
+                <a href="#street"><img src="civitas/svg/common/street.svg" width="22px" height="22px"/>县城</a>
+                <a href="map.html"><img src="civitas/svg/common/map.svg" width="22px" height="22px"/>地图</a>
+            </span>
+            <span class="market-main" id="market">
+                <a href="#market"><img src="civitas/svg/common/market.svg" width="22px" height="22px"/>市场</a>
+                <div id="market-down" class="market-dropdown hide">
+                    <a href="#square"><img src="civitas/svg/common/goods.svg" width="22px" height="22px"/>物资市场</a>
+                    <a href="#square"><img src="civitas/svg/common/recruit.svg" width="22px" height="22px">招聘市场</a>
+                    <a href="#square"><img src="civitas/svg/common/estate.svg" width="22px" height="22px"/>不动产市场</a>
+                </div>
+            </span>
+            <span>
+                <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发日志</a>
+            </span>
+            <span class="signup-in">
+                <img src="https://api.trickydeath.xyz/getavatar/?uid=`+uid+`" width="40px" height="40px"/>
+                <a href="javascript:void(0)" onclick="log_out()">注销</a>
+            </span>`
     }
     else
     {
-        nav.innerHTML = "<img src=\"civitas/img/CIVITAS2.png\" width=\"120px\" height=\"25px\" class=\"civitas2\"/><span class=\"vertime\">Pre-Alpha 0.0.8<p id=\"time\" class=\"time\"></p></span><span><a href=\"blog/1.html\"><img src=\"civitas/svg/common/blog.svg\" width=\"22px\" height=\"22px\"/>开发日志</a></span><span class=\"signup-in\"><a href=\"login.html\">登录</a><a href=\"register.html\">注册</a></span>"
+        nav.innerHTML = `
+            <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
+            <span class="vertime">Pre-Alpha 0.0.8
+                <p id="time" class="time"></p>
+            </span>
+            <span>
+                <a href="blog/1.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发日志</a>
+            </span>
+            <span class="signup-in">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+            </span>`
     }
     date_navigator();
 }
@@ -68,7 +98,50 @@ function left_navigator(username,uid)
         uid = 0;
     }
     var nav = document.getElementById("left-navigator");
-    nav.innerHTML = "<div class=\"bottomline\"><a href=\"people.html?uid="+uid+"\" class=\"avatar\"><img src=\"https://api.trickydeath.xyz/getavatar/?uid="+uid+"\" class=\"img-thumbnail\" width=\"80px\" height=\"80px\"/></a><div class=\"level\"><a href=\"people.html?uid="+uid+"\" id=\"username\">"+username+"</a><p>等级 100级</p><div class=\"progress levelbar\"><div class=\"progress-bar bg-warning progress-bar-striped progress-bar-animated\" style=\"width: 50%\" id=\"energy\"><p class=\"xp\">经验 1000 / 2000</p></div></div></div></div><div class=\"bottomline\"><p class=\"menu\">我的状态</p><div id=\"status\"></div></div><div class=\"left-navigator-option\"><div class=\"bottomline\"><p class=\"menu\">我的CIVITAS</p><a href=\"index.html\">我的CIVITAS</a><a href=\"#news\">我的通知</a><a href=\"settings.html\">我的设置</a></div><div class=\"bottomline\"><p class=\"menu\">我的生活</p><a href=\"#home\">我的食谱</a><a href=\"#home\">我的藏书</a><a href=\"sideline.html\">我的副业</a><a href=\"education.html\">我的教育</a></div><div class=\"bottomline\"><p class=\"menu\">我的交际圈</p><a href=\"#home\">我的人际关系</a><a href=\"#news\">我的社交活动</a></div><div class=\"bottomline\"><p class=\"menu\">我的资产</p><a href=\"depository.html?uid="+uid+"\">我的库房</a><a href=\"#news\">我的私人交易</a><a href=\"#news\">我管理的不动产</a><a href=\"#home\">我拥有的不动产</a></div></div>";
+    nav.innerHTML = `
+        <div class="bottomline">
+            <a href="people.html?uid=`+uid+`" class="avatar"><img src="https://api.trickydeath.xyz/getavatar/?uid=`+uid+`" class="img-thumbnail" width="80px" height="80px"/></a>
+            <div class="level">
+                <a href="people.html?uid=`+uid+`" id="username">`+username+`</a>
+                <p>等级 100级</p>
+                <div class="progress levelbar">
+                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" style="width: 50%" id="energy">
+                        <p class="xp">经验 1000 / 2000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottomline">
+            <p class="menu">我的状态</p>
+            <div id="status"></div>
+        </div>
+        <div class="left-navigator-option">
+            <div class="bottomline">
+                <p class="menu">我的CIVITAS</p>
+                <a href="index.html">我的CIVITAS</a>
+                <a href="#news">我的通知</a>
+                <a href="settings.html">我的设置</a>
+            </div>
+            <div class="bottomline">
+                <p class="menu">我的生活</p>
+                <a href="#home">我的食谱</a>
+                <a href="#home">我的藏书</a>
+                <a href="sideline.html">我的副业</a>
+                <a href="education.html">我的教育</a>
+            </div>
+            <div class="bottomline">
+                <p class="menu">我的交际圈</p>
+                <a href="#home">我的人际关系</a>
+                <a href="#news">我的社交活动</a>
+            </div>
+            <div class="bottomline">
+                <p class="menu">我的资产</p>
+                <a href="depository.html?uid=`+uid+`">我的库房</a>
+                <a href="#news">我的私人交易</a>
+                <a href="#news">我管理的不动产</a>
+                <a href="#home">我拥有的不动产</a>
+            </div>
+        </div>`;
     status_left_navigator();
 }
 
@@ -206,15 +279,19 @@ function status_left_navigator()
             {
                 starvation_change = " + " + starvation_change.toFixed(1);
             }
-            status_html.innerHTML = "<div class=\"progress status\"><div id=\"stamina\" class=\""
-            +status_dict["stamina"]+"\" style=\"width: "+stamina+"%\">精力 "+stamina+" / 100"
-            +stamina_change+"</div></div><div class=\"progress status\"><div id=\"happiness\" class=\""
-            +status_dict["happiness"]+"\" style=\"width: "+happiness+"%\">快乐 "+happiness+" / 100"
-            +happiness_change+"</div></div><div class=\"progress status\"><div id=\"health\" class=\""
-            +status_dict["health"]+"\" style=\"width: "+health+"%\">健康 "+health+" / 100"
-            +health_change+"</div></div><div class=\"progress status\"><div id=\"starvation\" class=\""
-            +status_dict["starvation"]+"\" style=\"width: "+starvation+"%\">饥饿 "+starvation+" / 100"
-            +starvation_change+"</div></div>"
+            status_html.innerHTML = `
+                <div class="progress status">
+                    <div id="stamina" class="`+status_dict["stamina"]+`" style="width:`+stamina+`%">精力 `+stamina+` / 100`+stamina_change+`</div>
+                </div>
+                <div class="progress status">
+                    <div id="happiness" class="`+status_dict["happiness"]+`" style="width:`+happiness+`%">快乐 `+happiness+` / 100`+happiness_change+`</div>
+                </div>
+                <div class="progress status">
+                    <div id="health" class="`+status_dict["health"]+`" style="width:`+health+`%">健康 `+health+` / 100`+health_change+`</div>
+                </div>
+                <div class="progress status">
+                    <div id="starvation" class="`+status_dict["starvation"]+`" style="width:`+starvation+`%">饥饿 `+starvation+` / 100`+starvation_change+`</div>
+                </div>`;
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/getstatus/",true);
