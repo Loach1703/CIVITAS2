@@ -1,8 +1,9 @@
 var main;
+var app;
 
 function abc()
 {
-  Vue.component("depository", {
+  Vue.component("depository-a", {
     props: ["material"],
     template: `
       <div class="depository-box bottomline-dashed">
@@ -17,19 +18,26 @@ function abc()
         </span>
         <span class="depository-text2">
           <p class="depository-num">{{ material.total * material.unitmass }}<br></p>
-          <p class=\"depository-loss\">每单位重量 {{ material.unitmass }}</p>
+          <p class="depository-loss">每单位重量 {{ material.unitmass }}</p>
         </span>
+        <p>{{ material.id }}</p>
+        <button class="btn btn-primary" v-on:click="$emit('remove')">remove</button>
       </div>
     `
   })
-  var app = new Vue({
+  app = new Vue({
     el: "#app",
     data: {
+      next_id: 1,
       materials: [
-        { id: 1, name: "小麦",total: 100,unitmass: 10 },
-        { id: 6, name: "大麦",total: 200,unitmass: 5 },
-        { id: 7, name: "粟",total: 300,unitmass: 1 }
+        { id: 0, name: "小麦",total: 100,unitmass: 10 }
       ]
+    },
+    methods: {
+      get_get: function () {
+        this.materials.push({ id: this.next_id, name: "大麦", total: this.next_id*100, unitmass: this.next_id*2 });
+        this.next_id++;
+      }
     }
   })
   main = new Vue({
@@ -41,7 +49,8 @@ function abc()
       season: "",
       day: "",
       rain: "",
-      temperature: ""
+      temperature: "",
+      speech_input: ""
     },
     methods: {
       get_weather: function () {
@@ -62,6 +71,23 @@ function abc()
         })
         .catch(function (error) {
           console.log(error);
+        });
+      },
+      sideline: function () {
+        axios({
+          method: "post",
+          url: "https://api.trickydeath.xyz/dosideline/",
+          withCredentials: true,
+          data: {
+              sidelineid: this.day_html,
+              typeid: this.city_html
+          },
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
         });
       }
     }

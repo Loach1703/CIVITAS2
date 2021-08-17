@@ -38,6 +38,12 @@
     -webkit-text-stroke: 0px black;
 }
 
+.skill-name-education
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
 .skill-name-right1
 {
     color: rgb(104,104,104);

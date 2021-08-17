@@ -53,7 +53,7 @@
         <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
         <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
     </div>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button>
+    <!--button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button-->
 </div>
 
 <div id="skill"></div>
@@ -66,7 +66,7 @@
         <textarea class="form-control resize-none" rows="5" id="speech-input" type="text" v-model="speech_input" placeholder="在这里发表演讲，不超过300个字"></textarea>
         <button class="btn btn-primary" onclick="give_speech()">发表</button>
         <p class="speech-tips" id="speech-tips"></p>
-        <p class="speech-length-tips">{{ speech_input.length }}300</p>
+        <p class="speech-length-tips" v-bind:class="{ 'speech-length-tips-over': speech_input.length > 300 }">{{ speech_input.length }}/300</p>
     </div>
     <p class="main-char">热门演讲</p>
     <div id="popular-speech"></div>
