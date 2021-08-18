@@ -23,7 +23,7 @@ function navigator(status,uid)
     {
         nav.innerHTML = `
             <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
-            <span class="vertime">Pre-Alpha 0.0.8
+            <span class="vertime">Pre-Alpha 0.0.9
                 <p id="time" class="time"></p>
             </span>
             <span>
@@ -50,7 +50,7 @@ function navigator(status,uid)
     {
         nav.innerHTML = `
             <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
-            <span class="vertime">Pre-Alpha 0.0.8
+            <span class="vertime">Pre-Alpha 0.0.9
                 <p id="time" class="time"></p>
             </span>
             <span>
