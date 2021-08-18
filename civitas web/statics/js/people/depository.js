@@ -26,7 +26,7 @@ function load_depository(uid)
                     <p class="depository-loss">每单位重量 {{ material.unitmass.toFixed(2) }}</p>
                 </span>
             </div>
-            <div class="depository-detail bottomline-dashed collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail">
+            <div class="depository-detail bottomline-dashed collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail" v-bind:key="detailmes.level">
                 <span class="depository-star">
                     <img v-bind:src="'civitas/icon/star/star.png'"/>
                     <img v-bind:src="'civitas/icon/star/star.png'" v-if="detailmes.level >= 2"/>
