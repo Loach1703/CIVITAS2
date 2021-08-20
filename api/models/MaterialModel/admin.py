@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Material,Recipe,UserMaterial,MaterialDetail,Input_Recipe_Material,Output_Recipe_Material
 # Register your models here.
-class ChoiceInline(admin.TabularInline):
+class ChoiceInline(admin.TabularInline):#物资表添加
     model = MaterialDetail
     extra = 3
 
