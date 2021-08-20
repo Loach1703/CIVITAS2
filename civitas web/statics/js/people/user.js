@@ -33,7 +33,7 @@ function load_user_detail(uid)
                 <div class="main-people-text">
                     <p>`+json_str["data"]["username"]+`</p>
                     <p class="author">>位于京兆尹，长安县 >籍贯京兆尹</p>
-                    <p class="author">><a href="?uid=`+uid+`">`+json_str["data"]["username"]+`库房</a></p>
+                    <p class="author">><a href="depository.html?uid=`+uid+`">`+json_str["data"]["username"]+`的库房</a></p>
                 </div>
             </div>`;
     }

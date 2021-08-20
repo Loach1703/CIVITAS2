@@ -7,6 +7,8 @@
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
@@ -34,9 +36,10 @@
 
 <div class="left-navigator" id="left-navigator"></div>
 
-<div class="main">
+<div class="main" id="main">
     <p id="depository-name" class="main-char"></p>
-    <div id="depository-detail"></div>
+    <p id="depository-none" class="main-subchar" v-if="materials.length == 0"></p>
+    <depository-one v-for="material in materials" v-bind:material="material" v-bind:key="material.id"></depository-one>
 </div>
 
 </body>
