@@ -15,43 +15,7 @@ class Material(models.Model):
     def __str__(self):
         return self.name
 
-# class Recipe(models.Model):
-#     DATA_SCHEMA =     {
-#         "data":[
-#             {
-#                 "material_id":'物资id',
-#                 "count":'物资id'
-#             }
-#         ]
-#     }
-    
 
-#     raw_material_data = JSONField(verbose_name='所需物资数据')
-#     '''
-#     {
-#         "data":[
-#             {
-#                 "material_id":id,
-#                 "count":count
-#             },
-#             {
-#                 "material_id":id,
-#                 "count":count
-#             },
-#             ...
-#         ]
-#     }
-#     '''
-#     material_detail = ForeignKey('MaterialDetail',related_name='material_detail',on_delete=models.CASCADE,verbose_name='产出详情')
-#     produce_count = FloatField(verbose_name='产出物资数量',default=1)
-
-#     class Meta:
-#         unique_together = [
-#             'raw_material_data'
-#         ]
-
-#     def __str__(self):
-#         return str(self.material_detail.material)+' Q'+str(self.material_detail.level)
 
 class UserMaterial(models.Model):
     user = ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,verbose_name='用户')
@@ -99,3 +63,41 @@ class Output_Recipe_Material(models.Model):
 class Recipe(models.Model):
     input = ManyToManyField('MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
     output = ManyToManyField('MaterialDetail',related_name='output',verbose_name='输出',through=Output_Recipe_Material)
+
+# class Recipe(models.Model):
+#     #     DATA_SCHEMA =     {
+#         "data":[
+#             {
+#                 "material_id":'物资id',
+#                 "count":'物资id'
+#             }
+#         ]
+#     }
+    
+
+#     raw_material_data = JSONField(verbose_name='所需物资数据')
+#     '''
+#     {
+#         "data":[
+#             {
+#                 "material_id":id,
+#                 "count":count
+#             },
+#             {
+#                 "material_id":id,
+#                 "count":count
+#             },
+#             ...
+#         ]
+#     }
+#     '''
+#     material_detail = ForeignKey('MaterialDetail',related_name='material_detail',on_delete=models.CASCADE,verbose_name='产出详情')
+#     produce_count = FloatField(verbose_name='产出物资数量',default=1)
+
+#     class Meta:
+#         unique_together = [
+#             'raw_material_data'
+#         ]
+
+#     def __str__(self):
+#         return str(self.material_detail.material)+' Q'+str(self.material_detail.level)

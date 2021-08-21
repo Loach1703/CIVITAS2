@@ -8,10 +8,13 @@ class usersession(models.Model):
 
 class personal_attributes(models.Model):
     uid = models.CharField(max_length=20)
-    energy = models.CharField(max_length=20)
-    healthy = models.CharField(max_length=20)
-    happy = models.CharField(max_length=20)
-    Hunger = models.CharField(max_length=20)
+    energy = models.CharField(max_length=20,verbose_name='精力')
+    healthy = models.CharField(max_length=20,verbose_name='健康')
+    happy = models.CharField(max_length=20,verbose_name='快乐')
+    Hunger = models.CharField(max_length=20,verbose_name='饥饿')
+    def __str__(self):
+        return 'uid'+self.uid+'精力'+self.energy+'健康'+self.healthy+'快乐'+self.happy+'饥饿'+self.Hunger
+
 
 def avatar_path(instance, filename):
     filename = str(instance.user.id) + '.jpg'
