@@ -96,7 +96,7 @@ function load_education()
                     for (i=0; i<json_str_data.length; i++) 
                     {
                         json_str_data[i].level_name = skill_dict[json_str_data[i].level];
-                        vm.skills[i] = json_str_data[i]
+                        vm.$set(vm.skills,i,json_str_data[i])
                     }
                 })
                 .catch(function (error) {

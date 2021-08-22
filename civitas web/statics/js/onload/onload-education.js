@@ -13,7 +13,7 @@ function load_updata()
     load_education();
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
-    left_navigator(json_str_login["data"]["username"],json_str_login["data"]["uid"]);
+    left_navigator(json_str_login["data"]["uid"]);
 }
 
 window.onload = load_updata;

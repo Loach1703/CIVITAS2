@@ -3,7 +3,9 @@ var app;
 
 function abc()
 {
-  Vue.component("depository", {
+  var day_html = 1;
+  var city_html = "长安";
+  Vue.component("depository-a", {
     props: ["material"],
     template: `
     <div>
@@ -73,8 +75,8 @@ function abc()
           method: "get",
           url: "https://api.trickydeath.xyz/getweather/",
           params: {
-            day: this.day_html,
-            city: this.city_html
+            day: day_html,
+            city: city_html
           }
         })
         .then(function (response) {

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
@@ -36,13 +37,14 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div class="left-navigator" id="left-navigator"></div>
+<div id="left-navigator">
+    <left-navigator v-bind:prop="prop"></left-navigator>
+</div>
 
-<div class="main">
+<div class="main" id="main">
 
 <div class="main-center">
 
-<div>
     <p class="main-char">我的CIVITAS</p>
     <div>
         <p class="location" id="location">位于京兆尹，长安县<span id="season"></span><span id="day"></span></p>
@@ -54,9 +56,7 @@
         <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
     </div>
     <!--button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button-->
-</div>
-
-<div id="skill"></div>
+    <div id="skill"></div>
 
 </div>
 

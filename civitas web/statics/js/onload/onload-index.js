@@ -13,7 +13,7 @@ function load_updata()
     redirection(json_str_login["status"]);
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
-    left_navigator(json_str_login["data"]["username"],json_str_login["data"]["uid"]);
+    left_navigator(json_str_login["data"]["uid"]);
     //获取天气
     load_weather();
     //获取演讲

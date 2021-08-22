@@ -10,8 +10,8 @@ function load_depository(uid)
     Vue.component("depository-one", {
         props: ["material"],
         template: `
-        <div>
-            <div class="depository-box bottomline-dashed" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
+        <div class="bottomline-dashed">
+            <div class="depository-box" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
                 <img v-bind:src="'civitas/icon/goods/'+material.id+'.png'" width="60px" height="60px" class="depository-mainimg"/>
                 <span class="depository-text1">
                     <p class="depository-name">{{ material.name }}<br></p>
@@ -26,7 +26,7 @@ function load_depository(uid)
                     <p class="depository-loss">每单位重量 {{ material.unitmass.toFixed(2) }}</p>
                 </span>
             </div>
-            <div class="depository-detail bottomline-dashed collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail" v-bind:key="detailmes.level">
+            <div class="depository-detail collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail" v-bind:key="detailmes.level">
                 <span class="depository-star">
                     <img v-bind:src="'civitas/icon/star/star.png'"/>
                     <img v-bind:src="'civitas/icon/star/star.png'" v-if="detailmes.level >= 2"/>
@@ -55,7 +55,7 @@ function load_depository(uid)
                 method: "get",
                 url: "https://api.trickydeath.xyz/getmaterial/",
                 params: {
-                    uid = uid
+                    uid: uid
                 },
                 withCredentials: true
             })
@@ -71,7 +71,7 @@ function load_depository(uid)
                 method: "get",
                 url: "https://api.trickydeath.xyz/getuserdetail/",
                 params: {
-                    uid = uid
+                    uid: uid
                 },
                 withCredentials: true
             })

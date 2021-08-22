@@ -15,6 +15,17 @@
     margin: 0;
 }
 
+.depository-detail
+{
+    height: 28px;
+}
+
+.depository-detail p
+{
+    display: inline;
+    margin: 0;
+}
+
 .depository-mainimg
 {
     float: left;
@@ -39,6 +50,25 @@
 .depository-text2
 {
     padding-top: 5px;
+    float: left;
+    width: 100px;
+}
+
+.depository-star
+{
+    margin-left: 80px;
+    float: left;
+    width: 100px;
+}
+
+.depository-star img
+{
+    margin: 0;
+}
+
+.depository-text3
+{
+    padding-top: 2px;
     float: left;
     width: 100px;
 }

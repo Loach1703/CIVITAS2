@@ -4,9 +4,11 @@
 <link rel="stylesheet" href="civitas/css/style.css"/>
 <link rel="stylesheet" href="civitas/css/speech.css">
 
-<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
+<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
+<script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
@@ -31,7 +33,9 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div class="left-navigator" id="left-navigator"></div>
+<div id="left-navigator">
+    <left-navigator v-bind:prop="prop"></left-navigator>
+</div>
 
 <div class="main">
     <p id="speech-tag" class="main-char"></p>
