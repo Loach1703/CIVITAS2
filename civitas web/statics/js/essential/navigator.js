@@ -89,7 +89,6 @@ var leftnav_vm;
 
 function left_navigator(uid)
 {
-    uid = 6
     Vue.component("left-navigator", {
         props: ["prop"],
         data: function () {
@@ -222,25 +221,25 @@ function left_navigator(uid)
                         vm.status_change.stamina_change = " + " + vm.status_change.stamina_change;
                     }
                     else {
-                        vm.status_change.stamina_change = " - " + vm.status_change.stamina_change;
+                        vm.status_change.stamina_change = " - " + Math.abs(vm.status_change.stamina_change);
                     }
                     if (vm.status_change.happiness_change >= 0) {
                         vm.status_change.happiness_change = " + " + vm.status_change.happiness_change;
                     }
                     else {
-                        vm.status_change.happiness_change = " - " + vm.status_change.happiness_change;
+                        vm.status_change.happiness_change = " - " + Math.abs(vm.status_change.happiness_change);
                     }
                     if (vm.status_change.health_change >= 0) {
                         vm.status_change.health_change = " + " + vm.status_change.health_change;
                     }
                     else {
-                        vm.status_change.health_change = " - " + vm.status_change.health_change;
+                        vm.status_change.health_change = " - " + Math.abs(vm.status_change.health_change);
                     }
                     if (vm.status_change.starvation_change >= 0) {
                         vm.status_change.starvation_change = " + " + vm.status_change.starvation_change;
                     }
                     else {
-                        vm.status_change.starvation_change = " - " + vm.status_change.starvation_change;
+                        vm.status_change.starvation_change = " - " + Math.abs(vm.status_change.starvation_change);
                     }
                     vm.prop.status = vm.status;
                     vm.prop.status_change = vm.status_change;

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="civitas/css/depository.css"/>
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
-<script src="civitas/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/vue/vue.js"></script>
 <script src="civitas/js/vue/axios.min.js"></script>
 <script src="civitas/js/people/test.js"></script>
@@ -18,17 +18,13 @@
 
 <body>
 
-<div id="app">
-    <depository-a v-for="(material, index) in materials" v-bind:key="material.id" v-bind:material="material" v-on:remove="materials.splice(index, 1)"></depository-a>
-    <button class="btn btn-primary" v-on:click="get_get">发表</button>
-</div>
-<div class="main-right" id="main">
-    <input type="text" v-model="day_html" v-model="day_html2"></input>
-    <input type="text" v-model="city_html"></input>
-    <button class="btn btn-primary" v-on:click="get_weather">发表</button>
-    <button class="btn btn-danger" v-on:click="sideline">别点</button>
-    <p class="location" id="location">位于京兆尹，长安县 今天是{{ season }}的第{{ day }}天</p>
-    <p class="weather-main">今日天气：{{ weather }} 温度：{{ temperature }}摄氏度 降水量：{{ rain }}mm</p>
+<div class="main" id="main">
+    <button type="button" class="btn btn-danger" v-on:click="show_ranevent_modal">工作</button>
+    <ranevent-modal 
+        v-bind:prop="prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
 </div>
 
 </body>

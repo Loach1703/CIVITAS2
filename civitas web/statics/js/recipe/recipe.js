@@ -92,7 +92,7 @@ function load_recipe()
                         ingredient_prop[ingredient_id].spice == 0">无 </strong>
                 </p>
             </div>
-            <button class="btn btn-danger float-left" v-on:click="remove_ingredients">x</button>
+            <button class="btn close float-right" v-on:click="remove_ingredients">&times;</button>
         </div>
         `
     })
