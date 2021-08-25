@@ -89,7 +89,8 @@ function load_recipe()
                         ingredient_prop[ingredient_id].sweet == 0 &&
                         ingredient_prop[ingredient_id].bitter == 0 &&
                         ingredient_prop[ingredient_id].salt == 0 &&
-                        ingredient_prop[ingredient_id].spice == 0">无 </strong>
+                        ingredient_prop[ingredient_id].spice == 0">无 
+                    </strong>
                 </p>
             </div>
             <button class="btn close float-right" v-on:click="remove_ingredients">&times;</button>
@@ -112,10 +113,13 @@ function load_recipe()
             }
         },
         methods: {
+            get_total_props: function () {
+            }
         },
         watch: {
             ingredient_total: function () {
                 console.log(this.ingredient_total);
+                this.get_total_props();
             }
         },
         template: `
@@ -141,11 +145,17 @@ function load_recipe()
             </div>
             <div class="recipe-taste">
                 <p class="recipe-taste-text">味道 
-                    <strong class="recipe-acid">酸 </strong>
-                    <strong class="recipe-sweet">甜 </strong>
-                    <strong class="recipe-bitter">苦 </strong>
-                    <strong class="recipe-salt">咸 </strong>
-                    <strong class="recipe-spice">香料 </strong>
+                    <strong class="recipe-acid" v-if="ingredient_prop[ingredient_id].acid > 0">酸 </strong>
+                    <strong class="recipe-sweet" v-if="ingredient_prop[ingredient_id].sweet > 0">甜 </strong>
+                    <strong class="recipe-bitter" v-if="ingredient_prop[ingredient_id].bitter > 0">苦 </strong>
+                    <strong class="recipe-salt" v-if="ingredient_prop[ingredient_id].salt > 0">咸 </strong>
+                    <strong class="recipe-spice" v-if="ingredient_prop[ingredient_id].spice > 0">香料 </strong>
+                    <strong class="recipe-none" v-if="ingredient_prop[ingredient_id].acid == 0 &&
+                        ingredient_prop[ingredient_id].sweet == 0 &&
+                        ingredient_prop[ingredient_id].bitter == 0 &&
+                        ingredient_prop[ingredient_id].salt == 0 &&
+                        ingredient_prop[ingredient_id].spice == 0">无 
+                    </strong>
                 </p>
             </div>
         </div>

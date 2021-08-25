@@ -13,6 +13,7 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
@@ -38,6 +39,11 @@
 </div>
 
 <div class="main" id="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
     <p class="main-char">新建食谱</p>
     <p class="author">创建全新的食谱以供享用。<p>
     <input type="text" class="form-control" placeholder="食谱名"></input>

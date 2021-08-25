@@ -5,6 +5,6 @@ function redirection(status)
     */
     if (status == 1)
     {
-        window.location.href = "index.html";
+        window.location.assign("index.html");
     }
 }

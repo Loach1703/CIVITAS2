@@ -1,117 +1,137 @@
 /*
-技能相关
-load_skill：加载技能
-*/
+技能Vue组件
 
-function load_skill(uid=null)
-{
-    /*参数说明：
-    uid：需要读取技能的用户uid
-    额外说明：这个函数是主页/个人主页通用的，所以需要一个判别的uid，在主页使用时，不需要加uid，api会返回当前登录cookie对应用户的技能
-    */
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function()
-	{
-		if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		{
-            var i;
-            var str = xmlhttp.responseText;
-            var json_str = JSON.parse(str);
-            var skill_html = document.getElementById("skill");
-            var skill_inner = "";
-            var skill_data = json_str["data"];
-            var skill_dict = {1:"学徒",2:"匠人",3:"匠师",4:"专家",5:"大师",6:"宗师",7:"大宗师"}
-            if (uid == null)
-            {
-                skill_html.innerHTML = "<p class=\"main-char\">我的技能</p>";
-            }
-            else{}
-            for (i = 0; i < skill_data.length ; i++)
-            {
-                var skill_data_detail = skill_data[i];
-                var skill_id = skill_data_detail["id"];
-                var level = skill_data_detail["level"];
-                var skill_num = skill_data_detail["skill"].toFixed(2);
-                skill_inner += "<div class=\"skill-box\"><div class=\"skill-picture\"><img src=\"civitas/icon/skill/"
-                +skill_id+"/s.png\" width=\"80px\" height=\"80px\"/></div><div class=\"skill-name\"><p class=\"skill-name-left\">"
-                +skill_data_detail["name"]+"</p><p class=\"skill-name-right skill-name-right"+level+"\">"+skill_dict[level]+" "
-                +skill_num+"</p></div>";
-                var j;
-                var skill_mini_list = skill_data_detail["list"];
-                var skill_mini_inner = "";
-                for (j = 0; j < skill_mini_list.length ; j++)
-                {
-                    var skill_mini_data_detail = skill_mini_list[j];
-                    var skill_mini_id = skill_mini_data_detail["id"];
-                    var skill_mini_num = (skill_mini_data_detail["skill"] * 100).toFixed(1);
-                    skill_mini_inner += "<div class=\"skill-mini\"><img src=\"civitas/icon/skill/"
-                    +skill_id+"/"+skill_mini_id+".png\" width=\"40px\" height=\"40px\"/><p>"
-                    +skill_mini_data_detail["name"]+" "+skill_mini_num+"%</p></div>"
-                }
-                if (skill_mini_inner == "")
-                {
-                    skill_mini_inner += "<div class=\"skill-mini-div-none\">";
-                }
-                else
-                {
-                    skill_mini_inner = "<div class=\"skill-mini-div\">" + skill_mini_inner;
-                }
-                skill_inner += skill_mini_inner
-                skill_inner += "</div></div>"
-            }
-            if (skill_inner == "")
-            {
-                if (uid == null)
-                {
-                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\">您还没有技能，去工作或是演讲，副业以获得技能。</p></div>"
-                }
-                else
-                {
-                    skill_inner = "<div class=\"skill-name\"><p class=\"skill-name-left\" id=\"skill-none\"></p></div>"
-                }
-            }
-            skill_html.innerHTML += skill_inner
-		}
-	}
-    if (uid == null)
-    {
-        xmlhttp.open("GET","https://api.trickydeath.xyz/getskill/",true);
-    }
-    else
-    {
-        xmlhttp.open("GET","https://api.trickydeath.xyz/getskill/?uid=" + uid,true);
-    }
-    xmlhttp.withCredentials = true;
-    xmlhttp.send();
+组件1
+名称:skill-show
+用途:整体大框架
+props:{
+    prop:{
+        uid:对应用户的uid
+        username:对应用户的用户名
+    },
+    type:类型，index/people
+}
+data:{
+    skills:参考接口文档getskills的data项
 }
 
-/*
-<p class="main-char">我的技能</p>
+组件2
+名称:skill-detail
+用途:显示某个大类技能
+props:{
+    skill:参考接口文档getskills的data项中其中一项
+}
+data:{
+    close_show:折叠/展开的显示
+    skill_dict:门槛对应表
+}
+*/
+
+Vue.component("skill-show", {
+    props: ["prop","type"],
+    data: function () {
+        return {
+            skills: [{}]
+        }
+    },
+    created: function () {
+        this.get_skill();
+    },
+    methods: {
+        get_skill: function () {
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/getskill/",
+                withCredentials: true,
+                params: {
+                    uid: this.prop.uid,
+                },
+            })
+            .then(function (response) {
+                //vm.skills = response.data.data;
+                vm.skills= [{"id": 2, "name": "\u91c7\u4f10", "skill": 5.7677574819440505, "level": 2, "comprehension": 0.2911303039728389, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u91c7\u96c6", "skill": 0.453771607007837}]}, {"id": 5, "name": "\u793e\u4ea4", "skill": 3.6628042381035444, "level": 1, "comprehension": 0.12732466420168242, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u96c4\u8fa9", "skill": 1.0}]}, {"id": 7, "name": "\u755c\u7267", "skill": 0.9480000000000001, "level": 1, "comprehension": 0.0, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u72e9\u730e", "skill": 0.02844}]}]
+            })
+            .catch(function (error) {
+                //vm.skills = response.data.data;
+                vm.skills= [{"id": 2, "name": "\u91c7\u4f10", "skill": 5.7677574819440505, "level": 2, "comprehension": 0.2911303039728389, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u91c7\u96c6", "skill": 0.453771607007837}]}, {"id": 5, "name": "\u793e\u4ea4", "skill": 3.6628042381035444, "level": 1, "comprehension": 0.12732466420168242, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u96c4\u8fa9", "skill": 1.0}]}, {"id": 7, "name": "\u755c\u7267", "skill": 0.9480000000000001, "level": 1, "comprehension": 0.0, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u72e9\u730e", "skill": 0.02844}]}]
+                console.log(error);
+            })
+        }
+    },
+    template:`
+    <div>
+        <p class="main-char" v-if="type == 'index'">我的技能</p>
+        <p class="main-char" v-else-if="type == 'people'">{{ prop.username }}的技能</p>
+        <p class="explain">点击左侧“+”号，可以查看技能对应的经验。</p>
+        <div class="skill-name" v-if="skills.length == 0 && type == 'index'">
+            <p class="explain">您还没有技能，去工作或是演讲，副业以获得技能。</p>
+        </div>
+        <div class="skill-name" v-else-if="skills.length == 0 && type == 'people'">
+            <p class="explain">{{ prop.username }}还没有技能</p>
+        </div>
+        <skill-detail v-for="(skill, index) in skills" v-bind:key="'skill'+index" v-bind:skill="skill"></skill-detail>
+    </div>
+    `
+})
+
+Vue.component("skill-detail", {
+    props: ["skill"],
+    data: function () {
+        return {
+            close_show: "+",
+            close_status: false,
+            skill_dict: {1:"学徒",2:"匠人",3:"匠师",4:"专家",5:"大师",6:"宗师",7:"大宗师"}
+        }
+    },
+    created: function () {
+        var vm = this;
+        $("#skill-mini" + this.skill.id).on('shown.bs.collapse', function () {
+            if (vm.close_show == "+") {
+                vm.close_show = "-";
+            }
+            else if (vm.close_show == "-") {
+                vm.close_show = "+";
+            }
+            console.log("展开了")
+        })
+        $("#skill-mini" + this.skill.id).on('hidden.bs.collapse', function () {
+            if (vm.close_show == "+") {
+                vm.close_show = "-";
+            }
+            else if (vm.close_show == "-") {
+                vm.close_show = "+";
+            }
+            console.log("收回了")
+        })
+    },
+    methods: {
+        show_skill_mini: function () {
+            if (this.close_show == "+") {
+                this.close_show = "-";
+            }
+            else if (this.close_show == "-") {
+                this.close_show = "+";
+            }
+            $("#skill-mini" + this.skill.id).collapse('toggle');
+        }
+    },
+    template:`
     <div class="skill-box">
         <div class="skill-picture">
-            <img src="civitas/icon/skill/1/s.png" width="80px" height="80px"/>
+            <img v-bind:src="'civitas/icon/skill/'+skill.id+'/s.png'" width="60px" height="60px"/>
         </div>
         <div class="skill-name">
-            <p class="skill-name-left">耕作</p>
-            <p class="skill-name-right skill-name-right7">大宗师 12.34</p>
+            <p class="skill-name-left">{{ skill.name }}</p>
+            <button class="close close_border" v-on:click="show_skill_mini()" v-bind:id="skill.id">{{ close_show }}</button>
+            <p v-bind:class="'skill-name-right skill-name-right'+skill.level">{{ skill_dict[skill.level] }} {{ skill.skill.toFixed(2) }}</p>
         </div>
-        <div class="skill-mini-div">
-            <div class="skill-mini">
-                <img src="civitas/icon/skill/1/1.png" width="40px" height="40px"/>
-                <p>粮食种植 45%</p>
-            </div>
-            <div class="skill-mini">
-                <img src="civitas/icon/skill/1/2.png" width="40px" height="40px"/>
-                <p>蔬果种植 45%</p>
-            </div>
-            <div class="skill-mini">
-                <img src="civitas/icon/skill/1/3.png" width="40px" height="40px"/>
-                <p>经济作物种植 45% </p>
-            </div>
-            <div class="skill-mini">
-                <img src="civitas/icon/skill/1/4.png" width="40px" height="40px"/>
-                <p>开垦 45% </p>
+        <div class="skill-mini-div collapse" v-bind:id="'skill-mini'+skill.id">
+            <div class="skill-mini" v-for="skill_mini in skill.list" v-bind:key="'skill_mini'+skill_mini.id">
+                <img v-bind:src="'civitas/icon/skill/'+skill.id+'/'+skill_mini.id+'.png'" width="30px" height="30px"/>
+                <p>{{ skill_mini.name }} {{ (skill_mini.skill * 100).toFixed(1) }}%</p>
             </div>
         </div>
     </div>
-*/
+    `
+})

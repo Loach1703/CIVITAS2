@@ -9,24 +9,16 @@ function load_updata()
     var json_str_login = is_login();
     //重定向
     redirection(json_str_login["status"]);
+    //加载Vue
+    load_main_vm(json_str_login["data"]["uid"]);
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
     left_navigator(json_str_login["data"]["uid"]);
-    //找不到参数，查看自己的主页
+    //找不到参数，重定向至自己主页
     if (isNaN(get_parameter_value("uid")))
     {
-        uid = json_str_login["data"]["uid"];
+        window.location.assign("people.html"+json_str_login["data"]["uid"]);
     }
-    else
-    {
-        uid = get_parameter_value("uid");
-    }
-    //获取演讲
-    load_speech(1,uid);
-    //获取技能
-    load_skill(uid)
-    //获取用户名，头像，同时判断是否存在该用户
-    load_user_detail(uid)
 }
 
 window.onload = load_updata;

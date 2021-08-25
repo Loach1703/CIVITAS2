@@ -14,6 +14,7 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
@@ -39,6 +40,11 @@
 </div>
 
 <div class="main" id="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
     <p class="main-char">我的教育</p>
     <p class="author">进行教育能获得悟性并给你额外的突破机会，从而增加你突破门槛的概率，同时你也能获得技能。</p>
     <education-display v-for="education in skills" v-bind:education="education" v-bind:key="education.id"></education-display>

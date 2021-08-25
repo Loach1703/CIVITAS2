@@ -149,7 +149,7 @@ function left_navigator(uid)
                 </div>
                 <div class="bottomline">
                     <p class="menu">我的生活</p>
-                    <a href="create_recipe">我的食谱</a>
+                    <a href="create_recipe.html">我的食谱</a>
                     <a href="#home">我的藏书</a>
                     <a href="sideline.html">我的副业</a>
                     <a href="education.html">我的教育</a>
@@ -218,28 +218,28 @@ function left_navigator(uid)
                     vm.status = json_str_data.today;
                     vm.status_change = json_str_data.tomorrow;
                     if (vm.status_change.stamina_change >= 0) {
-                        vm.status_change.stamina_change = " + " + vm.status_change.stamina_change;
+                        vm.status_change.stamina_change = " + " + vm.status_change.stamina_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.stamina_change = " - " + Math.abs(vm.status_change.stamina_change);
+                        vm.status_change.stamina_change = " - " + Math.abs(vm.status_change.stamina_change).toFixed(1);
                     }
                     if (vm.status_change.happiness_change >= 0) {
-                        vm.status_change.happiness_change = " + " + vm.status_change.happiness_change;
+                        vm.status_change.happiness_change = " + " + vm.status_change.happiness_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.happiness_change = " - " + Math.abs(vm.status_change.happiness_change);
+                        vm.status_change.happiness_change = " - " + Math.abs(vm.status_change.happiness_change).toFixed(1);
                     }
                     if (vm.status_change.health_change >= 0) {
-                        vm.status_change.health_change = " + " + vm.status_change.health_change;
+                        vm.status_change.health_change = " + " + vm.status_change.health_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.health_change = " - " + Math.abs(vm.status_change.health_change);
+                        vm.status_change.health_change = " - " + Math.abs(vm.status_change.health_change).toFixed(1);
                     }
                     if (vm.status_change.starvation_change >= 0) {
-                        vm.status_change.starvation_change = " + " + vm.status_change.starvation_change;
+                        vm.status_change.starvation_change = " + " + vm.status_change.starvation_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.starvation_change = " - " + Math.abs(vm.status_change.starvation_change);
+                        vm.status_change.starvation_change = " - " + Math.abs(vm.status_change.starvation_change).toFixed(1);
                     }
                     vm.prop.status = vm.status;
                     vm.prop.status_change = vm.status_change;

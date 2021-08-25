@@ -14,6 +14,7 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
@@ -42,16 +43,17 @@
 </div>
 
 <div id="main" class="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
     <div class="main-center">
-        <div id="avatar"></div>
-        <div id="skill">
-            <p id="skill-username" class="main-char"></p>
-        </div>
+        <people-detail v-bind:prop="someone_detail"></people-detail>
+        <skill-show v-bind:prop="someone_detail" v-bind:type="'people'"></skill-show>
     </div>
     <div class="main-right">
-        <p id="speech-username" class="main-char"></p>
-        <div id="speech"></div>
-        <div id="speech-page-paginator" class="speech-page-paginator"></div>
+        <speech-main v-bind:prop="someone_detail" v-bind:type="'people'"></speech-main>
     </div>
 </div>
 

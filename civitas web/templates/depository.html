@@ -13,6 +13,7 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
@@ -39,6 +40,11 @@
 </div>
 
 <div class="main" id="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
     <p id="depository-name" class="main-char"></p>
     <p id="depository-none" class="main-subchar" v-if="materials.length == 0"></p>
     <depository-one v-for="material in materials" v-bind:material="material" v-bind:key="material.id"></depository-one>

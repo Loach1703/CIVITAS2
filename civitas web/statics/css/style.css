@@ -317,8 +317,25 @@
 
 .author
 {
-    font-size: 14px;
-    color: rgb(100,100,100);
+  font-size: 14px;
+  color: rgb(100,100,100);
+}
+
+.explain
+{
+  font-size: 14px;
+  color: rgb(100,100,100);
+}
+
+.close_border
+{
+  margin-right: 5px;
+}
+
+.close_border:focus
+{
+  opacity: 0.5;
+  outline: none;
 }
 
 .bottomline

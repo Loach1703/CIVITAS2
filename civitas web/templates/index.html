@@ -14,6 +14,7 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
@@ -42,38 +43,25 @@
 </div>
 
 <div class="main" id="main">
-
-<div class="main-center">
-
-    <p class="main-char">我的CIVITAS</p>
-    <div>
-        <p class="location" id="location">位于京兆尹，长安县<span id="season"></span><span id="day"></span></p>
-        <span id="weather-svg"></span>
-        <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
+    <div class="main-center">
+        <p class="main-char">我的CIVITAS</p>
+        <weather-detail v-bind:prop="date_prop" v-bind:city="user_detail.city"></weather-detail>
+        <div>
+            <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
+            <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
+        </div>
+        <skill-show v-bind:prop="user_detail" v-bind:type="'index'"></skill-show>
     </div>
-    <div>
-        <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
-        <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
+    <div class="main-right" id="main-right">
+        <speech-deliver v-on:refresh="speech_refresh"></speech-deliver>
+        <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
+        <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
     </div>
-    <div id="skill"></div>
-
-</div>
-
-<div class="main-right" id="main-right">
-    <p class="main-char">本地演讲</p>
-    <div class="deliver-speech">
-        <textarea class="form-control resize-none" rows="5" id="speech-input" type="text" v-model="speech_input" placeholder="在这里发表演讲，不超过300个字"></textarea>
-        <button class="btn btn-primary" onclick="give_speech()">发表</button>
-        <p class="speech-tips" id="speech-tips"></p>
-        <p class="speech-length-tips" v-bind:class="{ 'speech-length-tips-over': speech_input.length > 300 }">{{ speech_input.length }}/300</p>
-    </div>
-    <p class="main-char">热门演讲</p>
-    <div id="popular-speech"></div>
-    <p class="main-char">其他演讲</p>
-    <div id="speech"></div>
-    <div id="speech-page-paginator" class="speech-page-paginator"></div>
-</div>
-
 </div>
 
 </body>

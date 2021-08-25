@@ -1,6 +1,6 @@
 .skill-box
 {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -23,7 +23,7 @@
 
 .skill-name-left
 {
-    padding-left: 2%;
+    padding-left: 0.8rem;
     color: rgb(57,85,115);
     font-size: 20px;
 }
@@ -31,7 +31,7 @@
 .skill-name-right
 {
     margin-top: 5px;
-    margin-right: 10px;
+    margin-right: 5px;
     font-size: 16px;
     text-align: right;
     float: right;
@@ -81,13 +81,13 @@
 
 .skill-mini-div
 {
-    margin-left: 17%;
+    margin-left: 3.5rem;
 }
 
 .skill-mini-div-none
 {
-    margin-left: 17%;
-    height: 40px;
+    margin-left: 3.5rem;
+    height: 30px;
 }
 
 .skill-mini
@@ -99,6 +99,7 @@
 .skill-mini p
 {
     display: inline-block;
+    font-size: 0.9rem;
     margin: 0;
     white-space: nowrap;
 }
