@@ -5,10 +5,6 @@ do_sideline：进行副业
 
 function do_sideline(sideline_id,type_id=1)
 {
-    /*参数说明：
-    sideline_id：副业编号
-    type_id：类型，如果是副业则为1（默认）
-    */
     if (isNaN(sideline_id) || isNaN(type_id))
     {
         return;
@@ -47,6 +43,25 @@ Vue.component("education-display", {
             .catch(function (error) {
                 console.log(error);
             })
+        },
+        do_education: function (id) {
+            var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append("sidelineid",id);
+            post_data.append("typeid",2);
+            axios({
+                method: "post",
+                url: "https://api.trickydeath.xyz/dosideline/",
+                withCredentials: true,
+                data: post_data
+            })
+            .then(function (response) {
+                vm.get_skill();
+                leftnav_vm.get_status();
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         }
     },
     template: `
@@ -65,7 +80,7 @@ Vue.component("education-display", {
             <span class="sideline-text2">
                 <p class="sideline-education-chance">突破概率 {{ (education.eureka_probability*100).toFixed(1) }}%</p>
             </span>
-            <button class="btn btn-primary" v-bind:onclick="'do_sideline('+education.id+',2)'" v-on:click="get_skill">教育</button>
+            <button class="btn btn-primary" v-on:click="do_education(education.id)">教育</button>
         </div>
     </div>
     `

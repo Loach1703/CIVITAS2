@@ -254,7 +254,7 @@ Vue.component("speech-popular", {
                 withCredentials: true,
             })
             .then(function (response) {
-                vm.speech = response.data.data.datalist;
+                vm.speech = response.data.data.datalist[0];
             })
             .catch(function (error) {
                 console.log(error);

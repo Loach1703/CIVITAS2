@@ -1,6 +1,16 @@
 /*
-获取库房信息
-load_depository：获得库房信息
+仓库Vue组件
+
+组件1
+名称:depository-one
+用途:显示仓库
+props:{
+    prop:{
+    },
+}
+data:{
+    materials:物资表
+}
 */
 
 Vue.component("depository-one", {
@@ -28,10 +38,15 @@ Vue.component("depository-one", {
         })
         document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
     },
+    watch: {
+        prop: function () {
+            document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+        }
+    },
     template: `
     <div>
         <p class="main-char">{{ prop.username }}的库房</p>
-        <p= class="main-subchar" v-if="materials.length == 0">{{ prop.username }}还没有物品。</p>
+        <p class="main-subchar" v-if="materials.length == 0">{{ prop.username }}还没有物品。</p>
         <div class="bottomline-dashed" v-for="material in materials" v-bind:key="material.id">
             <div class="depository-box" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
                 <img v-bind:src="'civitas/icon/goods/'+material.id+'.png'" width="60px" height="60px" class="depository-mainimg"/>

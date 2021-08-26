@@ -2,28 +2,15 @@
 天气Vue组件
 
 组件1
-名称:skill-show
-用途:整体大框架
+名称:weather-detail
+用途:显示天气
 props:{
     prop:{
-        uid:对应用户的uid
-        username:对应用户的用户名
     },
-    type:类型，index/people
+    city:城市天气
 }
 data:{
-    skills:参考接口文档getskills的data项
-}
-
-组件2
-名称:skill-detail
-用途:显示某个大类技能
-props:{
-    skill:参考接口文档getskills的data项中其中一项
-}
-data:{
-    close_show:折叠/展开的显示
-    skill_dict:门槛对应表
+    weather_svg_dict:天气图标
 }
 */
 
@@ -39,24 +26,35 @@ Vue.component("weather-detail", {
         }
     },
     created: function () {
-        axios({
-            method: "get",
-            url: "https://api.trickydeath.xyz/getweather/",
-            withCredentials: true,
-            params: {
-                city: this.city,
-                day: this.prop.total_day
-            },
-        })
-        .then(function (response) {
-            vm.weather = response.data.data.weather;
-            vm.temperature = response.data.data.temperature;
-            vm.rain_num = response.data.data.rain_num;
-            vm.day = response.data.data.day;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        this.get_weather();
+    },
+    watch: {
+        prop: function () {
+            this.get_weather();
+        }
+    },
+    methods: {
+        get_weather: function () {
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/getweather/",
+                withCredentials: true,
+                params: {
+                    city: this.city,
+                    day: this.prop.total_day
+                },
+            })
+            .then(function (response) {
+                vm.weather = response.data.data.weather;
+                vm.temperature = response.data.data.temperature;
+                vm.rain_num = response.data.data.rain_num;
+                vm.day = response.data.data.day;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
     },
     template:`
     <div>
