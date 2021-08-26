@@ -3,14 +3,36 @@
 load_depository：获得库房信息
 */
 
-var depository_vm;
-
-function load_depository(uid)
-{
-    Vue.component("depository-one", {
-        props: ["material"],
-        template: `
-        <div class="bottomline-dashed">
+Vue.component("depository-one", {
+    props: ["prop"],
+    data: function () {
+        return {
+            materials: []
+        }
+    },
+    created: function () {
+        var vm = this;
+        axios({
+            method: "get",
+            url: "https://api.trickydeath.xyz/getmaterial/",
+            params: {
+                uid: this.prop.uid
+            },
+            withCredentials: true
+        })
+        .then(function (response) {
+            vm.materials = response.data.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+    },
+    template: `
+    <div>
+        <p class="main-char">{{ prop.username }}的库房</p>
+        <p= class="main-subchar" v-if="materials.length == 0">{{ prop.username }}还没有物品。</p>
+        <div class="bottomline-dashed" v-for="material in materials" v-bind:key="material.id">
             <div class="depository-box" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
                 <img v-bind:src="'civitas/icon/goods/'+material.id+'.png'" width="60px" height="60px" class="depository-mainimg"/>
                 <span class="depository-text1">
@@ -42,55 +64,6 @@ function load_depository(uid)
                 </span>
             </div>
         </div>
-        `
-      })
-      depository_vm = new Vue({
-        el: "#main",
-        data: {
-          materials: []
-        },
-        created: function () {
-            var vm = this;
-            axios({
-                method: "get",
-                url: "https://api.trickydeath.xyz/getmaterial/",
-                params: {
-                    uid: uid
-                },
-                withCredentials: true
-            })
-            .then(function (response) {
-                var json_str_data = response.data.data;
-                vm.materials = json_str_data;
-            })
-            .catch(function (error) {
-                console.log(error);
-                document.getElementById("depository-name").innerHTML = "找不到该用户！"
-            })
-            axios({
-                method: "get",
-                url: "https://api.trickydeath.xyz/getuserdetail/",
-                params: {
-                    uid: uid
-                },
-                withCredentials: true
-            })
-            .then(function (response) {
-                var json_str_data = response.data.data;
-                document.title = json_str_data.username + "的库房 - 古典社会模拟 CIVITAS2";
-                document.getElementById("depository-name").innerHTML = json_str_data.username + "的库房";
-                try
-                {
-                    document.getElementById("depository-none").innerHTML = json_str_data.username + "还没有物品。";
-                }
-                catch (e){}
-            })
-            .catch(function (error) {
-                console.log(error);
-                document.getElementById("depository-name").innerHTML = "找不到该用户！"
-            })
-        },
-        methods: {
-        }
-      })
-}
+    </div>
+    `
+})

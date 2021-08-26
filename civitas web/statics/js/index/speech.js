@@ -148,17 +148,42 @@ Vue.component("speech-main", {
             this.get_speech_type();
         },
         speech_attitude: function (attitude,textid) {
+            console.log(attitude);
             var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append(attitude,attitude);
+            post_data.append(textid,textid);
             axios({
                 method: "post",
                 url: "https://api.trickydeath.xyz/assess/",
                 withCredentials: true,
-                data: {
-                    attitude: attitude,
-                    textid: textid
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
+                data: post_data
             })
             .then(function (response) {
+                console.log(response.data);
+                vm.$emit("refresh");
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        },
+        speech_attitude_test: function (attitude,textid) {
+            console.log(attitude);
+            var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append(attitude,attitude);
+            post_data.append(textid,textid);
+            axios({
+                method: "post",
+                url: "https://api.trickydeath.xyz/assess/",
+                withCredentials: true,
+                data: post_data
+            })
+            .then(function (response) {
+                console.log(response.data);
                 vm.$emit("refresh");
             })
             .catch(function (error) {
@@ -254,7 +279,7 @@ Vue.component("speech-popular", {
                 withCredentials: true,
             })
             .then(function (response) {
-                vm.speech = response.data.data;
+                vm.speech = response.data.data.datalist;
             })
             .catch(function (error) {
                 console.log(error);
@@ -266,6 +291,9 @@ Vue.component("speech-popular", {
                 method: "post",
                 url: "https://api.trickydeath.xyz/assess/",
                 withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     attitude: attitude,
                     textid: textid
@@ -283,7 +311,7 @@ Vue.component("speech-popular", {
     <div>
         <p class="main-char">热门演讲</p>
         <p class="explain" v-if="speech == null">还没有热门演讲。</p>
-        <div class="speech bottomline-dashed" v-else>
+        <div class="speech" v-else>
             <a v-bind:href="'people.html?uid='+speech.uid" class="speech-avatar">
                 <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
             </a>
@@ -318,6 +346,9 @@ Vue.component("speech-deliver", {
                 method: "post",
                 url: "https://api.trickydeath.xyz/speech/",
                 withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     text: this.speech_input
                 }

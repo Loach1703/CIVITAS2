@@ -24,7 +24,7 @@
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-education.js"></script>
+<script src="civitas/js/onload/onload-login.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -45,9 +45,7 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <p class="main-char">我的教育</p>
-    <p class="author">进行教育能获得悟性并给你额外的突破机会，从而增加你突破门槛的概率，同时你也能获得技能。</p>
-    <education-display v-for="education in skills" v-bind:education="education" v-bind:key="education.id"></education-display>
+    <education-display></education-display>
 </div>
 
 </body>

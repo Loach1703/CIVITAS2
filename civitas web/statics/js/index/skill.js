@@ -49,12 +49,9 @@ Vue.component("skill-show", {
                 },
             })
             .then(function (response) {
-                //vm.skills = response.data.data;
-                vm.skills= [{"id": 2, "name": "\u91c7\u4f10", "skill": 5.7677574819440505, "level": 2, "comprehension": 0.2911303039728389, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u91c7\u96c6", "skill": 0.453771607007837}]}, {"id": 5, "name": "\u793e\u4ea4", "skill": 3.6628042381035444, "level": 1, "comprehension": 0.12732466420168242, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u96c4\u8fa9", "skill": 1.0}]}, {"id": 7, "name": "\u755c\u7267", "skill": 0.9480000000000001, "level": 1, "comprehension": 0.0, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u72e9\u730e", "skill": 0.02844}]}]
+                vm.skills = response.data.data;
             })
             .catch(function (error) {
-                //vm.skills = response.data.data;
-                vm.skills= [{"id": 2, "name": "\u91c7\u4f10", "skill": 5.7677574819440505, "level": 2, "comprehension": 0.2911303039728389, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u91c7\u96c6", "skill": 0.453771607007837}]}, {"id": 5, "name": "\u793e\u4ea4", "skill": 3.6628042381035444, "level": 1, "comprehension": 0.12732466420168242, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u96c4\u8fa9", "skill": 1.0}]}, {"id": 7, "name": "\u755c\u7267", "skill": 0.9480000000000001, "level": 1, "comprehension": 0.0, "eureka_probability": 0.0, "list": [{"id": 1, "name": "\u72e9\u730e", "skill": 0.02844}]}]
                 console.log(error);
             })
         }

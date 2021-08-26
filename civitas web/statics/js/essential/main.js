@@ -10,13 +10,13 @@ function load_main_vm(uid) {
     Vue.component("ranevent-modal", {
         props: ["prop"],
         methods: {
-          hide_modal: function (){
-            this.$emit("hide_modal");
-          },
-          next_modal: function (url){
-            this.$emit("hide_modal");
-            this.$emit("next_modal",url);
-          }
+            hide_modal: function (){
+                this.$emit("hide_modal");
+            },
+            next_modal: function (url){
+                this.$emit("hide_modal");
+                this.$emit("next_modal",url);
+            }
         },
         template:`
         <div class="modal fade" id="ranevent" aria-hidden="true">
@@ -114,7 +114,7 @@ function load_main_vm(uid) {
                 .catch(function (error) {
                     console.log(error);
                 })
-                this.someone_detail.uid = this.someone_uid;
+                this.someone_detail.uid = get_parameter_value("uid");
             }
             //获取日期信息
             axios({

@@ -17,11 +17,8 @@ function load_updata()
     //找不到参数，重定向至主页
     if (isNaN(get_parameter_value("uid")))
     {
-        window.location.href = "index.html";
-        return;
+        window.location.assign("index.html");
     }
-    //获取指定用户的仓库
-    load_depository(get_parameter_value("uid"));
 }
 
 window.onload = load_updata;

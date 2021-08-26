@@ -45,9 +45,7 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <p id="depository-name" class="main-char"></p>
-    <p id="depository-none" class="main-subchar" v-if="materials.length == 0"></p>
-    <depository-one v-for="material in materials" v-bind:material="material" v-bind:key="material.id"></depository-one>
+    <depository-one v-bind:prop="someone_detail"</depository-one>
 </div>
 
 </body>

@@ -33,9 +33,9 @@ Vue.component("weather-detail", {
         return {
             weather_svg_dict: {"晴":"qingtian.svg","多云":"duoyun.svg","阴":"yintian.svg","小雨":"xiaoyu.svg","大雨":"dayu.svg","小雪":"xiaoxue.svg","大雪":"daxue.svg","台风":"taifeng.svg"},
             weather: "",
-            temperature: "",
-            rain_num: "",
-            day: ""
+            temperature: 0.0,
+            rain_num: 0.0,
+            day: 0
         }
     },
     created: function () {
