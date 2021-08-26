@@ -87,7 +87,7 @@ function load_main_vm(uid) {
                 },
             })
             .then(function (response) {
-                vm.user_detail = response.data.data;
+                vm.user_detail.username = response.data.data.username;
             })
             .catch(function (error) {
                 console.log(error);
@@ -109,12 +109,12 @@ function load_main_vm(uid) {
                     },
                 })
                 .then(function (response) {
-                    vm.someone_detail = response.data.data;
+                    vm.someone_detail.username = response.data.data.username;
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
-                this.someone_detail.uid = get_parameter_value("uid");
+                this.someone_detail.uid = this.someone_uid;
             }
             //获取日期信息
             axios({

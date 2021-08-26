@@ -16,13 +16,6 @@ function do_sideline(sideline_id,type_id=1)
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function()
     {
-        var str = xmlhttp.responseText;
-        var json_str = JSON.parse(str);
-        if (json_str["status"] == 1)
-        {
-            status_update();
-            sideline_vm.updata_skill();
-        }
     }
     xmlhttp.open("POST","https://api.trickydeath.xyz/dosideline/",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -38,10 +31,10 @@ Vue.component("education-display", {
         }
     },
     created: function () {
-        this.updata_skill();
+        this.get_skill();
     },
     methods: {
-        updata_skill: function () {
+        get_skill: function () {
             var vm = this;
             axios({
                 method: "get",
@@ -72,7 +65,7 @@ Vue.component("education-display", {
             <span class="sideline-text2">
                 <p class="sideline-education-chance">突破概率 {{ (education.eureka_probability*100).toFixed(1) }}%</p>
             </span>
-            <button class="btn btn-primary" v-bind:onclick="'do_sideline('+education.id+',2)'">教育</button>
+            <button class="btn btn-primary" v-bind:onclick="'do_sideline('+education.id+',2)'" v-on:click="get_skill">教育</button>
         </div>
     </div>
     `

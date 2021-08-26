@@ -148,34 +148,10 @@ Vue.component("speech-main", {
             this.get_speech_type();
         },
         speech_attitude: function (attitude,textid) {
-            console.log(attitude);
             var vm = this;
             var post_data = new URLSearchParams();
-            post_data.append(attitude,attitude);
-            post_data.append(textid,textid);
-            axios({
-                method: "post",
-                url: "https://api.trickydeath.xyz/assess/",
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: post_data
-            })
-            .then(function (response) {
-                console.log(response.data);
-                vm.$emit("refresh");
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        },
-        speech_attitude_test: function (attitude,textid) {
-            console.log(attitude);
-            var vm = this;
-            var post_data = new URLSearchParams();
-            post_data.append(attitude,attitude);
-            post_data.append(textid,textid);
+            post_data.append("attitude",attitude);
+            post_data.append("textid",textid);
             axios({
                 method: "post",
                 url: "https://api.trickydeath.xyz/assess/",
@@ -183,7 +159,6 @@ Vue.component("speech-main", {
                 data: post_data
             })
             .then(function (response) {
-                console.log(response.data);
                 vm.$emit("refresh");
             })
             .catch(function (error) {
@@ -287,17 +262,14 @@ Vue.component("speech-popular", {
         },
         speech_attitude: function (attitude,textid) {
             var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append("attitude",attitude);
+            post_data.append("textid",textid);
             axios({
                 method: "post",
                 url: "https://api.trickydeath.xyz/assess/",
                 withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    attitude: attitude,
-                    textid: textid
-                },
+                data: post_data
             })
             .then(function (response) {
                 vm.$emit("refresh");
@@ -342,19 +314,16 @@ Vue.component("speech-deliver", {
     methods: {
         give_speech: function () {
             var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append("text",this.speech_input);
             axios({
                 method: "post",
                 url: "https://api.trickydeath.xyz/speech/",
                 withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    text: this.speech_input
-                }
+                data: post_data
             })
             .then(function (response) {
-                vm.speech_tips = response.data.data;
+                vm.speech_tips = response.data.data.message;
                 if (response.data.status == 1)
                 {
                     vm.speech_input = "";
