@@ -9,14 +9,15 @@
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
 <script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/tips.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/index/speech.js"></script>
@@ -25,7 +26,7 @@
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-index.js"></script>
+<script src="civitas/js/onload/onload-login.js"></script>
 
 <head>
 <meta charset="utf-8">
@@ -36,66 +37,30 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div class="left-navigator" id="left-navigator"></div>
-
-<div class="main">
-
-<div class="main-center">
-
-<div>
-    <p class="main-char">我的CIVITAS</p>
-    <div>
-        <p class="location" id="location">位于京兆尹，长安县<span id="season"></span><span id="day"></span></p>
-        <span id="weather-svg"></span>
-        <p class="weather-main">今日天气：<strong id="weather"></strong> 温度：<strong id="temperature"></strong>摄氏度 降水量：<strong id="rain"></strong>mm</p>
-    </div>
-    <div>
-        <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
-        <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
-    </div>
-    <!--button type="button" class="btn btn-danger" data-toggle="modal" data-target="#work_strategy">工作</button-->
+<div id="left-navigator">
+    <left-navigator v-bind:prop="prop"></left-navigator>
 </div>
 
-<div id="skill"></div>
-
-</div>
-
-<div class="main-right" id="main-right">
-    <p class="main-char">本地演讲</p>
-    <div class="deliver-speech">
-        <textarea class="form-control resize-none" rows="5" id="speech-input" type="text" v-model="speech_input" placeholder="在这里发表演讲，不超过300个字"></textarea>
-        <button class="btn btn-primary" onclick="give_speech()">发表</button>
-        <p class="speech-tips" id="speech-tips"></p>
-        <p class="speech-length-tips" v-bind:class="{ 'speech-length-tips-over': speech_input.length > 300 }">{{ speech_input.length }}/300</p>
-    </div>
-    <p class="main-char">热门演讲</p>
-    <div id="popular-speech"></div>
-    <p class="main-char">其他演讲</p>
-    <div id="speech"></div>
-    <div id="speech-page-paginator" class="speech-page-paginator"></div>
-</div>
-
-<div class="modal fade" id="work_strategy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<div class="modal-dialog">
-    <div class="modal-content work-modal">
-        <div class="work-title">
-            <p>选择工作策略</p>
-            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<div class="main" id="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
+    <div class="main-center">
+        <p class="main-char">我的CIVITAS</p>
+        <weather-detail v-bind:prop="date_prop" v-bind:city="user_detail.city"></weather-detail>
+        <div>
+            <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
+            <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
         </div>
-        <div class="modal-body work-strategy">
-            <p class="">如同往常一样，你又开始了一天的工作。今天你打算......</p>
-            <button class="btn" onclick="work(1)" data-dismiss="modal"><img src="civitas/icon/work/Strategy_0.png" width="40px" height="40px"/>闲散  快乐，健康消耗-25%<br>产出产能-10% 技能增长-10%</button>
-            <button class="btn" onclick="work(2)" data-dismiss="modal"><img src="civitas/icon/work/Strategy_1.png" width="40px" height="40px"/>正常 无特殊加成</button>
-            <button class="btn" onclick="work(3)" data-dismiss="modal"><img src="civitas/icon/work/Strategy_2.png" width="40px" height="40px"/>勤奋 快乐，健康消耗+25%<br>产出产能+10% 技能增长+10%</button>
-            <button class="btn" onclick="work(4)" data-dismiss="modal"><img src="civitas/icon/work/Strategy_3.png" width="40px" height="40px"/>蛮干 快乐，健康消耗+25%<br>产出产能+20% 技能增长-10%</button>
-            <button class="btn" onclick="work(5)" data-dismiss="modal"><img src="civitas/icon/work/Strategy_4.png" width="40px" height="40px"/>怠工 快乐恢复1，健康消耗-50% 精力，饥饿消耗-25%<br>产出产能-75% 技能增长-75%</button>
-        </div>
+        <skill-show v-bind:prop="user_detail" v-bind:type="'index'"></skill-show>
     </div>
-</div>
-</div>
-
-
-
+    <div class="main-right" id="main-right">
+        <speech-deliver v-on:refresh="speech_refresh"></speech-deliver>
+        <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
+        <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
+    </div>
 </div>
 
 </body>

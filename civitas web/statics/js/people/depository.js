@@ -1,17 +1,54 @@
 /*
-获取库房信息
-load_depository：获得库房信息
+仓库Vue组件
+
+组件1
+名称:depository-one
+用途:显示仓库
+props:{
+    prop:{
+    },
+}
+data:{
+    materials:物资表
+}
 */
 
-var depository_vm;
-
-function load_depository(uid)
-{
-    Vue.component("depository-one", {
-        props: ["material"],
-        template: `
-        <div>
-            <div class="depository-box bottomline-dashed" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
+Vue.component("depository-one", {
+    props: ["prop"],
+    data: function () {
+        return {
+            materials: []
+        }
+    },
+    created: function () {
+        var vm = this;
+        axios({
+            method: "get",
+            url: "https://api.trickydeath.xyz/getmaterial/",
+            params: {
+                uid: this.prop.uid
+            },
+            withCredentials: true
+        })
+        .then(function (response) {
+            vm.materials = response.data.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+    },
+    watch: {
+        prop: function () {
+            document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+        }
+    },
+    template: `
+    <div>
+        <p class="main-char">{{ prop.username }}的库房</p>
+        <p class="main-subchar" v-if="materials.length == 0">{{ prop.username }}还没有物品。</p>
+        <div class="bottomline-dashed" v-for="material in materials" v-bind:key="material.id">
+            <div class="depository-box" data-toggle="collapse" v-bind:data-target="'#material'+material.id">
                 <img v-bind:src="'civitas/icon/goods/'+material.id+'.png'" width="60px" height="60px" class="depository-mainimg"/>
                 <span class="depository-text1">
                     <p class="depository-name">{{ material.name }}<br></p>
@@ -26,7 +63,7 @@ function load_depository(uid)
                     <p class="depository-loss">每单位重量 {{ material.unitmass.toFixed(2) }}</p>
                 </span>
             </div>
-            <div class="depository-detail bottomline-dashed collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail" v-bind:key="detailmes.level">
+            <div class="depository-detail collapse" v-bind:id="'material'+material.id" v-for="detailmes in material.detail" v-bind:key="detailmes.level">
                 <span class="depository-star">
                     <img v-bind:src="'civitas/icon/star/star.png'"/>
                     <img v-bind:src="'civitas/icon/star/star.png'" v-if="detailmes.level >= 2"/>
@@ -42,55 +79,6 @@ function load_depository(uid)
                 </span>
             </div>
         </div>
-        `
-      })
-      depository_vm = new Vue({
-        el: "#main",
-        data: {
-          materials: []
-        },
-        created: function () {
-            var vm = this;
-            axios({
-                method: "get",
-                url: "https://api.trickydeath.xyz/getmaterial/",
-                params: {
-                    uid = uid
-                },
-                withCredentials: true
-            })
-            .then(function (response) {
-                var json_str_data = response.data.data;
-                vm.materials = json_str_data;
-            })
-            .catch(function (error) {
-                console.log(error);
-                document.getElementById("depository-name").innerHTML = "找不到该用户！"
-            })
-            axios({
-                method: "get",
-                url: "https://api.trickydeath.xyz/getuserdetail/",
-                params: {
-                    uid = uid
-                },
-                withCredentials: true
-            })
-            .then(function (response) {
-                var json_str_data = response.data.data;
-                document.title = json_str_data.username + "的库房 - 古典社会模拟 CIVITAS2";
-                document.getElementById("depository-name").innerHTML = json_str_data.username + "的库房";
-                try
-                {
-                    document.getElementById("depository-none").innerHTML = json_str_data.username + "还没有物品。";
-                }
-                catch (e){}
-            })
-            .catch(function (error) {
-                console.log(error);
-                document.getElementById("depository-name").innerHTML = "找不到该用户！"
-            })
-        },
-        methods: {
-        }
-      })
-}
+    </div>
+    `
+})

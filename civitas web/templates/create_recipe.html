@@ -4,19 +4,20 @@
 <link rel="stylesheet" href="civitas/css/style.css"/>
 <link rel="stylesheet" href="civitas/css/recipe.css"/>
 
-<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/vue/vue.js"></script>
+<script src="civitas/js/vue/vue.min.js"></script>
 <script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/recipe/recipe.js"></script>
 
@@ -33,16 +34,34 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div class="left-navigator" id="left-navigator"></div>
+<div id="left-navigator">
+    <left-navigator v-bind:prop="prop"></left-navigator>
+</div>
 
-<div class="main">
-<p class="main-char">新建食谱</p>
-<p class="author">创建全新的食谱以供享用。<p>
-<div id="recipe-inner">
+<div class="main" id="main">
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
+    <p class="main-char">新建食谱</p>
+    <p class="author">创建全新的食谱以供享用。<p>
+    <input type="text" class="form-control" placeholder="食谱名"></input>
     <button class="btn btn-warning">保存食谱</button>
-    <button class="btn btn-warning">取消新建</button>
-    <ingredient v-for="prop in " v-bind:prop="prop"></ingredient>
-    <button class="btn btn-warning">添加食材</button>
+    <button class="btn btn-warning">取消</button>
+    <ingredient-one 
+        v-for="(ingredient_id,index) in number_of_ingredients" 
+        v-on:test="test" 
+        v-on:remove="remove_ingredients" 
+        v-on:ingredient_change="ingredients_had_changed"
+        v-bind:ingredient_list="ingredient_list" 
+        v-bind:used_ingredients="used_ingredients" 
+        v-bind:ingredient_prop="ingredient_prop" 
+        v-bind:index="index" 
+        v-bind:key="ingredient_id">
+    </ingredient-one>
+    <button class="btn btn-warning" v-on:click="add_ingredients">添加食材</button>
+    <ingredient-total v-bind:ingredient_total="ingredient_total"></ingredient-total>
 </div>
 
 </div>

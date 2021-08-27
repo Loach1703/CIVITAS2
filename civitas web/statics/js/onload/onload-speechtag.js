@@ -9,17 +9,17 @@ function load_updata()
     var json_str_login = is_login();
     //重定向
     redirection(json_str_login["status"]);
+    //加载Vue
+    load_main_vm(json_str_login["data"]["uid"]);
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
-    left_navigator(json_str_login["data"]["username"],json_str_login["data"]["uid"]);
+    left_navigator(json_str_login["data"]["uid"]);
     //找不到参数，重定向至主页
     if (isNaN(get_parameter_value("tagid")))
     {
-        window.location.href = "index.html";
+        window.location.assign("index.html");
         return;
     }
-    //获取指定话题的演讲
-    load_speech(1,null,get_parameter_value("tagid"));
 }
 
 window.onload = load_updata;
