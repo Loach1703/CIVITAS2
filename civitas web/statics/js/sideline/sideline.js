@@ -78,13 +78,19 @@ Vue.component("sideline-display", {
                 data: post_data
             })
             .then(function (response) {
+                var json_str_data = response.data.data;
                 if (this.type == "education")
                 {
                     vm.get_skill();
                 }
                 else if (this.type == "sideline")
                 {
-                    post_data.append("typeid",1);
+                    vm.$emit("showre",
+                        {title:json_str_data.sideline_name+"成功",
+                        statement:"在今天的"+json_str_data.sideline_name+"中，你得到了"+json_str_data.count.toFixed(2)+"单位的"+json_str_data.material_name+"。",
+                        type:"normal",
+                        option_text:["那就这样吧。"]
+                    })
                 }
                 leftnav_vm.get_status();
             })

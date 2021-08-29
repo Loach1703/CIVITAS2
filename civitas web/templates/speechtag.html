@@ -44,7 +44,7 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <speech-main v-bind:type="'tag'"></speech-main>
+    <speech-main ref="speech_main" v-bind:type="'tag'" v-on:refresh="speech_refresh"></speech-main>
 </div>
 
 </body>

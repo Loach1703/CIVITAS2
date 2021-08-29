@@ -53,7 +53,7 @@
         <skill-show v-bind:prop="someone_detail" v-bind:type="'people'"></skill-show>
     </div>
     <div class="main-right">
-        <speech-main v-bind:prop="someone_detail" v-bind:type="'people'"></speech-main>
+        <speech-main v-bind:prop="someone_detail" v-bind:type="'people'" ref="speech_main" v-on:refresh="speech_refresh"></speech-main>
     </div>
 </div>
 

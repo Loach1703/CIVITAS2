@@ -17,7 +17,7 @@
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/redirection/redirection-login.js"></script>
 <script src="civitas/js/essential/parameter.js"></script>
 
 <script src="civitas/js/sideline/sideline.js"></script>
@@ -28,7 +28,6 @@
 
 <head>
 <meta charset="utf-8">
-<title>我的副业 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -45,7 +44,7 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <sideline-display></sideline-display>
+    <sideline-display v-on:showre="get_ranevent_by_data"></sideline-display>
 </div>
 
 </body>

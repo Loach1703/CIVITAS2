@@ -151,6 +151,10 @@ function load_main_vm(uid) {
                     console.log(error);
                 });
             },
+            get_ranevent_by_data: function (data) {
+                this.ranevent_prop = data;
+                show_ranevent_modal();
+            },
             //刷新演讲
             speech_refresh: function () {
                 this.$refs.speech_popular.get_speech_popular();
