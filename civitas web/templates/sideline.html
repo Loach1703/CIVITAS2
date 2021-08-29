@@ -17,7 +17,8 @@
 <script src="civitas/js/essential/is-login.js"></script>
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-login.js"></script>
+<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/parameter.js"></script>
 
 <script src="civitas/js/sideline/sideline.js"></script>
 
@@ -44,79 +45,7 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <p class="main-char">我的副业</p>
-    <div class="sideline-box bottomline-dashed">
-        <img src="civitas/icon/skill/2/1.png" width="70px" height="70px" class="sideline-mainimg"/>
-        <span class="sideline-text1">
-            <p class="sideline-name">采集<br></p>
-            <p>技能</p>
-            <img src="civitas/icon/skill/2/s.png" width="20px" height="20px"/>
-            <p class="sideline-skill">采伐</p>
-            <p>经验</p>
-            <img src="civitas/icon/skill/2/1.png" width="20px" height="20px"/>
-            <p class="sideline-skill-mini">采集</p>
-            <p class="sideline-need"><br>进行这种副业不需要原料。</p>
-        </span>
-        <span class="sideline-text2">
-            <p>预期产能</p>
-            <p class="sideline-name">123.45</p>
-        </span>
-        <button class="btn btn-primary" onclick="do_sideline(1)">出发采集</button>
-    </div>
-        <div class="sideline-box bottomline-dashed">
-        <img src="civitas/icon/skill/7/1.png" width="70px" height="70px" class="sideline-mainimg"/>
-        <span class="sideline-text1">
-            <p class="sideline-name">狩猎<br></p>
-            <p>技能</p>
-            <img src="civitas/icon/skill/7/s.png" width="20px" height="20px"/>
-            <p class="sideline-skill">畜牧</p>
-            <p>经验</p>
-            <img src="civitas/icon/skill/7/1.png" width="20px" height="20px"/>
-            <p class="sideline-skill-mini">狩猎</p>
-            <p class="sideline-need"><br>进行这种副业不需要原料。</p>
-        </span>
-        <span class="sideline-text2">
-            <p>预期产能</p>
-            <p class="sideline-name">123.45</p>
-        </span>
-        <button class="btn btn-primary" onclick="do_sideline(2)">出发狩猎</button>
-    </div>
-        <div class="sideline-box bottomline-dashed">
-        <img src="civitas/icon/goods/3.png" width="70px" height="70px" class="sideline-mainimg"/>
-        <span class="sideline-text1">
-            <p class="sideline-name">小麦粉<br></p>
-            <p>技能</p>
-            <img src="civitas/icon/skill/4/s.png" width="20px" height="20px"/>
-            <p class="sideline-skill">加工</p>
-            <p>经验</p>
-            <img src="civitas/icon/skill/4/4.png" width="20px" height="20px"/>
-            <p class="sideline-skill-mini">食品加工</p>
-            <p class="sideline-need"><br>每单位小麦粉消耗小麦1.5单位。</p>
-        </span>
-        <span class="sideline-text2">
-            <p>预期产能</p>
-            <p class="sideline-name">123.45</p>
-        </span>
-        <button class="btn btn-primary">开始副业</button>
-    </div>
-    <div class="sideline-box bottomline-dashed">
-        <img src="civitas/icon/goods/4.png" width="70px" height="70px" class="sideline-mainimg"/>
-        <span class="sideline-text1">
-            <p class="sideline-name">粟米<br></p>
-            <p>技能</p>
-            <img src="civitas/icon/skill/4/s.png" width="20px" height="20px"/>
-            <p class="sideline-skill">加工</p>
-            <p>经验</p>
-            <img src="civitas/icon/skill/4/4.png" width="20px" height="20px"/>
-            <p class="sideline-skill-mini">食品加工</p>
-            <p class="sideline-need"><br>每单位粟米消耗粟1.5单位。</p>
-        </span>
-        <span class="sideline-text2">
-            <p>预期产能</p>
-            <p class="sideline-name">123.45</p>
-        </span>
-        <button class="btn btn-primary">开始副业</button>
-    </div>
+    <sideline-display></sideline-display>
 </div>
 
 </body>

@@ -59,7 +59,7 @@ Vue.component("weather-detail", {
     template:`
     <div>
         <p class="location">位于京兆尹，长安县 今天是{{ prop.season }}的第{{ day }}天</p>
-        <span v-bind:src="'civitas/svg/weather/'+weather_svg_dict[prop.weather]"></span>
+        <span v-bind:src="'civitas/svg/weather/'+weather_svg_dict[weather]"></span>
         <p class="weather-main">今日天气：<strong>{{ weather }}</strong> 温度：<strong>{{ temperature.toFixed(2) }}</strong>摄氏度 降水量：<strong>{{ rain_num.toFixed(2) }}</strong>mm</p>
     </div>
     `

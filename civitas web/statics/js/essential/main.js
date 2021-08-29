@@ -151,6 +151,7 @@ function load_main_vm(uid) {
                     console.log(error);
                 });
             },
+            //刷新演讲
             speech_refresh: function () {
                 this.$refs.speech_popular.get_speech_popular();
                 this.$refs.speech_main.page_turn(1);

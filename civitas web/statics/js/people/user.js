@@ -18,8 +18,12 @@ Vue.component("people-detail", {
         document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
     },
     watch: {
-        prop: function () {
-            document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+        prop: {
+            handler: function () {
+                document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+            },
+            deep: true,
+            immediate: true
         }
     },
     template:`

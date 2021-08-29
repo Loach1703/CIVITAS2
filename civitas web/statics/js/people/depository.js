@@ -36,11 +36,14 @@ Vue.component("depository-one", {
         .catch(function (error) {
             console.log(error);
         })
-        document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
     },
     watch: {
-        prop: function () {
-            document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+        prop: {
+            handler: function () {
+                document.title = this.prop.username + "的库房 - 古典社会模拟 CIVITAS2";
+            },
+            deep: true,
+            immediate: true
         }
     },
     template: `

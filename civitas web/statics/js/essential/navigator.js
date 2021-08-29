@@ -152,7 +152,7 @@ function left_navigator(uid)
                     <a href="create_recipe.html">我的食谱</a>
                     <a href="#home">我的藏书</a>
                     <a href="sideline.html">我的副业</a>
-                    <a href="education.html">我的教育</a>
+                    <a href="sideline.html?type=education">我的教育</a>
                 </div>
                 <div class="bottomline">
                     <p class="menu">我的交际圈</p>
