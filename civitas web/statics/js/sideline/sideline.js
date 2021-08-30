@@ -1,10 +1,11 @@
 /*
-个人主页Vue组件
+副业，教育Vue组件
 
 组件1
 名称:sideline-display
-用途:显示演讲，翻页
-props:{
+用途:显示副业，教育
+data:{
+    type:类型，默认为副业
 }
 */
 
@@ -79,12 +80,15 @@ Vue.component("sideline-display", {
             })
             .then(function (response) {
                 var json_str_data = response.data.data;
+                console.log(json_str_data);
                 if (this.type == "education")
                 {
+                    console.log("education");
                     vm.get_skill();
                 }
                 else if (this.type == "sideline")
                 {
+                    console.log("sideline");
                     vm.$emit("showre",
                         {title:json_str_data.sideline_name+"成功",
                         statement:"在今天的"+json_str_data.sideline_name+"中，你得到了"+json_str_data.count.toFixed(2)+"单位的"+json_str_data.material_name+"。",

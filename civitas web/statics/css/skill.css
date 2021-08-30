@@ -2,14 +2,18 @@
 {
     margin-top: 10px;
     width: 100%;
+    display: flex;
 }
 
 .skill-picture
 {
     margin: 5px 0;
-    float: left;
+    flex: 0;
 }
-
+.skill-right
+{
+    flex:4;
+}
 .skill-name
 {
     border-bottom: 2px dashed rgb(211,227,254);
@@ -79,17 +83,6 @@
     color: rgb(240, 190, 90);
 }
 
-.skill-mini-div
-{
-    margin-left: 3.5rem;
-}
-
-.skill-mini-div-none
-{
-    margin-left: 3.5rem;
-    height: 30px;
-}
-
 .skill-mini
 {
     display: inline-block;
@@ -99,7 +92,6 @@
 .skill-mini p
 {
     display: inline-block;
-    font-size: 0.9rem;
     margin: 0;
     white-space: nowrap;
 }

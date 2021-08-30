@@ -14,13 +14,21 @@ props:{
 
 Vue.component("people-detail", {
     props: ["prop"],
+    data: function () {
+        return {
+            username: ""
+        }
+    },
     created: function () {
-        document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+        this.username = this.prop.username;
+        document.title = this.username + "的主页 - 古典社会模拟 CIVITAS2";
     },
     watch: {
         prop: {
             handler: function () {
-                document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+                console.log(this.prop)
+                this.username = this.prop.username;
+                document.title = this.username + "的主页 - 古典社会模拟 CIVITAS2";
             },
             deep: true,
             immediate: true
@@ -31,9 +39,9 @@ Vue.component("people-detail", {
         <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+prop.uid" class="img-thumbnail" width="100px" height="100px">
         <div class="main-people-text">
             <p>{{ prop.test }}</p>
-            <p>{{ prop.username }}</p>
+            <p>{{ username }}</p>
             <p class="author">&gt;位于京兆尹，长安县 &gt;籍贯京兆尹</p>
-            <p class="author">&gt;<a v-bind:href="'depository.html?uid='+prop.uid">{{ prop.username }}的库房</a></p>
+            <p class="author">&gt;<a v-bind:href="'depository.html?uid='+prop.uid">{{ username }}的库房</a></p>
         </div>
     </div>
     `

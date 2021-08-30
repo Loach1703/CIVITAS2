@@ -118,6 +118,26 @@ Vue.component("skill-detail", {
         <div class="skill-picture">
             <img v-bind:src="'civitas/icon/skill/'+skill.id+'/s.png'" width="60px" height="60px"/>
         </div>
+        <div class="skill-right">
+            <div class="skill-name">
+                <p class="skill-name-left">{{ skill.name }}</p>
+                <button class="close close_border" v-on:click="show_skill_mini()" v-bind:id="skill.id">{{ close_show }}</button>
+                <p v-bind:class="'skill-name-right skill-name-right'+skill.level">{{ skill_dict[skill.level] }} {{ skill.skill.toFixed(2) }}</p>
+            </div>
+            <div class="collapse" v-bind:id="'skill-mini'+skill.id">
+                <div class="skill-mini" v-for="skill_mini in skill.list" v-bind:key="'skill_mini'+skill_mini.id">
+                    <img v-bind:src="'civitas/icon/skill/'+skill.id+'/'+skill_mini.id+'.png'" width="30px" height="30px"/>
+                    <p>{{ skill_mini.name }} {{ (skill_mini.skill * 100).toFixed(1) }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+/*
+    <div class="skill-box">
+        <div class="skill-picture">
+            <img v-bind:src="'civitas/icon/skill/'+skill.id+'/s.png'" width="60px" height="60px"/>
+        </div>
         <div class="skill-name">
             <p class="skill-name-left">{{ skill.name }}</p>
             <button class="close close_border" v-on:click="show_skill_mini()" v-bind:id="skill.id">{{ close_show }}</button>
@@ -130,5 +150,5 @@ Vue.component("skill-detail", {
             </div>
         </div>
     </div>
-    `
+*/
 })
