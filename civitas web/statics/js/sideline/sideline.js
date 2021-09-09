@@ -81,12 +81,12 @@ Vue.component("sideline-display", {
             .then(function (response) {
                 var json_str_data = response.data.data;
                 console.log(json_str_data);
-                if (this.type == "education")
+                if (vm.type == "education")
                 {
                     console.log("education");
                     vm.get_skill();
                 }
-                else if (this.type == "sideline")
+                else if (vm.type == "sideline")
                 {
                     console.log("sideline");
                     vm.$emit("showre",

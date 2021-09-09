@@ -30,8 +30,7 @@ Vue.component("people-detail", {
                 this.username = this.prop.username;
                 document.title = this.username + "的主页 - 古典社会模拟 CIVITAS2";
             },
-            deep: true,
-            immediate: true
+            deep: true
         }
     },
     template:`
@@ -40,8 +39,8 @@ Vue.component("people-detail", {
         <div class="main-people-text">
             <p>{{ prop.test }}</p>
             <p>{{ username }}</p>
-            <p class="author">&gt;位于京兆尹，长安县 &gt;籍贯京兆尹</p>
-            <p class="author">&gt;<a v-bind:href="'depository.html?uid='+prop.uid">{{ username }}的库房</a></p>
+            <p class="author">>位于京兆尹，长安县 >籍贯京兆尹</p>
+            <p class="author">><a v-bind:href="'depository.html?uid='+prop.uid">{{ username }}的库房</a></p>
         </div>
     </div>
     `

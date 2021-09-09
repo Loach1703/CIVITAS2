@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-
-<link rel="stylesheet" href="civitas/css/style.css"/>
-<link rel="stylesheet" href="civitas/css/depository.css"/>
+    
+<link rel="stylesheet" href="civitas/css/style.css">
+<link rel="stylesheet" href="civitas/css/speech.css">
 
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/vue/vue.js"></script>
+<script src="civitas/js/vue/vue.min.js"></script>
 <script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
@@ -20,15 +20,14 @@
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
 <script src="civitas/js/essential/parameter.js"></script>
 
-<script src="civitas/js/people/depository.js"></script>
+<script src="civitas/js/index/speech.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-depository.js"></script>
+<script src="civitas/js/onload/onload-login.js"></script>
 
 <head>
 <meta charset="utf-8">
-<title></title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -45,7 +44,16 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <depository-one v-bind:prop="someone_detail"></depository-one>
+    <div class="main-center">
+        <p class="main-char">
+        <img src="civitas/icon/city/1.png" width="50px" height="50px">
+        京兆郡的广场
+        </p>
+    </div>
+    <div class="main-right" id="main-right">
+        <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
+        <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
+    </div>
 </div>
 
 </body>
