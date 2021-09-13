@@ -1,76 +1,33 @@
-.depository-box-top
-{
-    height: 50px;
-}
-
 .depository-box
 {
-    height: 70px;
+    display: flex;
+    flex-direction: column;
     padding-top: 5px;
 }
 
 .depository-box p
 {
-    display: inline;
     margin: 0;
 }
 
 .depository-detail
 {
-    height: 28px;
-}
-
-.depository-detail p
-{
-    display: inline;
-    margin: 0;
-}
-
-.depository-mainimg
-{
-    float: left;
-}
-
-.depository-text-top
-{
-    padding-top: 5px;
-    margin-left: 80px;
-    float: left;
-    width: 8rem;
+    display: flex;
 }
 
 .depository-text1
 {
-    padding-top: 5px;
-    margin-left: 20px;
-    float: left;
-    width: 8rem;
+    margin: 10px 20px 0 20px;
 }
 
 .depository-text2
 {
-    padding-top: 5px;
-    float: left;
-    width: 6rem;
+    margin: 0 20px;
 }
 
 .depository-star
 {
-    margin-left: 80px;
-    float: left;
-    width: 8rem;
-}
-
-.depository-star img
-{
-    margin: 0;
-}
-
-.depository-text3
-{
-    padding-top: 2px;
-    float: left;
-    width: 6rem;
+    margin: 0 43px 0 80px;
 }
 
 .depository-name

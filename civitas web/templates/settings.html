@@ -33,29 +33,28 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
-
 <div class="main" id="main">
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <p class="main-char">我的设置</p>
-    <div>
-        <p class="main-subchar">上传头像</p>
-        <button class="btn btn-info" href="javascript:void(0)" onclick="click_upload_avatar()">选择图片</button>
-        <input class="hide" type="file" id="upload_avatar" accept="image/jpeg,image/png,image/jpg">
-        <button class="btn btn-warning" onclick="upload_avatar()">确定</button>
-        <p class="tips" id="tips"></p>
-    </div>
-    <div>
-        <p class="main-subchar">更改昵称</p>
-        <input type="text" class="form-control" id="nickname" placeholder="更改昵称">
-        <button class="btn btn-warning" onclick="">确定</button>
-        <p class="tips" id="tips"></p>
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-double">
+        <p class="main-char">我的设置</p>
+        <div>
+            <p class="main-subchar">上传头像</p>
+            <button class="btn btn-info" href="javascript:void(0)" onclick="click_upload_avatar()">选择图片</button>
+            <input class="hide" type="file" id="upload_avatar" accept="image/jpeg,image/png,image/jpg">
+            <button class="btn btn-warning" onclick="upload_avatar()">确定</button>
+            <p class="tips" id="tips"></p>
+        </div>
+        <div>
+            <p class="main-subchar">更改昵称</p>
+            <input type="text" class="form-control" id="nickname" placeholder="更改昵称">
+            <button class="btn btn-warning" onclick="">确定</button>
+            <p class="tips" id="tips"></p>
+        </div>
     </div>
 </div>
 

@@ -10,10 +10,12 @@
     margin: 5px 0;
     flex: 0;
 }
+
 .skill-right
 {
     flex:4;
 }
+
 .skill-name
 {
     border-bottom: 2px dashed rgb(211,227,254);

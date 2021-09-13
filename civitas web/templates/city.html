@@ -34,23 +34,20 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
-
 <div class="main" id="main">
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <div class="main-center">
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-single">
         <p class="main-char">
         <img src="civitas/icon/city/1.png" width="50px" height="50px">
-        京兆郡的广场
+        京兆尹的广场
         </p>
     </div>
-    <div class="main-right" id="main-right">
+    <div class="main-single">
         <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
         <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
     </div>

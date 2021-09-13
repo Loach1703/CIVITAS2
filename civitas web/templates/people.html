@@ -22,8 +22,8 @@
 <script src="civitas/js/essential/parameter.js"></script>
 
 <script src="civitas/js/index/speech.js"></script>
-<script src="civitas/js/index/skill.js"></script>
 
+<script src="civitas/js/people/skill.js"></script>
 <script src="civitas/js/people/user.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
@@ -38,21 +38,18 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
-
 <div id="main" class="main">
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <div class="main-center">
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-single">
         <people-detail v-bind:prop="someone_detail"></people-detail>
         <skill-show v-bind:prop="someone_detail" v-bind:type="'people'"></skill-show>
     </div>
-    <div class="main-right">
+    <div class="main-single">
         <speech-main v-bind:prop="someone_detail" v-bind:type="'people'" ref="speech_main" v-on:refresh="speech_refresh"></speech-main>
     </div>
 </div>

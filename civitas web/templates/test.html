@@ -49,12 +49,12 @@
     </ranevent-modal>
     <div class="main-center">
         <p class="main-char">我的CIVITAS</p>
-        <weather-detail v-bind:prop="date_prop" v-bind:city="user_detail.city"></weather-detail>
+        <weather-detail v-bind:prop="weather_prop" v-bind:city="user_prop.city"></weather-detail>
         <div>
             <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
             <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
         </div>
-        <skill-show v-bind:prop="user_detail" v-bind:type="'index'"></skill-show>
+        <skill-show v-bind:prop="user_prop" v-bind:type="'index'"></skill-show>
     </div>
     <div class="main-right" id="main-right">
         <speech-deliver v-on:refresh="speech_refresh"></speech-deliver>

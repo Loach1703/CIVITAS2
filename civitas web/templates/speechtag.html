@@ -44,7 +44,10 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <speech-main ref="speech_main" v-bind:type="'tag'" v-on:refresh="speech_refresh"></speech-main>
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-double">
+        <speech-main ref="speech_main" v-bind:type="'tag'" v-on:refresh="speech_refresh"></speech-main>
+    </div>
 </div>
 
 </body>

@@ -1,28 +1,33 @@
 .recipe-single
 {
+    display: flex;
     padding-top: 5px;
-    height: 70px;
 }
 
-.recipe-prop p,.recipe-taste p
+.recipe-single p
 {
     margin: 0;
-    display: inline;
 }
 
-.recipe-total
+.recipe-select 
 {
-    padding-top: 5px;
-    height: 90px;
+    padding: 15px 10px 0 10px;
+    flex: 2;
+}
+
+.recipe-prop
+{
+    padding: 5px 10px 0 10px;
+    flex: 1;
+}
+
+.recipe-taste
+{
+    padding-top: 12px;
+    flex: 3;
 }
 
 .recipe-total-name
-{
-    width: 100%;
-    height: 28px;
-}
-
-.recipe-total-name p
 {
     margin: 0;
     padding-left: 10px;
@@ -31,23 +36,18 @@
     border-bottom: 2px solid rgb(211,227,254);
 }
 
-.recipe-name 
-{
-    float: left;
-    padding-top: 15px;
-}
-
-.recipe-prop
-{
-    float: left;
-    padding: 5px 10px 0 10px;
-}
-
 .recipe-number
 {
-    color: rgb(250, 100, 100);
-    font-size: 16px;
-    font-weight: bold;
+    color: rgb(210, 60, 60);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.recipe-prop-single
+{
+    color: rgb(100, 100, 100);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .recipe-starvation
@@ -69,12 +69,6 @@
     color: rgb(50, 50, 150);
     font-size: 14px;
     font-weight: bold;
-}
-
-.recipe-taste
-{
-    float: left;
-    padding-top: 12px;
 }
 
 .recipe-taste-text
