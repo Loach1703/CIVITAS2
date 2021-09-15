@@ -62,16 +62,16 @@ function load_main_vm(uid) {
         },
         template: `
         <div class="left-navigator">
-            <div class="bottomline">
-                <a v-bind:href="'people.html?uid='+prop.uid" class="avatar">
+            <div class="bottomline avatar">
+                <a v-bind:href="'people.html?uid='+prop.uid">
                     <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+prop.uid" class="img-thumbnail" width="80px" height="80px"/>
                 </a>
                 <div class="level">
-                    <a v-bind:href="'people.html?uid='+prop.uid" id="username">{{ prop.username }}</a>
+                    <a v-bind:href="'people.html?uid='+prop.uid">{{ prop.username }}</a>
                     <p>等级 100级</p>
-                    <div class="progress levelbar">
+                    <div class="progress">
                         <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" style="width: 50%">
-                            <p class="xp">经验 1000 / 2000</p>
+                            <p>经验 1000 / 2000</p>
                         </div>
                     </div>
                 </div>
@@ -267,34 +267,34 @@ function load_main_vm(uid) {
                 })
                 .then(function (response) {
                     var json_str_data = response.data.data;
-                    vm.status = json_str_data.today;
-                    vm.status_change = json_str_data.tomorrow;
-                    if (vm.status_change.stamina_change >= 0) {
-                        vm.status_change.stamina_change = " + " + vm.status_change.stamina_change.toFixed(1);
+                    status_today = json_str_data.today;
+                    status_change = json_str_data.tomorrow;
+                    if (status_change.stamina_change >= 0) {
+                        status_change.stamina_change = " + " + status_change.stamina_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.stamina_change = " - " + Math.abs(vm.status_change.stamina_change).toFixed(1);
+                        status_change.stamina_change = " - " + Math.abs(status_change.stamina_change).toFixed(1);
                     }
-                    if (vm.status_change.happiness_change >= 0) {
-                        vm.status_change.happiness_change = " + " + vm.status_change.happiness_change.toFixed(1);
-                    }
-                    else {
-                        vm.status_change.happiness_change = " - " + Math.abs(vm.status_change.happiness_change).toFixed(1);
-                    }
-                    if (vm.status_change.health_change >= 0) {
-                        vm.status_change.health_change = " + " + vm.status_change.health_change.toFixed(1);
+                    if (status_change.happiness_change >= 0) {
+                        status_change.happiness_change = " + " + status_change.happiness_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.health_change = " - " + Math.abs(vm.status_change.health_change).toFixed(1);
+                        status_change.happiness_change = " - " + Math.abs(status_change.happiness_change).toFixed(1);
                     }
-                    if (vm.status_change.starvation_change >= 0) {
-                        vm.status_change.starvation_change = " + " + vm.status_change.starvation_change.toFixed(1);
+                    if (status_change.health_change >= 0) {
+                        status_change.health_change = " + " + status_change.health_change.toFixed(1);
                     }
                     else {
-                        vm.status_change.starvation_change = " - " + Math.abs(vm.status_change.starvation_change).toFixed(1);
+                        status_change.health_change = " - " + Math.abs(status_change.health_change).toFixed(1);
                     }
-                    vm.prop.status = vm.status;
-                    vm.prop.status_change = vm.status_change;
+                    if (status_change.starvation_change >= 0) {
+                        status_change.starvation_change = " + " + status_change.starvation_change.toFixed(1);
+                    }
+                    else {
+                        status_change.starvation_change = " - " + Math.abs(status_change.starvation_change).toFixed(1);
+                    }
+                    vm.$set(vm.user_prop,"status",status_today);
+                    vm.$set(vm.user_prop,"status_change",status_change);
                 })
                 .catch(function (error) {
                     console.log(error);

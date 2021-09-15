@@ -35,15 +35,13 @@
 <nav class="navigator" id="navigator"></nav>
 
 <div class="main" id="main">
-    <ranevent-modal 
+    <ranevent-modal
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
     <left-navigator v-bind:prop="user_prop"></left-navigator>
     <ingredient-all></ingredient-all>
-</div>
-
 </div>
 
 </body>

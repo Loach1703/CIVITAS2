@@ -107,31 +107,21 @@
 
 .left-navigator
 {
-  padding: 0 5px;
   flex: 3;
   background-color: rgba(247,247,247,0.5);
 }
 
-.xp
-{
-  margin: 0;
-  color: black;
-}
-
-.bottomline
-{
-  border-bottom: 2px solid rgb(204,204,204);
-}
-
 .avatar
 {
-  margin-left: 10px;
-  float: left;
+  display: flex;
 }
 
 .level
 {
-  margin: 10px 0 20px 100px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 10px;
 }
 
 .level a:hover
@@ -141,13 +131,7 @@
 
 .level p
 {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.levelbar
-{
-  margin: 0 10px 0 0;
+  margin: 0;
   color: black;
 }
 

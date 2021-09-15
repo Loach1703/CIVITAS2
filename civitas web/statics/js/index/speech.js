@@ -175,21 +175,23 @@ Vue.component("speech-main", {
         <p class="explain" v-else-if="type == 'tag' && speechs.length == 0">#{{ tagname }}#还没有演讲。</p>
         <p class="explain" v-else-if="type == 'people' && speechs.length == 0">{{ prop.username }}还没有发表过演讲。</p>
         <div class="speech bottomline-dashed" v-for="speech in speechs">
-            <a v-bind:href="'people.html?uid='+speech.uid" class="speech-avatar">
-                <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
-            </a>
-            <span class="speech-content">
-                <a v-bind:href="'people.html?uid='+speech.uid" class="speech-name">{{ speech.username }}</a>
-                <p v-html="'：'+speech.text"></p>
-            </span>
-            <div class="speech-bottom">
+            <span>
+                <a v-bind:href="'people.html?uid='+speech.uid" class="speech-avatar">
+                    <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
+                </a>
+                <span class="speech-content">
+                    <a v-bind:href="'people.html?uid='+speech.uid">{{ speech.username }}</a>
+                    <p v-html="'：'+speech.text"></p>
+                </span>
+            </spam>
+            <span class="speech-bottom">
                 <p>本地演讲，第{{ speech.day }}天，{{ speech.time }}</p>
-            </div>
-            <div class="speech-bottom">
+            </span>
+            <span class="speech-bottom">
                 <a href="javascript:void(0)" v-on:click="speech_attitude(1,speech.textid)" v-bind:class="{ 'speech-attitude' : speech.my_attitude == 1 }">欢呼({{ speech.cheer }}) </a>
                 <a href="javascript:void(0)" v-on:click="speech_attitude(2,speech.textid)" v-bind:class="{ 'speech-attitude' : speech.my_attitude == 2 }">关注({{ speech.onlooker }}) </a>
                 <a href="javascript:void(0)" v-on:click="speech_attitude(3,speech.textid)" v-bind:class="{ 'speech-attitude' : speech.my_attitude == 3 }">倒彩({{ speech.catcall }})</a>
-            </div>
+            </span>
         </div>
         <div id="speech-page-paginator" class="speech-page-paginator"></div>
         <div class="speech-page-paginator">
