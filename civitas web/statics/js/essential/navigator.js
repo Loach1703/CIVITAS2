@@ -21,7 +21,7 @@ function navigator(status,uid)
     {
         nav.innerHTML = `
             <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
-            <span class="vertime">Pre-Alpha 0.0.9
+            <span class="vertime">Pre-Alpha 0.0.10
                 <p id="time" class="time"></p>
             </span>
             <span>
@@ -48,7 +48,7 @@ function navigator(status,uid)
     {
         nav.innerHTML = `
             <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
-            <span class="vertime">Pre-Alpha 0.0.9
+            <span class="vertime">Pre-Alpha 0.0.10
                 <p id="time" class="time"></p>
             </span>
             <span>
@@ -74,11 +74,12 @@ function date_navigator()
             var total_day = json_str["data"]["total_day"];
             var season = json_str["data"]["season"];
             var time = json_str["data"]["time"];
+            var year = json_str["data"]["year"];
             var reg = /\d{2}/g;
             var time2 = time.match(reg);
             var hour = time2[0];
             var minute = time2[1];
-            document.getElementById("time").innerHTML = season+" D"+total_day+" "+hour+":"+minute;
+            document.getElementById("time").innerHTML = season+" Y"+year+" D"+total_day+" "+hour+":"+minute;
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/getdate/",true);

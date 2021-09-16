@@ -175,15 +175,15 @@ Vue.component("speech-main", {
         <p class="explain" v-else-if="type == 'tag' && speechs.length == 0">#{{ tagname }}#还没有演讲。</p>
         <p class="explain" v-else-if="type == 'people' && speechs.length == 0">{{ prop.username }}还没有发表过演讲。</p>
         <div class="speech bottomline-dashed" v-for="speech in speechs">
-            <span>
-                <a v-bind:href="'people.html?uid='+speech.uid" class="speech-avatar">
+            <span class="speech-avatar">
+                <a v-bind:href="'people.html?uid='+speech.uid">
                     <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
                 </a>
                 <span class="speech-content">
                     <a v-bind:href="'people.html?uid='+speech.uid">{{ speech.username }}</a>
                     <p v-html="'：'+speech.text"></p>
                 </span>
-            </spam>
+            </span>
             <span class="speech-bottom">
                 <p>本地演讲，第{{ speech.day }}天，{{ speech.time }}</p>
             </span>
@@ -286,12 +286,14 @@ Vue.component("speech-popular", {
         <p class="main-char">热门演讲</p>
         <p class="explain" v-if="speech == null">还没有热门演讲。</p>
         <div class="speech" v-else>
-            <a v-bind:href="'people.html?uid='+speech.uid" class="speech-avatar">
-                <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
-            </a>
-            <span class="speech-content">
-                <a v-bind:href="'people.html?uid='+speech.uid" class="speech-name">{{ speech.username }}</a>
-                <p v-html="'：'+speech.text"></p>
+            <span class="speech-avatar">
+                <a v-bind:href="'people.html?uid='+speech.uid">
+                    <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+speech.uid" class="img-thumbnail" width="50px" height="50px">
+                </a>
+                <span class="speech-content">
+                    <a v-bind:href="'people.html?uid='+speech.uid">{{ speech.username }}</a>
+                    <p v-html="'：'+speech.text"></p>
+                </span>
             </span>
             <div class="speech-bottom">
                 <p>本地演讲，第{{ speech.day }}天，{{ speech.time }}</p>
