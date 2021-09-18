@@ -11,3 +11,18 @@ from WorkModel.models import *
 import random
 import json
 import datetime
+
+class Raw_material(models.Model):
+    id = IntegerField(primary_key=True,)
+    name = CharField(max_length=50,verbose_name='名字')
+    health = FloatField(verbose_name='食物健康')
+    Satiety = FloatField(verbose_name='饱食度')
+    salty = FloatField(va)
+
+    def __str__(self):
+        return self.user.username
+
+
+
+        
+    
