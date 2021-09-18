@@ -13,7 +13,6 @@ function load_updata()
     load_main_vm(json_str_login["data"]["uid"]);
     //获取导航栏
     navigator(json_str_login["status"],json_str_login["data"]["uid"]);
-    left_navigator(json_str_login["data"]["uid"]);
     //找不到参数，重定向至主页
     if (isNaN(get_parameter_value("tagid")))
     {

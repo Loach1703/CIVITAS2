@@ -15,7 +15,7 @@ data:{
 */
 
 Vue.component("weather-detail", {
-    props: ["prop","city"],
+    props: ["prop","user_prop"],
     data: function () {
         return {
             weather_svg_dict: {"晴":"qingtian.svg","多云":"duoyun.svg","阴":"yintian.svg","小雨":"xiaoyu.svg","大雨":"dayu.svg","小雪":"xiaoxue.svg","大雪":"daxue.svg","台风":"taifeng.svg"},
@@ -41,7 +41,7 @@ Vue.component("weather-detail", {
                 url: "https://api.trickydeath.xyz/getweather/",
                 withCredentials: true,
                 params: {
-                    city: this.city,
+                    city: this.user_prop.city,
                     day: this.prop.total_day
                 },
             })
@@ -58,8 +58,10 @@ Vue.component("weather-detail", {
     },
     template:`
     <div>
-        <p class="location">位于京兆尹，长安县 今天是{{ prop.season }}的第{{ day }}天</p>
-        <span v-bind:src="'civitas/svg/weather/'+weather_svg_dict[prop.weather]"></span>
+        <div class="location">
+            <p>位于<a v-bind:href="'city.html?id='+user_prop.cityid">京兆尹</a>，长安县 今天是{{ prop.season }}的第{{ day }}天</p>
+        </div>
+        <img v-bind:src="'civitas/svg/weather/'+weather_svg_dict[weather]"/>
         <p class="weather-main">今日天气：<strong>{{ weather }}</strong> 温度：<strong>{{ temperature.toFixed(2) }}</strong>摄氏度 降水量：<strong>{{ rain_num.toFixed(2) }}</strong>mm</p>
     </div>
     `

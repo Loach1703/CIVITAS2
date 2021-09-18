@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<link rel="stylesheet" href="civitas/css/style.css"/>
-<link rel="stylesheet" href="civitas/css/skill.css"/>
-<link rel="stylesheet" href="civitas/css/sideline.css"/>
+    
+<link rel="stylesheet" href="civitas/css/style.css">
+<link rel="stylesheet" href="civitas/css/speech.css">
 
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
@@ -19,8 +18,9 @@
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
+<script src="civitas/js/essential/parameter.js"></script>
 
-<script src="civitas/js/sideline/sideline.js"></script>
+<script src="civitas/js/index/speech.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
@@ -28,16 +28,11 @@
 
 <head>
 <meta charset="utf-8">
-<title>我的教育 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
 <nav class="navigator" id="navigator"></nav>
-
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
 
 <div class="main" id="main">
     <ranevent-modal 
@@ -45,7 +40,17 @@
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <education-display></education-display>
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-single">
+        <p class="main-char">
+        <img src="civitas/icon/city/1.png" width="50px" height="50px">
+        京兆尹的广场
+        </p>
+    </div>
+    <div class="main-single">
+        <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
+        <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
+    </div>
 </div>
 
 </body>

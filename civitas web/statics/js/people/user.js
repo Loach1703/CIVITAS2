@@ -3,7 +3,7 @@
 
 组件1
 名称:people-detail
-用途:显示演讲，翻页
+用途:个人主页中显示个人详细信息
 props:{
     prop:{
         uid:对应用户的uid
@@ -14,12 +14,22 @@ props:{
 
 Vue.component("people-detail", {
     props: ["prop"],
+    data: function () {
+        return {
+        }
+    },
     created: function () {
         document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
     },
     watch: {
-        prop: function () {
-            document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+        prop: {
+            handler: function (val,oldVal) {
+                console.log(this.prop)
+                console.log(val)
+                console.log(oldVal)
+                document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+            },
+            deep: true
         }
     },
     template:`
@@ -28,8 +38,8 @@ Vue.component("people-detail", {
         <div class="main-people-text">
             <p>{{ prop.test }}</p>
             <p>{{ prop.username }}</p>
-            <p class="author">&gt;位于京兆尹，长安县 &gt;籍贯京兆尹</p>
-            <p class="author">&gt;<a v-bind:href="'depository.html?uid='+prop.uid">{{ prop.username }}的库房</a></p>
+            <p class="explain">>位于<a v-bind:href="'city.html?uid='+prop.cityid">京兆尹</a>，长安县 >籍贯<a v-bind:href="'city.html?uid='+prop.cityid">京兆尹</a></p>
+            <p class="explain">><a v-bind:href="'depository.html?uid='+prop.uid">{{ prop.username }}的库房</a></p>
         </div>
     </div>
     `

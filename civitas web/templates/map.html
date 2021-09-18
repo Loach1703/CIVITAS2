@@ -31,19 +31,19 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
-
 <div class="main" id="main">
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <p class="main-char">地图</p>
-    <img src="civitas/img/map-east.png"/>
-    <img src="civitas/img/map-west.png" width="90%" height="60%"/>
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-double">
+        <p class="main-char">地图</p>
+        <p class="author">作者 天堂</p>
+        <img src="civitas/img/map-east.png"/>
+        <img src="civitas/img/map-west.png" width="900px" height="557px"/>
+    </div>
 </div>
 
 </body>

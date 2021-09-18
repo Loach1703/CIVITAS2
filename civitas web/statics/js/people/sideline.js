@@ -88,15 +88,24 @@ Vue.component("sideline-display", {
                 }
                 else if (vm.type == "sideline")
                 {
-                    console.log("sideline");
-                    vm.$emit("showre",
-                        {title:json_str_data.sideline_name+"成功",
-                        statement:"在今天的"+json_str_data.sideline_name+"中，你得到了"+json_str_data.count.toFixed(2)+"单位的"+json_str_data.material_name+"。",
-                        type:"normal",
-                        option_text:["那就这样吧。"]
-                    })
+                    if (json_str_data.material == "一无所获") {
+                        vm.$emit("showre",
+                            {title:json_str_data.sideline_name+"失败",
+                            statement:"在今天的"+json_str_data.sideline_name+"中，你一无所获。",
+                            type:"normal",
+                            option_text:["那就这样吧。"]
+                        })
+                    }
+                    else {
+                        vm.$emit("showre",
+                            {title:json_str_data.sideline_name+"成功",
+                            statement:"在今天的"+json_str_data.sideline_name+"中，你得到了"+json_str_data.count.toFixed(2)+"单位的"+json_str_data.material_name+"。",
+                            type:"normal",
+                            option_text:["那就这样吧。"]
+                        })
+                    }
                 }
-                leftnav_vm.get_status();
+                vm.get_status();
             })
             .catch(function (error) {
                 console.log(error);
@@ -104,7 +113,7 @@ Vue.component("sideline-display", {
         }
     },
     template: `
-    <div>
+    <div class="main-double">
         <template v-if="type == 'education'">
             <p class="main-char">我的教育</p>
             <p class="author">进行教育能获得悟性并给你额外的突破机会，从而增加你突破门槛的概率，同时你也能获得技能。

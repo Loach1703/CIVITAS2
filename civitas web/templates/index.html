@@ -8,7 +8,7 @@
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/vue.js"></script>
 <script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
@@ -22,7 +22,8 @@
 
 <script src="civitas/js/index/speech.js"></script>
 <script src="civitas/js/index/weather.js"></script>
-<script src="civitas/js/index/skill.js"></script>
+
+<script src="civitas/js/people/skill.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
@@ -37,26 +38,39 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div id="left-navigator">
-    <left-navigator v-bind:prop="prop"></left-navigator>
-</div>
-
 <div class="main" id="main">
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <div class="main-center">
+    <left-navigator v-bind:prop="user_prop"></left-navigator>
+    <div class="main-single">
         <p class="main-char">我的CIVITAS</p>
-        <weather-detail v-bind:prop="date_prop" v-bind:city="user_detail.city"></weather-detail>
-        <div>
-            <a href="#" class="address"><img src="civitas/svg/index/address.svg" width="80px" height="80px"/></a>
-            <a href="#" class="work"><img src="civitas/svg/index/work.svg" width="80px" height="80px"/></a>
+        <weather-detail v-bind:prop="weather_prop" v-bind:user_prop="user_prop"></weather-detail>
+        <div class="blocks">
+            <div class="address blocks-div1" onclick="window.location.assign('')">
+                <img src="civitas/icon/index/Domicile.png"/>
+                <p>我的住址<br>房子1</p>
+            </div>
+            <div class="work blocks-div1" onclick="window.location.assign('')">
+                <img src="civitas/icon/index/Workplace.png"/>
+                <p>我的工作<br>农田1</p>
+            </div>
+            <div class="relationship blocks-div1">
+                <div class="relationship-img">
+                    <a v-for="a in b" v-bind:href="'people.html?uid='+a"><img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+a"/></a>
+                </div>
+                <p>我的人际关系</p>
+            </div>
+            <div class="recipe blocks-div1" onclick="window.location.assign('create_recipe.html')">
+                <img src="civitas/icon/index/Recipes.png"/>
+                <p>我的食谱</p>
+            </div>
         </div>
-        <skill-show v-bind:prop="user_detail" v-bind:type="'index'"></skill-show>
+        <skill-show v-bind:prop="user_prop" v-bind:type="'index'"></skill-show>
     </div>
-    <div class="main-right" id="main-right">
+    <div class="main-single">
         <speech-deliver v-on:refresh="speech_refresh"></speech-deliver>
         <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
         <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>

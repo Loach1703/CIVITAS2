@@ -31,7 +31,9 @@
 .speech
 {
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .speech:hover
@@ -43,13 +45,6 @@
 {
   display: inline;
   line-height: 25px;
-  font-size: 16px;
-  word-wrap:break-word;
-}
-
-.speech a
-{
-  font-size: 16px;
 }
 
 .speech a:hover
@@ -59,27 +54,19 @@
 
 .speech-avatar
 {
-  position: relative;
-  height: inherit;
+  display: flex;
 }
 
 .speech-content
 {
-  position: relative;
   margin-left: 10px;
-}
-
-.speech-content p
-{
-  position: relative;
+  flex: 1;
 }
 
 .speech-bottom
 {
   margin: 0 auto;
   text-align: center;
-  position: relative;
-  margin-left: 10px;
 }
 
 .speech-attitude
