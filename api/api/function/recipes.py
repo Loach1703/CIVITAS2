@@ -11,16 +11,16 @@ from WorkModel.models import *
 import random
 import json
 import datetime
+from RecipesModel.models import Recipes
 
-class Raw_material(models.Model):
-    id = IntegerField(primary_key=True,)
-    name = CharField(max_length=50,verbose_name='名字')
-    health = FloatField(verbose_name='食物健康')
-    Satiety = FloatField(verbose_name='饱食度')
-    salty = FloatField(va)
 
-    def __str__(self):
-        return self.user.username
+def GetUserRecipes(req):
+    sessionid = req.COOKIES.get("sessionid")
+    uid = req.GET.get("uid")
+    user = auth.models.User.objects.get(pk=uid)
+    
+
+
 
 
 
