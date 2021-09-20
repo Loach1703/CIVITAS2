@@ -2,8 +2,6 @@
 <html>
 
 <link rel="stylesheet" href="civitas/css/style.css"/>
-<link rel="stylesheet" href="civitas/css/speech.css">
-<link rel="stylesheet" href="civitas/css/skill.css">
 <link rel="stylesheet" href="civitas/css/people.css">
 
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
@@ -22,9 +20,6 @@
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
 <script src="civitas/js/essential/parameter.js"></script>
 
-<script src="civitas/js/index/speech.js"></script>
-
-<script src="civitas/js/people/skill.js"></script>
 <script src="civitas/js/people/people.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
@@ -46,13 +41,8 @@
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
     <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <div class="main-single">
-        <people-detail v-bind:prop="someone_detail" v-bind:uid="user_prop.uid"></people-detail>
-        <people-social v-bind:prop="someone_detail" v-bind:uid="user_prop.uid" v-bind:type="'people'"></people-social>
-        <skill-show v-bind:prop="someone_detail" v-bind:type="'people'"></skill-show>
-    </div>
-    <div class="main-single">
-        <speech-main v-bind:prop="someone_detail" v-bind:type="'people'" ref="speech_main" v-on:refresh="speech_refresh"></speech-main>
+    <div class="main-double">
+        <people-social v-bind:prop="someone_detail" v-bind:uid="user_prop.uid" v-bind:type="'total'"></people-social>
     </div>
 </div>
 

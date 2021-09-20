@@ -105,7 +105,7 @@ Vue.component("sideline-display", {
                         })
                     }
                 }
-                vm.get_status();
+                main_vm.get_status();
             })
             .catch(function (error) {
                 console.log(error);

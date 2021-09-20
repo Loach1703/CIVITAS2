@@ -1,3 +1,8 @@
+.main a:hover,.navigator a:hover
+{
+  text-decoration: none;
+}
+
 .navigator
 {
   position: fixed;
@@ -20,7 +25,6 @@
 {
   color: white;
   background-color: rgb(40,40,40);
-  text-decoration: none;
 }
 
 .civitas2
@@ -125,11 +129,6 @@
   margin-left: 10px;
 }
 
-.level a:hover
-{
-  text-decoration: none;
-}
-
 .level p
 {
   margin: 0;
@@ -162,7 +161,6 @@
 {
   color: rgb(41,41,41);
   background-color: white;
-  text-decoration: none;
 }
 
 .resize-none
@@ -188,36 +186,6 @@
   border-bottom: 2px solid rgb(211,227,254);
 }
 
-.main-people
-{
-  margin: 20px 0 20px 0;
-  padding-left: 10px;
-  font-size: 20px;
-  color: rgb(57,85,115);
-  border-bottom: 2px solid rgb(211,227,254);
-  height: 105px
-}
-
-.main-people-text
-{
-  float: left;
-}
-
-.main-people-text p
-{
-  margin: 0;
-}
-
-.main-people-text a:hover
-{
-  text-decoration: none;
-}
-
-.main-people img
-{
-  float: left;
-}
-
 .location
 {
   font-size: 20px;
@@ -229,11 +197,6 @@
 .location p
 {
   margin: 0;
-}
-
-.location a:hover
-{
-  text-decoration: none;
 }
 
 .weather-main

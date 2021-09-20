@@ -2,8 +2,6 @@
 <html>
 
 <link rel="stylesheet" href="civitas/css/style.css"/>
-<link rel="stylesheet" href="civitas/css/speech.css">
-<link rel="stylesheet" href="civitas/css/skill.css">
 <link rel="stylesheet" href="civitas/css/people.css">
 
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
@@ -20,19 +18,14 @@
 <script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
-<script src="civitas/js/essential/parameter.js"></script>
-
-<script src="civitas/js/index/speech.js"></script>
-
-<script src="civitas/js/people/skill.js"></script>
-<script src="civitas/js/people/people.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
-<script src="civitas/js/onload/onload-uid.js"></script>
+<script src="civitas/js/onload/onload-login.js"></script>
 
 <head>
 <meta charset="utf-8">
+<title>404 找不到页面 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -46,13 +39,9 @@
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
     <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <div class="main-single">
-        <people-detail v-bind:prop="someone_detail" v-bind:uid="user_prop.uid"></people-detail>
-        <people-social v-bind:prop="someone_detail" v-bind:uid="user_prop.uid" v-bind:type="'people'"></people-social>
-        <skill-show v-bind:prop="someone_detail" v-bind:type="'people'"></skill-show>
-    </div>
-    <div class="main-single">
-        <speech-main v-bind:prop="someone_detail" v-bind:type="'people'" ref="speech_main" v-on:refresh="speech_refresh"></speech-main>
+    <div class="main-double">
+        <p class="main-char">404 找不到页面</p>
+        <p class="explain">1.If you think you broke something, GO AWAY!</p>
     </div>
 </div>
 

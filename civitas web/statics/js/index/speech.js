@@ -168,7 +168,7 @@ Vue.component("speech-main", {
     },
     template:`
     <div>
-        <p class="main-char" v-if="type == 'index'">其他演讲</p>
+        <p class="main-char" v-if="type == 'index'">本地演讲</p>
         <p class="main-char" v-else-if="type == 'tag'">#{{ tagname }}#</p>
         <p class="main-char" v-else-if="type == 'people'">{{ prop.username }}的演讲</p>
         <p class="explain" v-if="type == 'index' && speechs.length == 0">这里还没有人发表过演讲。</p>
@@ -333,7 +333,7 @@ Vue.component("speech-deliver", {
                     vm.speech_input = "";
                 }
                 vm.$emit("refresh");
-                leftnav_vm.get_status();
+                main_vm.get_status();
             })
             .catch(function (error) {
                 vm.speech_tips = response.data.data;
@@ -343,7 +343,7 @@ Vue.component("speech-deliver", {
     },
     template:`
     <div class="deliver-speech">
-        <p class="main-char">本地演讲</p>
+        <p class="main-char">发表演讲</p>
         <textarea class="form-control resize-none" rows="5" id="speech-input" type="text" v-model="speech_input" placeholder="在这里发表演讲，不超过300个字"></textarea>
         <button class="btn btn-primary" v-on:click="give_speech">发表</button>
         <p class="speech-tips">{{ speech_tips }}</p>

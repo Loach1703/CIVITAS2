@@ -79,7 +79,7 @@ function date_navigator()
             var time2 = time.match(reg);
             var hour = time2[0];
             var minute = time2[1];
-            document.getElementById("time").innerHTML = season+" Y"+year+" D"+total_day+" "+hour+":"+minute;
+            document.getElementById("time").innerHTML = "Y"+year+" "+season+" D"+total_day+" "+hour+":"+minute;
 		}
 	}
     xmlhttp.open("GET","https://api.trickydeath.xyz/getdate/",true);

@@ -1,18 +1,18 @@
 /*
-个人主页Vue组件
+食谱部分Vue组件
 
 组件1
-名称:people-detail
-用途:个人主页中显示个人详细信息
+名称:ingredient-detail
+用途:创建/编辑食谱时，显示食谱材料详细信息
 props:{
-    prop:{
-        uid:对应用户的uid
-        username:对应用户的用户名
-    },
+    ingredient_list: 食材总表
+    used_ingredients: 已使用的食材
+    ingredient_prop: 各个食材属性
+    index: 材料编号
 }
 */
 
-Vue.component('ingredient-detail', {
+Vue.component("ingredient-detail", {
     props: ["ingredient_list","used_ingredients","ingredient_prop","index"],
     data: function () {
         return {
@@ -102,7 +102,7 @@ Vue.component('ingredient-detail', {
                 <strong class="recipe-sweet" v-if="ingredient_prop[ingredient_id].sweet > 0">甜 </strong>
                 <strong class="recipe-bitter" v-if="ingredient_prop[ingredient_id].bitter > 0">苦 </strong>
                 <strong class="recipe-salt" v-if="ingredient_prop[ingredient_id].salt > 0">咸 </strong>
-                <strong class="recipe-spice" v-if="ingredient_prop[ingredient_id].spice > 0">香料 </strong>
+                <strong class="recipe-spice" v-if="ingredient_prop[ingredient_id].spice > 0">香 </strong>
                 <strong class="recipe-none" v-if="ingredient_prop[ingredient_id].acid == 0 &&
                     ingredient_prop[ingredient_id].sweet == 0 &&
                     ingredient_prop[ingredient_id].bitter == 0 &&
@@ -116,8 +116,8 @@ Vue.component('ingredient-detail', {
     `
 })
 
-Vue.component('ingredient-total', {
-    props: ["ingredient_total"],
+Vue.component("ingredient-total", {
+    props: ["ingredient_total","type"],
     data: function () {
         return {
             starvation: 0,
@@ -137,14 +137,14 @@ Vue.component('ingredient-total', {
     },
     watch: {
         ingredient_total: function () {
-            console.log(this.ingredient_total);
             this.get_total_props();
         }
     },
     template: `
     <div>
-        <p class="recipe-total-name">属性合计</p>
+        <p class="recipe-total-name" v-if="type == 'create'">属性合计</p>
         <div class="recipe-single bottomline-dashed">
+            <p class="recipe-name" v-if="type == 'myrecipe'">{{ ingredient_total.name }}</p>
             <div class="recipe-prop">
                 <p class="recipe-number">{{ starvation.toFixed(2) }}<br></p>
                 <p class="recipe-prop-single">饥饿变化</p>
@@ -185,13 +185,13 @@ Vue.component('ingredient-all', {
             ingredient_total: [],
             ingredient_list: [{id:6,name:"韭"},{id:7,name:"葱"},{id:8,name:"姜"},{id:14,name:"李"},{id:17,name:"桃"},{id:18,name:"甜瓜"}],
             ingredient_prop: {
-                "-1":{starvation:0,health:0,stamina:0,max:5,acid:0,sweet:0,bitter:0,salt:0,spice:0},
-                6:{starvation:1,health:0.05,stamina:0,max:5,acid:0,sweet:0,bitter:0,salt:0,spice:8},
-                7:{starvation:1,health:0.1,stamina:0,max:5,acid:0,sweet:0,bitter:0,salt:0,spice:5},
-                8:{starvation:1,health:0.2,stamina:0,max:5,acid:0,sweet:0,bitter:0,salt:0,spice:10},
-                14:{starvation:1,health:0.2,stamina:0.5,max:5,acid:15,sweet:5,bitter:0,salt:0,spice:0},
-                17:{starvation:1,health:0.2,stamina:0,max:5,acid:5,sweet:15,bitter:0,salt:0,spice:0},
-                18:{starvation:2,health:0.2,stamina:0,max:5,acid:0,sweet:5,bitter:0,salt:0,spice:0},
+                "-1":{starvation:0,health:0,stamina:0,acid:0,sweet:0,bitter:0,salt:0,spice:0},
+                6:{starvation:1,health:0.05,stamina:0,acid:0,sweet:0,bitter:0,salt:0,spice:8},
+                7:{starvation:1,health:0.1,stamina:0,acid:0,sweet:0,bitter:0,salt:0,spice:5},
+                8:{starvation:1,health:0.2,stamina:0,acid:0,sweet:0,bitter:0,salt:0,spice:10},
+                14:{starvation:1,health:0.2,stamina:0.5,acid:15,sweet:5,bitter:0,salt:0,spice:0},
+                17:{starvation:1,health:0.2,stamina:0,acid:5,sweet:15,bitter:0,salt:0,spice:0},
+                18:{starvation:2,health:0.2,stamina:0,acid:0,sweet:5,bitter:0,salt:0,spice:0},
             }
         }
     },
@@ -214,10 +214,6 @@ Vue.component('ingredient-all', {
         ingredients_had_changed: function (index,ingredient_id,ingredient_number){
             this.$set(this.used_ingredients,index,ingredient_id)
             this.$set(this.ingredient_total,index,{id:ingredient_id,number:ingredient_number})
-        },
-        test: function (){
-            console.log(this.used_ingredients);
-            console.log(this.ingredient_list);
         }
     },
     template: `
@@ -228,8 +224,7 @@ Vue.component('ingredient-all', {
         <button class="btn btn-success">保存食谱</button>
         <button class="btn btn-warning">取消</button>
         <ingredient-detail 
-            v-for="(ingredient_id,index) in number_of_ingredients" 
-            v-on:test="test" 
+            v-for="(ingredient_id,index) in number_of_ingredients"  
             v-on:remove="remove_ingredients" 
             v-on:ingredient_change="ingredients_had_changed"
             v-bind:ingredient_list="ingredient_list" 
@@ -239,7 +234,46 @@ Vue.component('ingredient-all', {
             v-bind:key="ingredient_id">
         </ingredient-detail>
         <button class="btn btn-success" v-on:click="add_ingredients">添加食材</button>
-        <ingredient-total v-bind:ingredient_total="ingredient_total"></ingredient-total>
+        <ingredient-total v-bind:ingredient_total="ingredient_total" v-bind:type="'create'"></ingredient-total>
+    </div>
+    `
+})
+
+Vue.component('recipe-all', {
+    props: ["prop"],
+    data: function () {
+        return {
+            recipes: []
+        }
+    },
+    created: function () {
+        this.get_recipe();
+    },
+    methods: {
+        get_recipe: function () {
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/getrecipe/",
+                withCredentials: true,
+                params: {
+                    uid: this.prop.uid,
+                },
+            })
+            .then(function (response) {
+                vm.recipes = response.data.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+    },
+    template: `
+    <div class="main-double">
+        <p class="main-char">我的食谱</p>
+        <a class="btn btn-primary" href="create_recipe.html" role="button">新建食谱</a>
+        <p class="author" v-if="recipes.length == 0">你还没有食谱，点击“新建食谱”创建一个。</p>
+        <ingredient-total v-else v-for="(recipe,index) in recipes" v-bind:key="index" v-bind:ingredient_total="recipe" v-bind:type="'myrecipe'"></ingredient-total>
     </div>
     `
 })

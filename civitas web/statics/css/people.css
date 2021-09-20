@@ -1,0 +1,73 @@
+.people-detail
+{
+  display: flex;
+  margin: 10px 0;
+  padding-left: 10px;
+  font-size: 20px;
+  color: rgb(57,85,115);
+  border-bottom: 2px solid rgb(211,227,254);
+}
+
+.people-text
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.people-text p
+{
+  margin: 0;
+}
+
+.people-add-friend
+{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.people-add-friend button
+{
+  background-color: rgb(220,220,220)
+}
+
+.social-total
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.social-methods
+{
+    display: flex;
+}
+
+.social-methods p
+{
+    margin: 0;
+}
+
+.social-detail
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.social-single
+{
+    margin: 5px 0;
+    display: flex;
+}
+
+.social-single p
+{
+    flex: 1;
+    margin: 0 10px;
+}
+
+.social-more
+{
+    display: flex;
+    justify-content: flex-end;
+}
