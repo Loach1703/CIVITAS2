@@ -9,7 +9,7 @@ from django.contrib import auth
 from MaterialModel.models import *
 from UserModel.models import *
 from WorkModel.models import *
-from WorkModel.models import *
+
 import random
 import json
 import datetime
