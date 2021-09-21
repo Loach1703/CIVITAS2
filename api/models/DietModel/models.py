@@ -43,21 +43,19 @@ class diet_materialDetail(models.Model):
         ]
 
 class Input_Recipe_Material(models.Model):
-    recipe = ForeignKey('diet_material',on_delete=models.CASCADE,verbose_name='配方id')
+    recipe = ForeignKey('diet_recipe',on_delete=models.CASCADE,verbose_name='配方id')
     material = ForeignKey('diet_materialDetail',on_delete=models.CASCADE,verbose_name='输入物资')
     count = IntegerField(verbose_name='数量')
 
     class Meta:
         verbose_name_plural = '所需食材表'
 
-class diet_recipes(models.Model):
-    #食谱表、食品表
-    name = CharField(max_length=50,verbose_name='名字')
-    Owner = IntegerField(db_index=True,verbose_name='拥有者') #拥有者
+class diet_recipe(models.Model):
+    name = CharField(max_length=50,verbose_name='名字',default=" ")
+    Owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者
+
+    input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
     
-    # input = ManyToManyField('diet_materialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
-    input = ManyToManyField('diet_materialDetail',through=Input_Recipe_Material)
-    #食谱属性
     health = FloatField(verbose_name='健康度',default=0.00)
     Satiety = FloatField(verbose_name='饱食度',default=0.00)
     acid = FloatField(verbose_name='酸',default=0.00)
@@ -65,4 +63,3 @@ class diet_recipes(models.Model):
     sweet = FloatField(verbose_name='甜',default=0.00)
     bitterness= FloatField(verbose_name='苦',default=0.00)
     aroma = FloatField(verbose_name='味道度',default=0.00)
-
