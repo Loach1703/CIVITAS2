@@ -11,7 +11,7 @@ from WorkModel.models import *
 import random
 import json
 import datetime
-from RecipesModel.models import Recipes
+from RecipesModel.models import *
 
 
 def GetUserRecipes(req):

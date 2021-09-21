@@ -12,10 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Raw_material',
+            name='diet_material',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('raw_material_id', models.IntegerField(default='', verbose_name='食材id')),
+                ('raw_material_id', models.IntegerField(default=0, primary_key=True, serialize=False, verbose_name='食材id')),
                 ('material_id', models.IntegerField(verbose_name='物品id')),
                 ('name', models.CharField(max_length=20, verbose_name='食材名')),
             ],
