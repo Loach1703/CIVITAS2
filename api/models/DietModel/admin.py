@@ -9,3 +9,5 @@ class materiallist(admin.ModelAdmin):
     list_display = ('material_id','name')
     inlines = [ChoiceInline]
 admin.site.register(diet_material,materiallist)
+admin.site.register(diet_recipes)
+admin.site.register(Input_Recipe_Material)
