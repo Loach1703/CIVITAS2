@@ -52,7 +52,7 @@ class Input_Recipe_Material(models.Model):
 
 class diet_recipe(models.Model):
     name = CharField(max_length=50,verbose_name='名字',default=" ")
-    Owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者
+    Owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
 
     input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
     
