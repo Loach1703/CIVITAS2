@@ -121,7 +121,7 @@ function load_main_vm(uid) {
                 <div class="bottomline">
                     <p class="menu">我的交际圈</p>
                     <a href="#home">我的人际关系</a>
-                    <a href="#news">我的社交活动</a>
+                    <a v-bind:href="'social.html?uid='+prop.uid">我的社交活动</a>
                 </div>
                 <div class="bottomline">
                     <p class="menu">我的资产</p>

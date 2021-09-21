@@ -192,7 +192,8 @@ Vue.component('ingredient-all', {
                 14:{starvation:1,health:0.2,stamina:0.5,acid:15,sweet:5,bitter:0,salt:0,spice:0},
                 17:{starvation:1,health:0.2,stamina:0,acid:5,sweet:15,bitter:0,salt:0,spice:0},
                 18:{starvation:2,health:0.2,stamina:0,acid:0,sweet:5,bitter:0,salt:0,spice:0},
-            }
+            },
+            recipe_type: -1
         }
     },
     created: function () {
@@ -214,6 +215,23 @@ Vue.component('ingredient-all', {
         ingredients_had_changed: function (index,ingredient_id,ingredient_number){
             this.$set(this.used_ingredients,index,ingredient_id)
             this.$set(this.ingredient_total,index,{id:ingredient_id,number:ingredient_number})
+        },
+        get_materials: function (){
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/getrecipe/",
+                withCredentials: true,
+                params: {
+                    uid: this.prop.uid,
+                },
+            })
+            .then(function (response) {
+                vm.recipes = response.data.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         }
     },
     template: `
@@ -221,6 +239,12 @@ Vue.component('ingredient-all', {
         <p class="main-char">新建食谱</p>
         <p class="author">创建全新的食谱以供享用。</p>
         <input type="text" class="form-control" placeholder="食谱名"></input>
+        <select class="form-control" v-model="recipe_type">
+            <option disabled="disabled" value="-1">请选择烹饪方式</option>
+            <option value="1">凉拌</option>
+            <option value="2">水煮</option>
+            <option value="3">油煎</option>
+        </select>
         <button class="btn btn-success">保存食谱</button>
         <button class="btn btn-warning">取消</button>
         <ingredient-detail 

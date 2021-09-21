@@ -116,7 +116,7 @@ Vue.component("people-social", {
     <div class="social-total">
         <p class="main-char">{{ prop.username }}的社交关系</p>
         <div class="social-methods bottomline-dashed">
-            <p class="explain bottomline-dashed" v-if="prop.uid != uid">你不能对自己进行社交。</p>
+            <p class="explain" v-if="prop.uid == uid">你不能对自己进行社交。</p>
             <p class="explain" v-else>你还不是{{ prop.username }}的好友，但你可以<a href="javascript:void(0)">公开谴责</a>。</p>
         </div>
         <div class="social-detail">
@@ -128,7 +128,7 @@ Vue.component("people-social", {
                     </a>
                     <p>
                         <a v-bind:href="'people.html?uid='+social.fromuid">{{ social.fromusername }}</a> {{ social_types[social.type] }}了
-                        <a v-bind:href="'people.html?uid='+social.fromuid">{{ social.tousername }}</a>。<br>
+                        <a v-bind:href="'people.html?uid='+social.touid">{{ social.tousername }}</a>。<br>
                         第{{ social.day }}天，{{ social.time }}。
                     </p>
                     <a v-bind:href="'people.html?uid='+social.touid">

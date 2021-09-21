@@ -46,6 +46,9 @@
     </ranevent-modal>
     <left-navigator v-bind:prop="user_prop"></left-navigator>
     <div class="main-single">
+        <a href="bobing.html" v-if="weather_prop.total_day == 110">
+            <img src="civitas/img/bobing.png">
+        </a>
         <p class="main-char">我的CIVITAS</p>
         <weather-detail v-bind:prop="weather_prop" v-bind:user_prop="user_prop"></weather-detail>
         <div class="blocks">

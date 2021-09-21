@@ -25,7 +25,7 @@ function navigator(status,uid)
                 <p id="time" class="time"></p>
             </span>
             <span>
-                <a href="#street"><img src="civitas/svg/common/street.svg" width="22px" height="22px"/>县城</a>
+                <a href="#street"><img src="civitas/svg/common/street.svg" width="22px" height="22px"/>城市</a>
                 <a href="map.html"><img src="civitas/svg/common/map.svg" width="22px" height="22px"/>地图</a>
             </span>
             <span class="market-main" id="market">

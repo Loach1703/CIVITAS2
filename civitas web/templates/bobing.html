@@ -2,12 +2,11 @@
 <html>
 
 <link rel="stylesheet" href="civitas/css/style.css"/>
-<link rel="stylesheet" href="civitas/css/recipe.css"/>
 
 <script src="civitas/js/jquery/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="civitas/css/bootstrap/bootstrap.min.css"/>
 <script src="civitas/js/bootstrap/bootstrap.min.js"></script>
-<script src="civitas/js/vue/vue.min.js"></script>
+<script src="civitas/js/vue/vue.js"></script>
 <script src="civitas/js/vue/axios.min.js"></script>
 
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
@@ -19,7 +18,7 @@
 <script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/redirection/redirection-none.js"></script>
 
-<script src="civitas/js/recipe/recipe.js"></script>
+<script src="civitas/js/other/bobing.js"></script>
 
 <script src="civitas/js/userstatus/log-out.js"></script>
 
@@ -27,7 +26,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>新建食谱 - 古典社会模拟 CIVITAS2</title>
+<title>中秋博饼 - 古典社会模拟 CIVITAS2</title>
 </head>
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
@@ -35,13 +34,13 @@
 <nav class="navigator" id="navigator"></nav>
 
 <div class="main" id="main">
-    <ranevent-modal
+    <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
     <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <ingredient-all></ingredient-all>
+    <bo-bing></bo-bing>
 </div>
 
 </body>
