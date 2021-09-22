@@ -41,8 +41,10 @@ class diet_materialDetail(models.Model):
         unique_together = [
             'r_material','level'
         ]
+    def __str__(self):
+        return self.r_material.name+' Q.'+str(self.level)
 
-class Input_Recipe_Material(models.Model):
+class Input_Recipe_Diet(models.Model):
     recipe = ForeignKey('diet_recipe',on_delete=models.CASCADE,verbose_name='配方id')
     material = ForeignKey('diet_materialDetail',on_delete=models.CASCADE,verbose_name='输入物资')
     count = IntegerField(verbose_name='数量')
@@ -51,10 +53,10 @@ class Input_Recipe_Material(models.Model):
         verbose_name_plural = '所需食材表'
 
 class diet_recipe(models.Model):
-    name = CharField(max_length=50,verbose_name='名字',default=" ")
-    Owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
+    name = CharField(max_length=50,verbose_name='食谱名',default=" ")
+    owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
 
-    input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
+    input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Diet)
     
     health = FloatField(verbose_name='健康度',default=0.00)
     Satiety = FloatField(verbose_name='饱食度',default=0.00)
