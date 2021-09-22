@@ -9,16 +9,16 @@ from django.db.models.fields.related_descriptors import ManyToManyDescriptor
 class diet_material(models.Model):
 
     
-    raw_material_id = IntegerField(verbose_name='食材id',primary_key=True,default=0)
-    material_id = IntegerField(verbose_name='物品id')
-    name = CharField(max_length=20,verbose_name='食材名')
+    raw_material_id = IntegerField(verbose_name='食材id',unique=True)
+    material_id = IntegerField(verbose_name='物品id',unique=True)
+    name = CharField(max_length=20,verbose_name='食材名',unique=True)
 
     def __str__(self):
         return self.name
 
 class diet_materialDetail(models.Model):
     #食材表
-    #id = IntegerField(primary_key=True)
+    
     level_choices = ((1, 'Q1'), (2, 'Q2'),(3, 'Q3'))
 
     r_material = ForeignKey('diet_material',on_delete=models.CASCADE,verbose_name='食品')
