@@ -5,17 +5,18 @@
 
 .navigator
 {
+  display: flex;
   position: fixed;
-  padding: 0 150px 0 150px;
+  padding: 0 8%;
   border-bottom: 3px solid rgb(140,140,140);
   background-color: rgb(69,69,69);
   width: 100%;
   z-index: 100;
+  flex-wrap: wrap;
 }
 
 .navigator a
 {
-  display: inline-block;
   padding: 6px 12px 9px 12px;
   color: white;
   font-size: 16px;
@@ -29,8 +30,7 @@
 
 .civitas2
 {
-  margin: 8px 0 0 0px;
-  float: left;
+  margin-top: 8px;
 }
 
 .vertime
@@ -38,24 +38,15 @@
   margin: 3px 15px 0 15px;
   font-size: 10px;
   color: white;
-  float: left;
   font-family: "微软雅黑";
   text-align: center;
 }
 
-.time
-{
-  margin: 0;
-}
-
-.market-main
-{
-  position: relative;
-}
-
 .signup-in
 {
-  float: right;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .signup-in img
@@ -63,33 +54,9 @@
   border: 1px solid rgb(140,140,140);
 }
 
-.hide
-{
-  display: none;
-}
-
-.market-dropdown
-{
-  background-color: rgb(69,69,69);
-  border: 3px solid rgb(140,140,140);
-  border-top: 0;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  position: absolute;
-  left: 0%;
-  width: 160%;
-}
-
-.market-dropdown a
-{
-  display: block;
-  font-size: 14px;
-}
-
 .main
 {
   display: flex;
-  padding-top: 50px;
   justify-content: center;
   margin: 0 auto;
   width: 85%;
@@ -356,19 +323,4 @@
 .bottomline-dashed
 {
   border-bottom: 2px dashed rgba(150,150,150,0.3);
-}
-
-.inline
-{
-  display: inline;
-}
-
-.block
-{
-  display: block;
-}
-
-.inline-block
-{
-  display: inline-block;
 }

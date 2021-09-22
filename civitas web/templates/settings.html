@@ -14,13 +14,9 @@
 
 <script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
-<script src="civitas/js/essential/navigator.js"></script>
-<script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/other/avatar.js"></script>
-
-<script src="civitas/js/userstatus/log-out.js"></script>
 
 <script src="civitas/js/onload/onload-login.js"></script>
 
@@ -31,29 +27,30 @@
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
-<nav class="navigator" id="navigator"></nav>
-
-<div class="main" id="main">
+<div id="main">
+    <top-navigator v-bind:prop="top_navigator_prop" ref="navigator" v-on:height_change="height_change"></top-navigator>
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <div class="main-double">
-        <p class="main-char">我的设置</p>
-        <div>
-            <p class="main-subchar">上传头像</p>
-            <button class="btn btn-info" href="javascript:void(0)" onclick="click_upload_avatar()">选择图片</button>
-            <input class="hide" type="file" id="upload_avatar" accept="image/jpeg,image/png,image/jpg">
-            <button class="btn btn-warning" onclick="upload_avatar()">确定</button>
-            <p class="tips" id="tips"></p>
-        </div>
-        <div>
-            <p class="main-subchar">更改昵称</p>
-            <input type="text" class="form-control" id="nickname" placeholder="更改昵称">
-            <button class="btn btn-warning" onclick="">确定</button>
-            <p class="tips" id="tips"></p>
+    <div class="main" v-bind:style="'padding-top:'+navigator_width+'px'">
+        <left-navigator v-bind:prop="user_prop"></left-navigator>
+        <div class="main-double">
+            <p class="main-char">我的设置</p>
+            <div>
+                <p class="main-subchar">上传头像</p>
+                <button class="btn btn-info" href="javascript:void(0)" onclick="click_upload_avatar()">选择图片</button>
+                <input class="hide" type="file" id="upload_avatar" accept="image/jpeg,image/png,image/jpg">
+                <button class="btn btn-warning" onclick="upload_avatar()">确定</button>
+                <p class="tips" id="tips"></p>
+            </div>
+            <div>
+                <p class="main-subchar">更改昵称</p>
+                <input type="text" class="form-control" id="nickname" placeholder="更改昵称">
+                <button class="btn btn-warning" onclick="">确定</button>
+                <p class="tips" id="tips"></p>
+            </div>
         </div>
     </div>
 </div>

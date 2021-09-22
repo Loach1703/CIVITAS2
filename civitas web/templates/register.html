@@ -13,8 +13,8 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
-<script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/redirection/redirection-nologin.js"></script>
 
 <script src="civitas/js/userstatus/register.js"></script>
@@ -29,26 +29,32 @@
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
-<nav class="navigator" id="navigator"></nav>
-
-<div class="container">
-  <div class="col-md-6 col-md-offset-3 container login-box">
-    <p class="login-main">注册CIVITAS2</p>
-    <div class="login-inputdiv">
-      <input type="text" class="form-control login-input" id="email" placeholder="邮箱">
-      <input type="text" class="form-control login-input" id="account" placeholder="用户名">
-      <input type="password" class="form-control login-input" id="password" placeholder="密码">
-      <input type="password" class="form-control login-input" id="repeat-password" placeholder="再次输入密码">
-      <button class="btn btn-block btn-primary" onclick="register()">注册</button>
-      <p class="login-message" id="message"></p>
+<div id="main">
+    <top-navigator v-bind:prop="top_navigator_prop" ref="navigator" v-on:height_change="height_change"></top-navigator>
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
+    <div class="container">
+      	<div class="col-md-6 col-md-offset-3 container login-box">
+			<p class="login-main">注册CIVITAS2</p>
+			<div class="login-inputdiv">
+				<input type="text" class="form-control login-input" id="email" placeholder="邮箱">
+				<input type="text" class="form-control login-input" id="account" placeholder="用户名">
+				<input type="password" class="form-control login-input" id="password" placeholder="密码">
+				<input type="password" class="form-control login-input" id="repeat-password" placeholder="再次输入密码">
+				<button class="btn btn-block btn-primary" onclick="register()">注册</button>
+				<p class="login-message" id="message"></p>
+			</div>
+			<a href="login.html">已有账号？点击这里登录</a>
+			<div class="form-check login-tiantang">
+				<label class="form-check-label">
+				<input type="radio" class="form-check-input" name="optradio">我同意接受CIVITAS服务条款<br>并遵守严格禁止一人多身份的底线
+				</label>
+			</div>
+      	</div>
     </div>
-    <a href="login.html">已有账号？点击这里登录</a>
-    <div class="form-check login-tiantang">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">我同意接受CIVITAS服务条款<br>并遵守严格禁止一人多身份的底线
-      </label>
-    </div>
-  </div>
 </div>
 
 </body>

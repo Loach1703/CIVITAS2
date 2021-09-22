@@ -4,7 +4,7 @@
 
 var main_vm;
 
-function load_main_vm(uid) {
+function load_main_vm(status,uid) {
     //随机事件组件
     Vue.component("ranevent-modal", {
         props: ["prop"],
@@ -51,6 +51,87 @@ function load_main_vm(uid) {
                 </div>
             </div>
         </div>`
+    })
+    //上导航栏组件
+    Vue.component("top-navigator", {
+        props: ["prop"],
+        data: function () {
+            return {
+                total_day: 0,
+                season: "春天",
+                year: 0,
+                hour: 0,
+                minute: 0,
+                height: 0
+            }
+        },
+        created: function () {
+            this.get_date();
+            window.addEventListener("resize", this.get_height);
+        },
+        mounted: function () {
+            this.get_height();
+        },
+        methods: {
+            get_height: function () {
+                this.height = this.$el.offsetHeight;
+                this.$emit("height_change", this.height)
+            },
+            get_date: function () {
+                var vm = this;
+                axios({
+                    method: "get",
+                    url: "https://api.trickydeath.xyz/getdate/",
+                    withCredentials: true
+                })
+                .then(function (response) {
+                    var json_str_data = response.data.data;
+                    vm.total_day = json_str_data.total_day;
+                    vm.season = json_str_data.season;
+                    var time = json_str_data.time;
+                    vm.year = json_str_data.year;
+                    var reg = /\d{2}/g;
+                    var time2 = time.match(reg);
+                    vm.hour = time2[0];
+                    vm.minute = time2[1];
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+            log_out: function () {
+                axios({
+                    method: "get",
+                    url: "https://api.trickydeath.xyz/logout/",
+                    withCredentials: true
+                })
+                .then(function (response) {
+                    var json_str_data = response.data.data;
+                    if (json_str_data.status == 1) {
+                        window.location.assign("login.html");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+        },
+        template: `
+        <nav class="navigator" role="navigation">
+            <img src="civitas/img/CIVITAS2.png" width="120px" height="25px" class="civitas2"/>
+            <p class="vertime">Pre-Alpha 0.0.10<br>Y{{ year }} {{ season }} D{{ total_day }} {{ hour }}:{{ minute }}</p>
+            <a v-if="prop.status == 1" href="#street"><img src="civitas/svg/common/street.svg" width="22px" height="22px"/>城市</a>
+            <a v-if="prop.status == 1" href="map.html"><img src="civitas/svg/common/map.svg" width="22px" height="22px"/>地图</a>
+            <a v-if="prop.status == 1" href="#market"><img src="civitas/svg/common/market.svg" width="22px" height="22px"/>市场</a>
+            <a href="error.html"><img src="civitas/svg/common/blog.svg" width="22px" height="22px"/>开发日志</a>
+            <span class="signup-in">
+                <img v-if="prop.status == 1" v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+prop.uid" width="40px" height="40px"/>
+                <a v-if="prop.status == 1" href="javascript:void(0)" v-on:click="log_out">注销</a>
+                <a v-if="prop.status == 0" href="login.html">登录</a>
+                <a v-if="prop.status == 0" href="register.html">注册</a>
+            </span>
+        </nav>
+        `
     })
     //侧导航栏组件
     Vue.component("left-navigator", {
@@ -137,6 +218,7 @@ function load_main_vm(uid) {
     main_vm = new Vue({
         el: "#main",
         data: {
+            navigator_width: 0,
             b: [1,5,6,7,8,9,10,11,12,15,17,18,80,20,21,22],
             uid: uid,
             someone_uid: undefined,
@@ -160,6 +242,10 @@ function load_main_vm(uid) {
                 status: {stamina: 0, happiness: 0, health: 0, starvation: 0}, 
                 status_change: {stamina_change: 0, happiness_change: 0, health_change: 0, starvation_change: 0}
             },
+            top_navigator_prop: {
+                uid: uid,
+                status: status
+            }
         },
         created: function () {
             var vm = this;
@@ -224,6 +310,9 @@ function load_main_vm(uid) {
             this.get_status();
         },
         methods: {
+            height_change: function (height) {
+                this.navigator_width = height;
+            },
             //随机事件相关
             show_ranevent_modal: function () {
                 $("#ranevent").modal("show");

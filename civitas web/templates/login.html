@@ -13,8 +13,8 @@
 <link rel="icon" href="civitas/icon/favicon2.ico"/>
 <link rel="Bookmark" href="civitas/icon/favicon1.ico"/>
 
+<script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
-<script src="civitas/js/essential/navigator.js"></script>
 <script src="civitas/js/essential/redirection/redirection-nologin.js"></script>
 
 <script src="civitas/js/userstatus/login.js"></script>
@@ -30,18 +30,26 @@
 
 <nav class="navigator" id="navigator"></nav>
 
-<div class="container">
-  <div class="col-md-6 col-md-offset-3 container login-box">
-    <p class="login-main">登录CIVITAS2</p>
-    <div class="login-inputdiv">
-      <input type="text" class="form-control login-input" id="account" placeholder="账号（暂时使用用户名登录，不是邮箱）">
-      <input type="password" class="form-control login-input" id="password" placeholder="密码">
-      <button class="btn btn-block btn-primary" onclick="login_getvalue()">登录</button>
-      <p class="login-message" id="message"></p>
-    </div>
-    <a href="register.html">还没有账号？点击这里注册</a>
-    <a href="#password_reset.html">忘记密码</a>
-  </div>
+<div id="main">
+    <top-navigator v-bind:prop="top_navigator_prop" ref="navigator" v-on:height_change="height_change"></top-navigator>
+    <ranevent-modal 
+        v-bind:prop="ranevent_prop" 
+        v-on:hide_modal="hide_ranevent_modal" 
+        v-on:next_modal="get_ranevent">
+    </ranevent-modal>
+    <div class="container">
+		<div class="col-md-6 col-md-offset-3 container login-box">
+			<p class="login-main">登录CIVITAS2</p>
+			<div class="login-inputdiv">
+				<input type="text" class="form-control login-input" id="account" placeholder="账号（暂时使用用户名登录，不是邮箱）">
+				<input type="password" class="form-control login-input" id="password" placeholder="密码">
+				<button class="btn btn-block btn-primary" onclick="login_getvalue()">登录</button>
+			<p class="login-message" id="message"></p>
+			</div>
+			<a href="register.html">还没有账号？点击这里注册</a>
+			<a href="#password_reset.html">忘记密码</a>
+		</div>
+	</div>
 </div>
 
 </body>

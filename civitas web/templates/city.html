@@ -15,14 +15,10 @@
 
 <script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
-<script src="civitas/js/essential/navigator.js"></script>
-<script src="civitas/js/essential/dropdown.js"></script>
 <script src="civitas/js/essential/redirection/redirection-login.js"></script>
 <script src="civitas/js/essential/parameter.js"></script>
 
 <script src="civitas/js/index/speech.js"></script>
-
-<script src="civitas/js/userstatus/log-out.js"></script>
 
 <script src="civitas/js/onload/onload-login.js"></script>
 
@@ -32,24 +28,25 @@
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
-<nav class="navigator" id="navigator"></nav>
-
-<div class="main" id="main">
+<div id="main">
+    <top-navigator v-bind:prop="top_navigator_prop" ref="navigator" v-on:height_change="height_change"></top-navigator>
     <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <div class="main-single">
-        <p class="main-char">
-        <img src="civitas/icon/city/1.png" width="50px" height="50px">
-        京兆尹的广场
-        </p>
-    </div>
-    <div class="main-single">
-        <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
-        <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
+    <div class="main" v-bind:style="'padding-top:'+navigator_width+'px'">
+        <left-navigator v-bind:prop="user_prop"></left-navigator>
+        <div class="main-single">
+            <p class="main-char">
+            <img src="civitas/icon/city/1.png" width="50px" height="50px">
+            京兆尹的广场
+            </p>
+        </div>
+        <div class="main-single">
+            <speech-popular ref="speech_popular" v-on:refresh="speech_refresh"></speech-popular>
+            <speech-main ref="speech_main" v-bind:type="'index'" v-on:refresh="speech_refresh"></speech-main>
+        </div>
     </div>
 </div>
 

@@ -15,13 +15,9 @@
 
 <script src="civitas/js/essential/main.js"></script>
 <script src="civitas/js/essential/is-login.js"></script>
-<script src="civitas/js/essential/navigator.js"></script>
-<script src="civitas/js/essential/dropdown.js"></script>
-<script src="civitas/js/essential/redirection/redirection-none.js"></script>
+<script src="civitas/js/essential/redirection/redirection-login.js"></script>
 
 <script src="civitas/js/recipe/recipe.js"></script>
-
-<script src="civitas/js/userstatus/log-out.js"></script>
 
 <script src="civitas/js/onload/onload-login.js"></script>
 
@@ -32,16 +28,17 @@
 
 <body background="civitas/img/background.png" style="background-attachment: fixed;">
 
-<nav class="navigator" id="navigator"></nav>
-
-<div class="main" id="main">
-    <ranevent-modal
+<div id="main">
+    <top-navigator v-bind:prop="top_navigator_prop" ref="navigator" v-on:height_change="height_change"></top-navigator>
+    <ranevent-modal 
         v-bind:prop="ranevent_prop" 
         v-on:hide_modal="hide_ranevent_modal" 
         v-on:next_modal="get_ranevent">
     </ranevent-modal>
-    <left-navigator v-bind:prop="user_prop"></left-navigator>
-    <ingredient-all></ingredient-all>
+    <div class="main" v-bind:style="'padding-top:'+navigator_width+'px'">
+        <left-navigator v-bind:prop="user_prop"></left-navigator>
+        <ingredient-all></ingredient-all>
+    </div>
 </div>
 
 </body>
