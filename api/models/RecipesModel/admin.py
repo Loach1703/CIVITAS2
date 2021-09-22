@@ -9,10 +9,10 @@ from RecipesModel.models import *
 #     extra = 3
 
 # class materiallist(admin.ModelAdmin):
-#     list_display = ('material_id','name')
+#     list_display = ('raw_material_id','name')
 #     inlines = [ChoiceInline]
 
 
-# admin.site.register(Raw_material,ChoiceInline)
-# admin.site.register(Input_Recipe_Material)
-# admin.site.register(Recipes)
+# admin.site.register(Raw_material)
+# # admin.site.register(Input_Recipe_Material)
+# # admin.site.register(Recipes)
