@@ -200,6 +200,18 @@ def eureka(skill_now,level,comprehension):
     else:
         return False
 
+def eureka_chance(skill_now,level,comprehension):
+    if not (math.floor((skill_now / 4) + 1) > level and level < 7):
+        return 0.0
+    eureka_0 = 0.5
+    diff = skill_now - level * 4
+    eureka_really = eureka_0 * (1 + diff * 2)
+    #悟性提高突破概率，最高为2倍
+    eureka_really *= comprehension + 1
+    #实际突破概率，每高一级等级就降低一半
+    eureka_really *= 1 / (2 ** level)
+    return eureka_really
+
 #悟性增加
 #参数说明
 #skill_now：当前技能
