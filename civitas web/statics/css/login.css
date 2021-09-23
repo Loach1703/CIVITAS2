@@ -1,22 +1,22 @@
-.login-box
+.login-main
 {
-    padding-top: 10%;
-    background-color: rgba(180,180,180,0);
+    width: 30%;
+    margin: 0 auto;
 }
 
-.login-box a
+.login-main a
 {
     margin: 10px auto;
     text-align: center;
     display: block;
 }
 
-.login-box a:hover
+.login-main a:hover
 {
     text-decoration: none;
 }
 
-.login-main
+.login-main-char
 {
   margin: 0 auto;
   text-align: center;

@@ -10,6 +10,15 @@ props:{
     ingredient_prop: 各个食材属性
     index: 材料编号
 }
+data:{
+    ingredient_number: 食材数量
+    ingredient_id: 食材id
+    ingredient_quality: 食材质量
+}
+methods:{
+    ingredient_change: 食材变更（包括数量，种类，质量）时，将新的值传值给父组件（ingredient-all）
+    remove_ingredients: 移除该食材
+}
 */
 
 Vue.component("ingredient-detail", {
@@ -27,7 +36,7 @@ Vue.component("ingredient-detail", {
             {
                 return
             }
-            this.$emit("ingredient_change",this.index,this.ingredient_id,this.ingredient_number);
+            this.$emit("ingredient_change",this.index,this.ingredient_id,this.ingredient_number,this.ingredient_quality);
         },
         remove_ingredients: function () {
             this.$emit("remove", this.index);
@@ -46,17 +55,16 @@ Vue.component("ingredient-detail", {
             {
                 this.ingredient_number = 0;
             }
-            else if (value > this.ingredient_prop[this.ingredient_id].max)
-            {
-                this.ingredient_number = this.ingredient_prop[this.ingredient_id].max;
-            }
             this.ingredient_number = this.ingredient_number = Math.round(this.ingredient_number * 100) / 100;
+            this.ingredient_change();
+        },
+        ingredient_quality: function () {
             this.ingredient_change();
         }
     },
     template: `
     <div class="recipe-single bottomline-dashed">
-        <img v-bind:src="'civitas/icon/goods/'+ingredient_id+'.png'" class="float-left" width="60px" height="60px"/>
+        <img v-bind:src="'civitas/icon/goods/'+ingredient_id+'.png'" width="60px" height="60px"/>
         <div class="recipe-select">
             <select class="form-control" v-model="ingredient_id">
                 <option disabled="disabled" value="-1">请选择</option>
@@ -202,8 +210,8 @@ Vue.component('ingredient-all', {
     methods: {
         add_ingredients: function (){
             this.number_of_ingredients.push(this.next_number);
-            this.used_ingredients.push({id:-1,number:0});
-            this.ingredient_total.push({id:-1,number:0});
+            this.used_ingredients.push(-1);
+            this.ingredient_total.push({id:-1,number:0,quality:0});
             this.next_number++;
         },
         remove_ingredients: function (index){
@@ -212,9 +220,9 @@ Vue.component('ingredient-all', {
             this.ingredient_total.splice(index, 1);
             this.next_number--;
         },
-        ingredients_had_changed: function (index,ingredient_id,ingredient_number){
+        ingredients_had_changed: function (index,ingredient_id,ingredient_number,ingredient_quality){
             this.$set(this.used_ingredients,index,ingredient_id)
-            this.$set(this.ingredient_total,index,{id:ingredient_id,number:ingredient_number})
+            this.$set(this.ingredient_total,index,{id:ingredient_id,number:ingredient_number,quality:ingredient_quality})
         },
         get_materials: function (){
             var vm = this;
@@ -295,8 +303,8 @@ Vue.component('recipe-all', {
     template: `
     <div class="main-double">
         <p class="main-char">我的食谱</p>
-        <a class="btn btn-primary" href="create_recipe.html" role="button">新建食谱</a>
-        <p class="author" v-if="recipes.length == 0">你还没有食谱，点击“新建食谱”创建一个。</p>
+        <a class="btn btn-primary" href="create-recipe.html" role="button">新建食谱</a>
+        <p class="explain" v-if="recipes.length == 0">你还没有食谱，点击“新建食谱”创建一个。</p>
         <ingredient-total v-else v-for="(recipe,index) in recipes" v-bind:key="index" v-bind:ingredient_total="recipe" v-bind:type="'myrecipe'"></ingredient-total>
     </div>
     `

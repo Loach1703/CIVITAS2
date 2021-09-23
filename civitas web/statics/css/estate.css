@@ -1,0 +1,26 @@
+.estate-select-type
+{
+    display: flex;
+    padding-top: 5px;
+}
+
+.estate-select-single
+{
+    padding: 15px 10px 0 10px;
+    flex: 1;
+}
+
+.estate-location-name
+{
+    margin: 0;
+    font-size: 20px;
+    color: rgb(57,85,115);
+}
+
+.estate-number
+{
+    margin: 0;
+    color: rgb(210, 60, 60);
+    font-size: 20px;
+    font-weight: 600;
+}
