@@ -9,16 +9,16 @@ from django.db.models.fields.related_descriptors import ManyToManyDescriptor
 class diet_material(models.Model):
 
     
-    raw_material_id = IntegerField(verbose_name='食材id',primary_key=True,default=0)
-    material_id = IntegerField(verbose_name='物品id')
-    name = CharField(max_length=20,verbose_name='食材名')
+    raw_material_id = IntegerField(verbose_name='食材id',unique=True)
+    material_id = IntegerField(verbose_name='物品id',unique=True)
+    name = CharField(max_length=20,verbose_name='食材名',unique=True)
 
     def __str__(self):
         return self.name
 
 class diet_materialDetail(models.Model):
     #食材表
-    #id = IntegerField(primary_key=True)
+    
     level_choices = ((1, 'Q1'), (2, 'Q2'),(3, 'Q3'))
 
     r_material = ForeignKey('diet_material',on_delete=models.CASCADE,verbose_name='食品')
@@ -41,8 +41,10 @@ class diet_materialDetail(models.Model):
         unique_together = [
             'r_material','level'
         ]
+    def __str__(self):
+        return self.r_material.name+' Q.'+str(self.level)
 
-class Input_Recipe_Material(models.Model):
+class Input_Recipe_Diet(models.Model):
     recipe = ForeignKey('diet_recipe',on_delete=models.CASCADE,verbose_name='配方id')
     material = ForeignKey('diet_materialDetail',on_delete=models.CASCADE,verbose_name='输入物资')
     count = IntegerField(verbose_name='数量')
@@ -51,10 +53,10 @@ class Input_Recipe_Material(models.Model):
         verbose_name_plural = '所需食材表'
 
 class diet_recipe(models.Model):
-    name = CharField(max_length=50,verbose_name='名字',default=" ")
-    Owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
+    name = CharField(max_length=50,verbose_name='食谱名',default=" ")
+    owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
 
-    input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Material)
+    input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Diet)
     
     health = FloatField(verbose_name='健康度',default=0.00)
     Satiety = FloatField(verbose_name='饱食度',default=0.00)

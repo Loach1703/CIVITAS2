@@ -6,12 +6,11 @@ from django.contrib.sessions.models import Session
 from django.contrib import auth
 from MaterialModel.models import *
 from UserModel.models import *
-from RecipesModel.models import *
 from WorkModel.models import *
 import random
 import json
 import datetime
-from RecipesModel.models import *
+from DietModel.models import *
 
 
 def GetUserRecipes(req):
