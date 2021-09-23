@@ -25,3 +25,9 @@ class recipelist(admin.ModelAdmin):
         return '，'.join(list_input)
 
 admin.site.register(diet_recipe,recipelist)
+admin.site.register(diet_materialDetail)
+
+class treatmentlist(admin.ModelAdmin):
+    list_display = ('id','name')
+
+admin.site.register(treatment_Diet,treatmentlist)
