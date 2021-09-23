@@ -257,9 +257,8 @@ def get_sideline(req):
                 getuserstatus = personal_attributes.objects.filter(uid=uid).first()
                 new_bigskill=skill_increase(skillnum,0.9,skilllevel,float(getuserstatus.happy),comprehension=skillwuxing)
                 #3、增加悟性计算，数据库操作在下方
-                wuxing_change = comprehension_increase(skillnum)
+                wuxing = comprehension_increase(skillnum,eval(dbname_of_wuxing_full))
                 #修改用户技能数据库
-                wuxing = eval('float('+dbname_of_wuxing_full+')+wuxing_change')
                 command_str = dbname_of_wuxing_full + '=wuxing'
                 exec(command_str)
                 command_str = dbname_full + '=new_bigskill'

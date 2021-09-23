@@ -1,10 +1,22 @@
 from django.contrib.sessions.models import Session
 from django.contrib import auth
-from MaterialModel.models import Material, UserMaterial
+from MaterialModel.models import Material, UserMaterial, MaterialDetail
 from django.shortcuts import redirect,render,HttpResponse
 import json
 from assist import *
-from django.db.models import Sum
+from django.db.models import Sum, F
+
+def del_material(uid,material_id,level,count):
+    material_detail = MaterialDetail.object.filter(Material__material_id=material_id).filter(level=level).first()
+    usermaterial = UserMaterial.objects.filter(user__id=uid).filter(material_detail=material_detail)
+    if usermaterial.exists():
+        usermaterial = usermaterial.first()
+        if usermaterial.count < count:
+            return 0
+        if usermaterial.count >= count:
+            usermaterial.count = F('count') - count
+            return 1
+    
 
 def material_depository(req):
     status = 0
