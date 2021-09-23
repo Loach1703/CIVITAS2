@@ -13,4 +13,4 @@ function get_parameter_value(parameter_name)
       return unescape(r[2]);
     }
     return null;
-  }
+}

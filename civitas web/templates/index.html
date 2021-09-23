@@ -42,9 +42,6 @@
     <div class="main" v-bind:style="'padding-top:'+navigator_width+'px'">
         <left-navigator v-bind:prop="user_prop"></left-navigator>
         <div class="main-single">
-            <a href="bobing.html" v-if="weather_prop.total_day == 110">
-                <img src="civitas/img/bobing.png">
-            </a>
             <p class="main-char">我的CIVITAS</p>
             <weather-detail v-bind:prop="weather_prop" v-bind:user_prop="user_prop"></weather-detail>
             <div class="blocks">
@@ -62,7 +59,7 @@
                     </div>
                     <p>我的人际关系</p>
                 </div>
-                <div class="recipe blocks-div1" onclick="window.location.assign('create_recipe.html')">
+                <div class="recipe blocks-div1" onclick="window.location.assign('recipe.html')">
                     <img src="civitas/icon/index/Recipes.png"/>
                     <p>我的食谱</p>
                 </div>

@@ -6,6 +6,7 @@
   font-size: 20px;
   color: rgb(57,85,115);
   border-bottom: 2px solid rgb(211,227,254);
+  flex-wrap: wrap;
 }
 
 .people-text

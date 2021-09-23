@@ -4,6 +4,20 @@
 
 var main_vm;
 
+//获取网页参数函数
+function get_parameter_value(parameter_name)
+{
+    /*参数说明：
+    parameter_name：参数名
+    */
+    var reg = new RegExp('(^|&)' + parameter_name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
 function load_main_vm(status,uid) {
     //随机事件组件
     Vue.component("ranevent-modal", {
@@ -194,7 +208,7 @@ function load_main_vm(status,uid) {
                 </div>
                 <div class="bottomline">
                     <p class="menu">我的生活</p>
-                    <a href="create_recipe.html">我的食谱</a>
+                    <a href="create-recipe.html">我的食谱</a>
                     <a href="#home">我的藏书</a>
                     <a href="sideline.html">我的副业</a>
                     <a href="sideline.html?type=education">我的教育</a>
@@ -208,7 +222,7 @@ function load_main_vm(status,uid) {
                     <p class="menu">我的资产</p>
                     <a v-bind:href="'depository.html?uid='+prop.uid">我的库房</a>
                     <a href="#news">我的私人交易</a>
-                    <a href="#news">我管理的不动产</a>
+                    <a href="my-estate.html">我管理的不动产</a>
                     <a href="#home">我拥有的不动产</a>
                 </div>
             </div>

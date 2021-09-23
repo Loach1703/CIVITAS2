@@ -8,7 +8,7 @@ props:{
     prop:{
         uid:对应用户的uid
         username:对应用户的用户名
-    },
+    }
     type:类型，index/tag/people
 }
 data:{
