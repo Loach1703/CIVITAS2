@@ -21,12 +21,12 @@ def get_blog(req):
                 "data":datalist
             }
             return HttpResponse(json.dumps(result), content_type="application/json")
-        blog_text = Blog.objects.get(pk=id)
-        if blog_text.exists():
+        try:
+            blog_text = Blog.objects.get(pk=id)
             datalist["text"] = blog_text.text
             status = 1
             meg = "查询开发日志成功"
-        else:
+        except:
             status = 0
             meg = "没有指定id的开发日志"
     else:
