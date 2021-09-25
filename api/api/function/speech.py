@@ -139,16 +139,16 @@ def getspeech1(req):    #获取演讲，参数：page
     else:
         meg='您还没有登录'
     result={
-                "status":status,
-                "message":meg,
-                "data":{
-                            "total_page":total_page,
-                            "num":num,
-                            "tagid":topicid,
-                            "tagname":topic_name,
-                            "datalist":list2,
-                        }
-            }
+        "status":status,
+        "message":meg,
+        "data":{
+            "total_page":total_page,
+            "num":num,
+            "tagid":topicid,
+            "tagname":topic_name,
+            "datalist":list2,
+        }
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def speech1(req):   #发送演讲，参数：text
@@ -225,10 +225,10 @@ def speech1(req):   #发送演讲，参数：text
         status=0
         meg='您还没有登录'
     result={
-                "status":status,
-                "message":meg,
-                "data":data,
-            }
+        "status":status,
+        "message":meg,
+        "data":data,
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def assess1(req):
@@ -294,10 +294,10 @@ def assess1(req):
     else:
         meg='您还没有登录'
     result={
-                "status":status,
-                "message":meg,
-                "data":{}
-            }
+        "status":status,
+        "message":meg,
+        "data":{}
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def hotspeech1(req):
@@ -306,6 +306,7 @@ def hotspeech1(req):
     now=datetime.datetime.now()
     speech_in_24h=Speech.objects.filter(date__gte=now-datetime.timedelta(days=1),date__lte=now)
     num=0
+    list2 = []
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
@@ -316,7 +317,6 @@ def hotspeech1(req):
             maxclout=satisfied_attitude.aggregate(max=Max("clout"))["max"]
             hot_speech=satisfied_attitude.filter(clout=maxclout)
             for var in hot_speech:
-                list2=[]
                 my_att=None
                 cheer=0
                 onlooker=0
@@ -347,11 +347,11 @@ def hotspeech1(req):
     else:
         meg='您还没有登录'
     result={
-                "status":status,
-                "message":meg,
-                "data":{
-                            "num":num,
-                            "datalist":list2,
-                        }
-            }
+        "status":status,
+        "message":meg,
+        "data":{
+            "num":num,
+            "datalist":list2,
+        }
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")

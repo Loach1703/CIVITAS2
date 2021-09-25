@@ -73,3 +73,9 @@ def getUserSkill(req):
         return HttpResponse(json.dumps(result), content_type="application/json")
     else:
         meg = "您还没有登录"
+        result = {
+            "status":status,
+            "message":meg,
+            "data":datalist
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")

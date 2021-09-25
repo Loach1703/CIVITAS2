@@ -61,20 +61,14 @@ def material_depository(req):
                 datalist.append({"id":real_material_id,"name":name,"unitmass":unitmass,"wastage":wastage,"total":total,"detail":levellist})
             status = 1
             meg = "查询成功"
-            result = {
-                "status":status,
-                "message":meg,
-                "data":datalist
-            }
-            return HttpResponse(json.dumps(result), content_type="application/json")
         else:
             status = 1
             meg = "用户没有物品"
-            result = {
-                "status":status,
-                "message":meg,
-                "data":datalist
-            }
-            return HttpResponse(json.dumps(result), content_type="application/json")
     else:
         meg = "您还没有登录"
+    result = {
+        "status":status,
+        "message":meg,
+        "data":datalist
+    }
+    return HttpResponse(json.dumps(result), content_type="application/json")
