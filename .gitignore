@@ -1,3 +1,7 @@
+# ignore ide cache path
+.idea
+.vscode
+
 .venv
 __pycache__
 *.pyc
