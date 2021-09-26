@@ -44,8 +44,8 @@ Vue.component("login-and-register", {
                 data: post_data
             })
             .then(function (response) {
-                vm.login_tips = response.data.data.message;
-                if (response.data.data.status == 1) {
+                vm.login_tips = response.data.message;
+                if (response.data.status == 1) {
                     window.location.assign("index.html");
                 }
             })
@@ -67,8 +67,8 @@ Vue.component("login-and-register", {
                 data: post_data
             })
             .then(function (response) {
-                vm.login_tips = response.data.data.message;
-                if (response.data.data.status == 1) {
+                vm.login_tips = response.data.message;
+                if (response.data.status == 1) {
                     vm.login()
                 }
             })
@@ -93,11 +93,11 @@ Vue.component("login-and-register", {
         <template v-else-if="type == 'register'">
             <p class="login-main-char">注册CIVITAS2</p>
             <div class="login-inputdiv">
-                <input type="text" class="form-control login-input" id="email" placeholder="邮箱">
-                <input type="text" class="form-control login-input" id="account" placeholder="用户名">
-                <input type="password" class="form-control login-input" id="password" placeholder="密码">
-                <input type="password" class="form-control login-input" id="repeat-password" placeholder="再次输入密码">
-                <button class="btn btn-block btn-primary" onclick="register()">注册</button>
+                <input type="text" class="form-control login-input" v-model="email" placeholder="邮箱">
+                <input type="text" class="form-control login-input" v-model="account" placeholder="用户名">
+                <input type="password" class="form-control login-input" v-model="password" placeholder="密码">
+                <input type="password" class="form-control login-input" v-model="repeat_password" placeholder="再次输入密码">
+                <button class="btn btn-block btn-primary" v-on:click="register">注册</button>
                 <p class="login-message">{{ login_tips }}</p>
             </div>
             <a href="login.html">已有账号？点击这里登录</a>

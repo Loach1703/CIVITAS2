@@ -10,9 +10,9 @@ function load_updata()
     //重定向
     redirection(json_str_login.status);
     //加载Vue
-    load_main_vm(json_str_login.status,json_str_login.uid);
+    load_main_vm(json_str_login.status,json_str_login.data.uid);
     //找不到参数，重定向至错误页面
-    if (isNaN(get_parameter_value("uid")))
+    if (isNaN(get_parameter_value("uid")) || get_parameter_value("uid") == null)
     {
         window.location.assign("error.html");
     }

@@ -120,7 +120,7 @@ function load_main_vm(status,uid) {
                     withCredentials: true
                 })
                 .then(function (response) {
-                    var json_str_data = response.data.data;
+                    var json_str_data = response.data;
                     if (json_str_data.status == 1) {
                         window.location.assign("login.html");
                     }
@@ -150,10 +150,6 @@ function load_main_vm(status,uid) {
     //侧导航栏组件
     Vue.component("left-navigator", {
         props: ["prop"],
-        data: function () {
-            return {
-            }
-        },
         template: `
         <div class="left-navigator">
             <div class="bottomline avatar">
@@ -259,7 +255,8 @@ function load_main_vm(status,uid) {
             top_navigator_prop: {
                 uid: uid,
                 status: status
-            }
+            },
+            status: status
         },
         created: function () {
             var vm = this;
@@ -321,7 +318,9 @@ function load_main_vm(status,uid) {
                 console.log(error);
             })
             //获取用户状态
-            this.get_status();
+            if (this.status == 1) {
+                this.get_status();
+            }
         },
         methods: {
             height_change: function (height) {
@@ -368,35 +367,37 @@ function load_main_vm(status,uid) {
                     withCredentials: true,
                 })
                 .then(function (response) {
-                    var json_str_data = response.data.data;
-                    status_today = json_str_data.today;
-                    status_change = json_str_data.tomorrow;
-                    if (status_change.stamina_change >= 0) {
-                        status_change.stamina_change = " + " + status_change.stamina_change.toFixed(1);
+                    if (response.data.status == 1) {
+                        var json_str_data = response.data.data;
+                        status_today = json_str_data.today;
+                        status_change = json_str_data.tomorrow;
+                        if (status_change.stamina_change >= 0) {
+                            status_change.stamina_change = " + " + status_change.stamina_change.toFixed(1);
+                        }
+                        else {
+                            status_change.stamina_change = " - " + Math.abs(status_change.stamina_change).toFixed(1);
+                        }
+                        if (status_change.happiness_change >= 0) {
+                            status_change.happiness_change = " + " + status_change.happiness_change.toFixed(1);
+                        }
+                        else {
+                            status_change.happiness_change = " - " + Math.abs(status_change.happiness_change).toFixed(1);
+                        }
+                        if (status_change.health_change >= 0) {
+                            status_change.health_change = " + " + status_change.health_change.toFixed(1);
+                        }
+                        else {
+                            status_change.health_change = " - " + Math.abs(status_change.health_change).toFixed(1);
+                        }
+                        if (status_change.starvation_change >= 0) {
+                            status_change.starvation_change = " + " + status_change.starvation_change.toFixed(1);
+                        }
+                        else {
+                            status_change.starvation_change = " - " + Math.abs(status_change.starvation_change).toFixed(1);
+                        }
+                        vm.$set(vm.user_prop,"status",status_today);
+                        vm.$set(vm.user_prop,"status_change",status_change);
                     }
-                    else {
-                        status_change.stamina_change = " - " + Math.abs(status_change.stamina_change).toFixed(1);
-                    }
-                    if (status_change.happiness_change >= 0) {
-                        status_change.happiness_change = " + " + status_change.happiness_change.toFixed(1);
-                    }
-                    else {
-                        status_change.happiness_change = " - " + Math.abs(status_change.happiness_change).toFixed(1);
-                    }
-                    if (status_change.health_change >= 0) {
-                        status_change.health_change = " + " + status_change.health_change.toFixed(1);
-                    }
-                    else {
-                        status_change.health_change = " - " + Math.abs(status_change.health_change).toFixed(1);
-                    }
-                    if (status_change.starvation_change >= 0) {
-                        status_change.starvation_change = " + " + status_change.starvation_change.toFixed(1);
-                    }
-                    else {
-                        status_change.starvation_change = " - " + Math.abs(status_change.starvation_change).toFixed(1);
-                    }
-                    vm.$set(vm.user_prop,"status",status_today);
-                    vm.$set(vm.user_prop,"status_change",status_change);
                 })
                 .catch(function (error) {
                     console.log(error);
