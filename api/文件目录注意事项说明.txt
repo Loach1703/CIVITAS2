@@ -5,6 +5,8 @@ SkillModel——储存技能相关数据
 MaterialModel——储存物资相关数据
 CivitasModel——储存civitas内部数据（天气）
 SpeechModel——储存演讲数据（演讲、演讲态度）
+DietModel——储存食谱数据（个人食谱）
+BlogModel——储存日志内容
 
 视图层函数：
 在api/function中，已经在url.py中设置过路径
