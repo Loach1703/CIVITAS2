@@ -23,12 +23,12 @@ def get_blog(req):
             return HttpResponse(json.dumps(result), content_type="application/json")
         try:
             blog_text = Blog.objects.get(pk=id)
-            all_blog = Blog.objects.all()
-            datalist["total_blog"] = len(all_blog)
+            all_blog = Blog.objects.all().count()
+            datalist["total_blog"] = all_blog
             datalist["text"] = blog_text.text
             datalist["title"] = blog_text.title
-            datalist["author"] = blog_text.author
-            datalist["time"] = blog_text.time
+            datalist["author"] = blog_text.author.username
+            datalist["time"] = blog_text.time.strftime('%Y/%m/%d')
             status = 1
             meg = "查询开发日志成功"
         except:
