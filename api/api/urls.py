@@ -30,10 +30,12 @@ views.py——测试界面、非接口页面视图函数
 '''
 import views,user,skill,civitas,speech,material,work,blog
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('city/', include('cities.urls')),
+
     path('admin/', admin.site.urls),
     path('getspeech/', speech.getspeech1),
     path('speech/', speech.speech1),
