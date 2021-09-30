@@ -330,7 +330,13 @@ def sideline_capacity(uid,skill_id,skill_mini_id,coefficient,c_type = 0):
         capacity = capacity_calculation(list(bigskill)[0],list(smallskill)[0],0.8,float(getuserstatus.happy))
     return capacity
 
-#产能参考
+#计算产能
+#参数说明
+#skill_now：当前技能
+#skill_mini_now：当前小类技能
+#type_buff：类型修正，范围0-1，如工作则为1，副业为0.5，等等
+#happiness：当前快乐
+#strategy_buff：工作策略加成，如果不是工作，则为1
 def capacity_calculation(skill_now,skill_mini_now,type_buff,happiness,strategy_buff=1):
     #基础产能：8+(大类技能/2)^0.85次方*(1+小类技能/2)，即小类技能最高加成为50%
     capacity = 8 + (skill_now / 2) ** 0.85 * (1 + skill_mini_now / 2)

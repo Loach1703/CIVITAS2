@@ -6,3 +6,5 @@
 __pycache__
 *.pyc
 settings.py
+secret.py
+private
