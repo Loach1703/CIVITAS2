@@ -14,9 +14,23 @@ from DietModel.models import *
 
 
 def GetUserRecipes(req):
+    status  = 0
+    meg = "失败"
+    datalist = []
     sessionid = req.COOKIES.get("sessionid")
-    uid = req.GET.get("uid")
-    user = auth.models.User.objects.get(pk=uid)
+    if is_login(req,sessionid):
+        
+        session = Session.objects.filter(pk=sessionid).first()
+        uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.get(pk=uid)
+
+        
+
+                               
+
+
+
+
     
 
 
