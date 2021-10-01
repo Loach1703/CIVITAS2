@@ -61,7 +61,7 @@ class treatment_Diet(models.Model):
 
 class diet_recipe(models.Model):
     name = CharField(max_length=50,verbose_name='食谱名',default=" ")
-    owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
+    owner = ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,verbose_name='用户',db_index=True,) #拥有者
 
     input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Diet)
     

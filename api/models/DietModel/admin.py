@@ -14,8 +14,8 @@ class ChoiceForRecipe_input(admin.TabularInline):
     model = Input_Recipe_Diet
     extra = 1
 class recipelist(admin.ModelAdmin):
-    search_fields = ['owner']
-    list_display = ('owner','name')
+    search_fields = ['name','owner__id','owner__username']
+    list_display = ('owner','owner_id','name')
     inlines = [ChoiceForRecipe_input]
     def 所需物资(self,obj):
         input_all = Input_Recipe_Diet.objects.filter(recipe_id=obj.pk)

@@ -28,13 +28,13 @@ speech.py——演讲相关接口函数（演讲、演讲态度）
 assist.py——创建的各项辅助用函数（is_login,is_int,skill_increase）等
 views.py——测试界面、非接口页面视图函数
 '''
-import views,user,skill,civitas,speech,material,work,blog
+import views,user,skill,civitas,speech,material,work,blog,city
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('city/', include('cities.urls')),
+    
 
     path('admin/', admin.site.urls),
     path('getspeech/', speech.getspeech1),
@@ -56,5 +56,12 @@ urlpatterns = [
     path('getmaterial/',material.material_depository),
     path('dosideline/',work.get_sideline),
     path('getblog/',blog.get_blog),
+   
+    # 城市
+    path('city_info/', city.get_city_info),
+
+    # 不动产
+    path('building_list/', city.building_list),
+    path('reclaim/', city.reclaim),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
