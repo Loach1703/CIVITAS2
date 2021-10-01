@@ -23,6 +23,7 @@ def GetUserRecipes(req):
         session = Session.objects.filter(pk=sessionid).first()
         uid = session.get_decoded()["_auth_user_id"]
         user = auth.models.User.objects.get(pk=uid)
+        
 
         
 
