@@ -52,6 +52,7 @@ def getUserSkill(req):
                 bigname = name_object.big_name
                 big_level = bigskill[3*i-2]
                 big_wuxing = bigskill[3*i-1]
+                probability = eureka_chance(big_skillnum,big_level,big_wuxing)
                 small_skill_list = []
                 for j in range(1,small_skill_count):
                     small_skillnum = smallskill[t+j-1]
@@ -60,7 +61,7 @@ def getUserSkill(req):
                         name_object = getsmallname.first()
                         smallname = name_object.small_name
                         small_skill_list.append({'id':j,'name':smallname,'skill':small_skillnum})
-                datalist.append({'id':i,'name':bigname,'skill':big_skillnum,'level':big_level,'comprehension':big_wuxing,'list':small_skill_list})
+                datalist.append({'id':i,'name':bigname,'skill':big_skillnum,'level':big_level,'comprehension':big_wuxing,'eureka_probability':probability,'list':small_skill_list})
             t += len(getname)
         status = 1
         meg = '查询技能成功'
@@ -72,3 +73,9 @@ def getUserSkill(req):
         return HttpResponse(json.dumps(result), content_type="application/json")
     else:
         meg = "您还没有登录"
+        result = {
+            "status":status,
+            "message":meg,
+            "data":datalist
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")

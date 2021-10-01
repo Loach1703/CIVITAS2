@@ -1,6 +1,8 @@
 import re
 import math
 import random
+from MaterialModel.models import Material, UserMaterial, MaterialDetail
+from django.db.models import Sum, F
 
 def is_int(para):
     try:
@@ -198,13 +200,28 @@ def eureka(skill_now,level,comprehension):
     else:
         return False
 
+def eureka_chance(skill_now,level,comprehension):
+    if not (math.floor((skill_now / 4) + 1) > level and level < 7):
+        return 0.0
+    eureka_0 = 0.5
+    diff = skill_now - level * 4
+    eureka_really = eureka_0 * (1 + diff * 2)
+    #悟性提高突破概率，最高为2倍
+    eureka_really *= comprehension + 1
+    #实际突破概率，每高一级等级就降低一半
+    eureka_really *= 1 / (2 ** level)
+    return eureka_really
+
 #悟性增加
 #参数说明
 #skill_now：当前技能
-def comprehension_increase(skill_now):
+def comprehension_increase(skill_now,comprehension_now):
     #增加0.1+当前技能/100
     change = 0.1 + skill_now / 100
-    return change
+    if comprehension_now + change <= 1:
+        return comprehension_now + change
+    else:
+        return 1.0
 
 #悟性换日减少
 #参数说明
@@ -213,3 +230,20 @@ def comprehension_decrease(comprehension):
     #减少0.05+当前悟性*0.2
     change = 0.05 + comprehension * 0.2
     return change
+
+#删除数据库中某项物品
+def del_material(uid,material_id,level,count):
+    material_detail = MaterialDetail.object.filter(Material__material_id=material_id).filter(level=level).first()
+    usermaterial = UserMaterial.objects.filter(user__id=uid).filter(material_detail=material_detail)
+    if usermaterial.exists():
+        u = usermaterial
+        usermaterial = usermaterial.first()
+        if usermaterial.count < count:
+            return 0
+        elif usermaterial.count > count:
+            usermaterial.count = F('count') - count
+        elif usermaterial.count == count:
+            u.delete()
+            return 1
+    else:
+        return 0

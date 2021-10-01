@@ -284,25 +284,26 @@ def siwei(req):
                     reply_data = status_recover(100,100,100,100,0,1)
                 else:
                     meg = '找不到用户资料'
-
-
-        else:
-            meg='数据库连接失败'
-
-
-    else:
-        meg='您还没有登录'
-    
-    result={
+            result={
                 "status":status,
                 "message":meg,
                 "data":{"uid":uid,"today":data,"tomorrow":reply_data},
             }
+            return HttpResponse(json.dumps(result), content_type="application/json")
+        else:
+            meg='数据库连接失败'
+    else:
+        meg='您还没有登录'
+    result={
+        "status":status,
+        "message":meg,
+        "data":{},
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def logout1(req):
     status=0
-    mes="失败"
+    meg="失败"
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
         filter_sessionid=Session.objects.filter(pk=sessionid)
@@ -316,7 +317,7 @@ def logout1(req):
     else:
         meg="您还没有登录"
     result={
-                "status":status,
-                "message":meg,
-            }
+        "status":status,
+        "message":meg,
+    }
     return HttpResponse(json.dumps(result), content_type="application/json")

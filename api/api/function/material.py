@@ -1,10 +1,22 @@
 from django.contrib.sessions.models import Session
 from django.contrib import auth
-from MaterialModel.models import Material, UserMaterial
+from MaterialModel.models import Material, UserMaterial, MaterialDetail
 from django.shortcuts import redirect,render,HttpResponse
 import json
 from assist import *
-from django.db.models import Sum
+from django.db.models import Sum, F
+
+def del_material(uid,material_id,level,count):
+    material_detail = MaterialDetail.object.filter(Material__material_id=material_id).filter(level=level).first()
+    usermaterial = UserMaterial.objects.filter(user__id=uid).filter(material_detail=material_detail)
+    if usermaterial.exists():
+        usermaterial = usermaterial.first()
+        if usermaterial.count < count:
+            return 0
+        if usermaterial.count >= count:
+            usermaterial.count = F('count') - count
+            return 1
+    
 
 def material_depository(req):
     status = 0
@@ -49,20 +61,14 @@ def material_depository(req):
                 datalist.append({"id":real_material_id,"name":name,"unitmass":unitmass,"wastage":wastage,"total":total,"detail":levellist})
             status = 1
             meg = "查询成功"
-            result = {
-                "status":status,
-                "message":meg,
-                "data":datalist
-            }
-            return HttpResponse(json.dumps(result), content_type="application/json")
         else:
             status = 1
             meg = "用户没有物品"
-            result = {
-                "status":status,
-                "message":meg,
-                "data":datalist
-            }
-            return HttpResponse(json.dumps(result), content_type="application/json")
     else:
         meg = "您还没有登录"
+    result = {
+        "status":status,
+        "message":meg,
+        "data":datalist
+    }
+    return HttpResponse(json.dumps(result), content_type="application/json")

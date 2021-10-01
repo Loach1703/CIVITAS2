@@ -1,9 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./models",
-        "./api/function"
-    ],
-    "files.associations": {
-        "vector": "cpp"
-    }
-}
