@@ -76,4 +76,6 @@ class diet_recipe(models.Model):
     sweet = FloatField(verbose_name='甜',default=0.00)
     bitterness= FloatField(verbose_name='苦',default=0.00)
     aroma = FloatField(verbose_name='味道度',default=0.00)
+    taste_description = CharField(max_length=20,default=" ",blank=True)
+
     

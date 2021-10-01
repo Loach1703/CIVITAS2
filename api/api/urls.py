@@ -28,7 +28,7 @@ speech.py——演讲相关接口函数（演讲、演讲态度）
 assist.py——创建的各项辅助用函数（is_login,is_int,skill_increase）等
 views.py——测试界面、非接口页面视图函数
 '''
-import views,user,skill,civitas,speech,material,work,blog,city
+import views,user,skill,civitas,speech,material,work,blog,city,diet
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
@@ -37,31 +37,42 @@ urlpatterns = [
     
 
     path('admin/', admin.site.urls),
-    path('getspeech/', speech.getspeech1),
-    path('speech/', speech.speech1),
-    path('getweather/',civitas.getweather1),
-    path('getdate/',civitas.getdate1),
+    #演讲
+    path('getspeech/', speech.getspeech1),#获得演讲内容
+    path('speech/', speech.speech1),#发演讲
+    path('assess/',speech.assess1),#点赞
+    path('hotspeech/',speech.hotspeech1),#城墙
+
+    path('getweather/',civitas.getweather1),#天气
+    path('getdate/',civitas.getdate1),#游戏日历
+
     path('islogin/',user.islogin1),
     path('login/',user.login1),
     path('register/',user.register1),
-    path('assess/',speech.assess1),
-    path('hotspeech/',speech.hotspeech1),
     path('logout/',user.logout1),
-    path('upload-avatar/',user.upload_avatar),
-    path('getavatar/',user.get_avatar),
+
+    path('upload-avatar/',user.upload_avatar),#更新头像
+    path('getavatar/',user.get_avatar),#获得头像
+    path('getstatus/',user.siwei),#四维
+    path('getuserdetail/',user.get_userdetail),#用户信息 
+
     path('test.html',views.test),
-    path('getskill/',skill.getUserSkill),
-    path('getstatus/',user.siwei),
-    path('getuserdetail/',user.get_userdetail),
-    path('getmaterial/',material.material_depository),
-    path('dosideline/',work.get_sideline),
+
+    path('getskill/',skill.getUserSkill),#获得技能
+
+    path('getmaterial/',material.material_depository),#查看玩家物资
+
+    path('dosideline/',work.get_sideline),#副业
+
     path('getblog/',blog.get_blog),
    
     # 城市
     path('city_info/', city.get_city_info),
-
     # 不动产
     path('building_list/', city.building_list),
     path('reclaim/', city.reclaim),
+
+    #食谱
+    path('getdiet/',diet.GetUserRecipes),#获得玩家食谱
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
