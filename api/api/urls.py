@@ -73,6 +73,7 @@ urlpatterns = [
     path('reclaim/', city.reclaim),
 
     #食谱
-    path('getdiet/',diet.GetUserRecipes),#获得玩家食谱
+    path('get_user_diet/',diet.GetUserRecipes),#获得玩家食谱
+    path('get_user_send_id_diet/',diet.Get_id_Recipes)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
