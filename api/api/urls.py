@@ -57,5 +57,8 @@ urlpatterns = [
     path('dosideline/',work.get_sideline),
     path('getblog/',blog.get_blog),
     path('social-behavior/',social.do_social_behavior),
+    path('addfriend/',social.add_friend),
+    path('removefriend/',social.remove_friend),
+    path('isfriend/',social.is_friend),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

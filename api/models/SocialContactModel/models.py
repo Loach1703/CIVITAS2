@@ -29,4 +29,4 @@ class Social_behavior(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=100)
     def __str__(self):
-        return str(self.relationship_value_change)
+        return self.from_person.username + self.type_of_behavior + "了" + self.to_person.username

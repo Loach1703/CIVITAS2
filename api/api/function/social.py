@@ -7,7 +7,10 @@ from django.contrib import auth
 from assist import *
 import json
 
-def do_social_behavior(req):   #进行社交行为，参数：类型type，社交对象target_uid，附带消息message
+def do_social_behavior(req):
+    #进行社交行为接口
+    #类型：POST
+    #参数：类型type，社交对象target_uid，附带消息message
     def make_return(meg):
         result={
             "status":status,
@@ -20,9 +23,9 @@ def do_social_behavior(req):   #进行社交行为，参数：类型type，社�
     data = {}
     sessionid=req.COOKIES.get("sessionid")
     type_list = ["公开赞扬","公开谴责","私下表扬","私下批评","赠送礼物",]
-    type_list_cost = [15,15,5,5,5,]
-    target_happiness_change = [1,-1,0.5,-0.5,1,]
-    relationship_value_change_list = [10,-10,5,-5,10,]
+    type_list_cost = [15,15,5,5,5]
+    target_happiness_change = [1,-1,0.5,-0.5,1]
+    relationship_value_change_list = [10,-10,5,-5,10]
     if is_login(req,sessionid):
         session = Session.objects.filter(pk=sessionid).first()
         uid = session.get_decoded()["_auth_user_id"]
@@ -38,6 +41,8 @@ def do_social_behavior(req):   #进行社交行为，参数：类型type，社�
         target_uid = is_int(req.POST.get("target_uid"))
         if target_uid == "error":
             return make_return("存在需要传入数字的参数传入的不是数字")
+        if target_uid == eval(uid):
+            return make_return("你不能对自己进行社交")
         #社交目标玩家对象
         try:
             target_user = auth.models.User.objects.get(pk=target_uid)
@@ -72,7 +77,7 @@ def do_social_behavior(req):   #进行社交行为，参数：类型type，社�
         #存储社交
         db_social_behavior = Social_behavior.objects.create(from_person=user,to_person=target_user,
             relationship_value_change=relationship_value_change_list[type_social],
-            type_of_behavior=type_list[type_social-1],message=message)
+            type_of_behavior=type_list[type_social],message=message)
         db_social_behavior.save()
         #获取当前大类——社交技能点
         getuserbigskill = UserBigSkill.objects.filter(user_id=uid).first()
@@ -95,7 +100,7 @@ def do_social_behavior(req):   #进行社交行为，参数：类型type，社�
         #获取目标用户快乐值
         target_happiness = eval(getuserstatus_target.happy)
         #修改目标用户快乐值
-        getuserstatus_target.happy = target_happiness + target_happiness_change[type_social]
+        getuserstatus_target.happy = max(min(target_happiness + target_happiness_change[type_social],100),-100)
         #修改关系值
         if is_friend:
             relationship_value = is_friend.relationship_value
@@ -110,5 +115,150 @@ def do_social_behavior(req):   #进行社交行为，参数：类型type，社�
         status = 1
         data = {"skill_num_change":skill_num_now,"skill_mini_change":mini_increase,"relationship_value_change":relationship_value_change_list[type_social-1]}
         return make_return(type_list[type_social]+"成功")    
+    else:
+        return make_return("您还没有登录")
+
+def add_friend(req):
+    #加好友接口
+    #类型：POST
+    #参数：加好友对象target_uid
+    def make_return(meg):
+        result={
+            "status":status,
+            "message":meg,
+            "data":data
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    status=0
+    meg="失败"
+    data = {}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.get(pk=uid)
+        #加好友目标玩家uid
+        target_uid = is_int(req.POST.get("target_uid"))
+        if target_uid == "error":
+            return make_return("存在需要传入数字的参数传入的不是数字")
+        if target_uid == eval(uid):
+            return make_return("你不能加自己为好友")
+        #社交目标玩家对象
+        try:
+            target_user = auth.models.User.objects.get(pk=target_uid)
+        except:
+            return make_return("对应uid的目标用户不存在")
+        #检查是否有post参数
+        if target_uid == None:
+            return make_return("没有提供POST参数")
+        #检查是否为好友
+        is_friend1 = Friend.objects.filter(from_person=user,to_person=target_user).first()
+        is_friend2 = Friend.objects.filter(from_person=target_user,to_person=user).first()
+        #如果其中一个找到，则是好友，不能再添加了
+        if is_friend1 or is_friend2:
+            return make_return("你们已经是好友了")
+        #存储社交
+        db_friend = Friend.objects.create(from_person=user,to_person=target_user,relationship_value=0)
+        db_friend.save()
+        #成功，返回
+        status = 1
+        return make_return("添加好友成功")    
+    else:
+        return make_return("您还没有登录")
+
+def remove_friend(req):
+    #删好友接口
+    #类型：POST
+    #参数：删好友对象target_uid
+    def make_return(meg):
+        result={
+            "status":status,
+            "message":meg,
+            "data":data
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    status=0
+    meg="失败"
+    data = {}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.get(pk=uid)
+        #删好友目标玩家uid
+        target_uid = is_int(req.POST.get("target_uid"))
+        if target_uid == "error":
+            return make_return("存在需要传入数字的参数传入的不是数字")
+        if target_uid == eval(uid):
+            return make_return("你不能删除自己的好友")
+        #社交目标玩家对象
+        try:
+            target_user = auth.models.User.objects.get(pk=target_uid)
+        except:
+            return make_return("对应uid的目标用户不存在")
+        #检查是否有post参数
+        if target_uid == None:
+            return make_return("没有提供POST参数")
+        #检查是否为好友
+        is_friend1 = Friend.objects.filter(from_person=user,to_person=target_user).first()
+        is_friend2 = Friend.objects.filter(from_person=target_user,to_person=user).first()
+        #如果双向都无法找到，则不是好友
+        if not is_friend1 and not is_friend2:
+            return make_return("你们还不是好友")
+        elif is_friend1:
+            is_friend = is_friend1
+        elif is_friend2:
+            is_friend = is_friend2
+        #删除好友
+        is_friend.delete()
+        #成功，返回
+        status = 1
+        return make_return("删除好友成功")    
+    else:
+        return make_return("您还没有登录")
+
+def is_friend(req):
+    #是否为好友接口
+    #类型：GET
+    #参数：对象target_uid
+    def make_return(meg):
+        result={
+            "status":status,
+            "message":meg,
+            "data":data
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    status=0
+    meg="失败"
+    data = {}
+    sessionid=req.COOKIES.get("sessionid")
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.get(pk=uid)
+        #目标玩家uid
+        target_uid = is_int(req.GET.get("target_uid"))
+        if target_uid == "error":
+            return make_return("存在需要传入数字的参数传入的不是数字")
+        if target_uid == eval(uid):
+            return make_return("你不是自己的好友")
+        #社交目标玩家对象
+        try:
+            target_user = auth.models.User.objects.get(pk=target_uid)
+        except:
+            return make_return("对应uid的目标用户不存在")
+        #检查是否有参数
+        if target_uid == None:
+            return make_return("没有提供GET参数")
+        #检查是否为好友
+        is_friend1 = Friend.objects.filter(from_person=user,to_person=target_user).first()
+        is_friend2 = Friend.objects.filter(from_person=target_user,to_person=user).first()
+        #如果双向都无法找到，则不是好友
+        if not is_friend1 and not is_friend2:
+            status = 1
+            return make_return("你们还不是好友")
+        else:
+            status = 1
+            return make_return("你们是好友")    
     else:
         return make_return("您还没有登录")
