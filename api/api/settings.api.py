@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'MaterialModel',
     'SpeechModel',
     'WorkModel',
+    'RecipesModel',
     'DietModel',
     'BlogModel',
+    'cities',
 
 
 ]
