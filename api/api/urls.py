@@ -74,6 +74,6 @@ urlpatterns = [
 
     #食谱
     path('get_user_diet/',diet.GetUserRecipes),#获得玩家食谱
-    path('get_user_send_id_diet/',diet.Get_id_Recipes)
+    path('get_user_send_id_diet/',diet.Get_id_Recipes)#获得玩家自己的指定id食谱
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
