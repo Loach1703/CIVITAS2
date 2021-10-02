@@ -35,6 +35,14 @@ def getUserSkill(req):
             }
             return HttpResponse(json.dumps(result), content_type="application/json")
         user = auth.models.User.objects.get(pk=uid)
+        if not user.exists():
+            meg = "对应uid的用户不存在"
+            result = {
+                "status":status,
+                "message":meg,
+                "data":datalist
+            }
+            return HttpResponse(json.dumps(result), content_type="application/json")
         getbigskill = UserBigSkill.objects.get_or_create(user=user)[0]
         getsmallskill = UserSmallSkill.objects.get_or_create(user=user)[0]
         bigskilldict = model_to_dict(getbigskill)
