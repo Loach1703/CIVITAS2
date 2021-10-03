@@ -64,7 +64,7 @@ urlpatterns = [
     path('getblog/',blog.get_blog),
 
     #社交部分
-    path('social-behavior/',social.do_social_behavior),
+    path('socialbehavior/',social.do_social_behavior),
     path('addfriend/',social.add_friend),
     path('removefriend/',social.remove_friend),
     path('isfriend/',social.is_friend),
