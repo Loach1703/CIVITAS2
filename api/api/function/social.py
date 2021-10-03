@@ -4,22 +4,25 @@ from UserModel.models import personal_attributes
 from SkillModel.models import *
 from django.contrib.sessions.models import Session
 from django.contrib import auth
+from django.db.models import Q
 from assist import *
+import datetime
 import json
+import math
 
+#进行社交行为接口
 def do_social_behavior(req):
-    #进行社交行为接口
     #类型：POST
     #参数：类型type，社交对象target_uid，附带消息message
     def make_return(meg):
-        result={
+        result = {
             "status":status,
             "message":meg,
             "data":data
         }
         return HttpResponse(json.dumps(result), content_type="application/json")
-    status=0
-    meg="失败"
+    status = 0
+    meg = "失败"
     data = {}
     sessionid=req.COOKIES.get("sessionid")
     type_list = ["公开赞扬","公开谴责","私下表扬","私下批评","赠送礼物",]
@@ -118,8 +121,8 @@ def do_social_behavior(req):
     else:
         return make_return("您还没有登录")
 
+#加好友接口
 def add_friend(req):
-    #加好友接口
     #类型：POST
     #参数：加好友对象target_uid
     def make_return(meg):
@@ -129,8 +132,8 @@ def add_friend(req):
             "data":data
         }
         return HttpResponse(json.dumps(result), content_type="application/json")
-    status=0
-    meg="失败"
+    status = 0
+    meg = "失败"
     data = {}
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
@@ -166,19 +169,19 @@ def add_friend(req):
     else:
         return make_return("您还没有登录")
 
+#删好友接口
 def remove_friend(req):
-    #删好友接口
     #类型：POST
     #参数：删好友对象target_uid
     def make_return(meg):
-        result={
+        result = {
             "status":status,
             "message":meg,
             "data":data
         }
         return HttpResponse(json.dumps(result), content_type="application/json")
-    status=0
-    meg="失败"
+    status = 0
+    meg = "失败"
     data = {}
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
@@ -217,19 +220,19 @@ def remove_friend(req):
     else:
         return make_return("您还没有登录")
 
+#是否为好友接口
 def is_friend(req):
-    #是否为好友接口
     #类型：GET
     #参数：对象target_uid
     def make_return(meg):
-        result={
+        result = {
             "status":status,
             "message":meg,
             "data":data
         }
         return HttpResponse(json.dumps(result), content_type="application/json")
-    status=0
-    meg="失败"
+    status = 0
+    meg = "失败"
     data = {}
     sessionid=req.COOKIES.get("sessionid")
     if is_login(req,sessionid):
@@ -260,5 +263,92 @@ def is_friend(req):
         else:
             status = 1
             return make_return("你们是好友")    
+    else:
+        return make_return("您还没有登录")
+
+#查询社交行为记录接口
+def get_social(req):
+    #类型：GET
+    #参数：页码page（可选，默认为1），查询对象uid（可选，默认为自己）
+    def make_return(meg):
+        result = {
+            "status":status,
+            "message":meg,
+            "data":data
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    status = 0
+    meg = "失败"
+    data = {}
+    sessionid=req.COOKIES.get("sessionid")
+    num_every_page=10
+    if is_login(req,sessionid):
+        session = Session.objects.filter(pk=sessionid).first()
+        #自己的uid
+        uid = session.get_decoded()["_auth_user_id"]
+        user = auth.models.User.objects.get(pk=uid)
+        #目标玩家uid
+        target_uid = req.GET.get("uid")
+        if target_uid == None:
+            target_uid = eval(uid)
+        elif is_int(target_uid) == "error":
+            return make_return("不合法的uid参数")
+        #社交目标玩家对象
+        try:
+            target_user = auth.models.User.objects.get(pk=target_uid)
+        except:
+            return make_return("对应uid的目标用户不存在")
+        #页码page
+        page = req.GET.get("page")
+        if page == None:
+            page = 1
+        page = is_int(page)
+        if page == "error":
+            return make_return("不合法的页码参数")
+        usersocial = Social_behavior.objects.filter(from_person=target_user)
+        usersocial2 = Social_behavior.objects.filter(to_person=target_user)
+        usersocial.union(usersocial2)
+        usersocial = Social_behavior.objects.filter(Q(from_person=target_user) | Q(to_person=target_user))
+        #检查是否为好友
+        is_friend1 = Friend.objects.filter(from_person=user,to_person=target_user).first()
+        is_friend2 = Friend.objects.filter(from_person=target_user,to_person=user).first()
+        #如果双向都无法找到，则不是好友，只能显示公开谴责和公开赞扬
+        if not is_friend1 and not is_friend2:
+            usersocial = usersocial.filter(Q(type_of_behavior = "公开赞扬") | Q(type_of_behavior = "公开谴责"))
+        #分页
+        count = len(usersocial)
+        total_page = math.ceil(count / num_every_page)
+        #没有记录，直接返回
+        if total_page == 0:
+            status = 1
+            return make_return("查询成功，但该居民没有社交记录")
+        #验证page参数合法性
+        if page > total_page or page <= 0:
+            return make_return("不合法的页码参数")
+        #切片出对应页码的Queryset
+        list1 = usersocial.order_by('-id')[0 + num_every_page * (page - 1) : num_every_page * page]
+        rtl = []
+        for var in list1:
+            from_person_username = var.from_person.username
+            to_person_username = var.to_person.username
+            from_person_uid = var.from_person.id
+            to_person_uid = var.to_person.id
+            social_type = var.type_of_behavior
+            message = var.message
+            d = str(var.date)[0:10]
+            day = (datetime.datetime.strptime(d,"%Y-%m-%d") - datetime.datetime.strptime('2021-6-3',"%Y-%m-%d")).days
+            time = str(var.date)[11:19]
+            rtl.append({
+                "from_person_username":from_person_username,"to_person_username":to_person_username,
+                "from_person_uid":from_person_uid,"to_person_uid":to_person_uid,"social_type":social_type,"message":message,
+                "day":day,"time":time})
+        #成功，返回
+        status = 1
+        data = {
+            "total_page":total_page,
+            "num":len(usersocial),
+            "datalist":rtl,
+        }
+        return make_return("查询成功")    
     else:
         return make_return("您还没有登录")

@@ -48,31 +48,23 @@ Vue.component("people-social", {
     props: ["prop","uid","type"],
     data: function () {
         return {
-            social_types: ["公开赞扬","公开谴责","私下表扬","私下批评","赠送礼物"],
-            socials: [
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-            ],
-            length: 0
+            socials: [],
+            length: 0,
+            page: 1
         }
     },
     created: function () {
         this.get_social();
-        if (this.type == "total")
-        {
+        if (this.type == "total") {
             document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2"
         }
     },
     watch: {
         prop: {
             handler: function () {
-                document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2";
+                if (this.type == "total") {
+                    document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2"
+                }
             },
             deep: true
         }
@@ -86,6 +78,7 @@ Vue.component("people-social", {
                 withCredentials: true,
                 params: {
                     uid: this.prop.uid,
+                    page: this.page
                 },
             })
             .then(function (response) {
@@ -123,16 +116,16 @@ Vue.component("people-social", {
             <p class="explain" v-if="socials.length == 0">{{ prop.username }}还没有社交记录。</p>
             <template v-else>
                 <div class="social-single bottomline-dashed" v-for="(social,index) in socials.slice(0,length)" v-bind:key="index">
-                    <a v-bind:href="'people.html?uid='+social.fromuid">
-                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.fromuid" class="img-thumbnail" width="50px" height="50px">
+                    <a v-bind:href="'people.html?uid='+social.from_person_uid">
+                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.from_person_uid" class="img-thumbnail" width="50px" height="50px">
                     </a>
                     <p>
-                        <a v-bind:href="'people.html?uid='+social.fromuid">{{ social.fromusername }}</a> {{ social_types[social.type] }}了
-                        <a v-bind:href="'people.html?uid='+social.touid">{{ social.tousername }}</a>。<br>
+                        <a v-bind:href="'people.html?uid='+social.from_person_uid">{{ social.from_person_username }}</a> {{ social.social_type }}了
+                        <a v-bind:href="'people.html?uid='+social.to_person_uid">{{ social.to_person_username }}</a>。<br>
                         第{{ social.day }}天，{{ social.time }}。
                     </p>
-                    <a v-bind:href="'people.html?uid='+social.touid">
-                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.touid" class="img-thumbnail" width="50px" height="50px">
+                    <a v-bind:href="'people.html?uid='+social.to_person_uid">
+                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.to_person_uid" class="img-thumbnail" width="50px" height="50px">
                     </a>
                 </div>
             </template>

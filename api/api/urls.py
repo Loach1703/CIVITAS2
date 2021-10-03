@@ -37,28 +37,37 @@ urlpatterns = [
     path('city/', include('cities.urls')),
 
     path('admin/', admin.site.urls),
-    path('getspeech/', speech.getspeech1),
-    path('speech/', speech.speech1),
     path('getweather/',civitas.getweather1),
     path('getdate/',civitas.getdate1),
+
+    #注册，登录，注销相关部分
     path('islogin/',user.islogin1),
     path('login/',user.login1),
     path('register/',user.register1),
+    path('logout/',user.logout1),
+
+    #演讲部分
+    path('getspeech/', speech.getspeech1),
+    path('speech/', speech.speech1),
     path('assess/',speech.assess1),
     path('hotspeech/',speech.hotspeech1),
-    path('logout/',user.logout1),
+
+    #头像部分
     path('upload-avatar/',user.upload_avatar),
     path('getavatar/',user.get_avatar),
-    path('test.html',views.test),
+
     path('getskill/',skill.getUserSkill),
     path('getstatus/',user.siwei),
     path('getuserdetail/',user.get_userdetail),
     path('getmaterial/',material.material_depository),
     path('dosideline/',work.get_sideline),
     path('getblog/',blog.get_blog),
+
+    #社交部分
     path('social-behavior/',social.do_social_behavior),
     path('addfriend/',social.add_friend),
     path('removefriend/',social.remove_friend),
     path('isfriend/',social.is_friend),
+    path('getsocial/',social.get_social),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
