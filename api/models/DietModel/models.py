@@ -52,12 +52,23 @@ class Input_Recipe_Diet(models.Model):
     class Meta:
         verbose_name_plural = '所需食材表'
 
+class treatment_Diet(models.Model):
+    id = IntegerField(primary_key=True,)
+    name = CharField(max_length=20,verbose_name="处理方法")
+    def __str__(self):
+        return self.name
+
+
 class diet_recipe(models.Model):
     name = CharField(max_length=50,verbose_name='食谱名',default=" ")
-    owner = IntegerField(db_index=True,verbose_name='拥有者',default=" ") #拥有者//uid
+    owner = ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,verbose_name='用户',db_index=True,) #拥有者
 
     input = ManyToManyField('diet_MaterialDetail',related_name='input',verbose_name='输入',through=Input_Recipe_Diet)
     
+    treatment=ForeignKey('treatment_Diet',on_delete=models.CASCADE,verbose_name="烹饪方法")
+
+    energy = FloatField(verbose_name='精力度',default=0.00)
+    happy = FloatField(verbose_name='快乐度',default=0.00)
     health = FloatField(verbose_name='健康度',default=0.00)
     Satiety = FloatField(verbose_name='饱食度',default=0.00)
     acid = FloatField(verbose_name='酸',default=0.00)
@@ -65,3 +76,6 @@ class diet_recipe(models.Model):
     sweet = FloatField(verbose_name='甜',default=0.00)
     bitterness= FloatField(verbose_name='苦',default=0.00)
     aroma = FloatField(verbose_name='味道度',default=0.00)
+    taste_description = CharField(max_length=20,default=" ",blank=True)
+
+    
