@@ -16,10 +16,13 @@ Vue.component("people-detail", {
     props: ["prop","uid"],
     data: function () {
         return {
+            friend: false,
+            friend_level: ""
         }
     },
     created: function () {
         document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
+        this.is_friend();
     },
     watch: {
         prop: {
@@ -27,6 +30,52 @@ Vue.component("people-detail", {
                 document.title = this.prop.username + "的主页 - 古典社会模拟 CIVITAS2";
             },
             deep: true
+        }
+    },
+    methods: {
+        is_friend: function () {
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/isfriend/",
+                withCredentials: true,
+                params: {
+                    target_uid: this.prop.uid,
+                },
+            })
+            .then(function (response) {
+                var datas = response.data.data;
+                if (datas.message == "你们是好友") {
+                    vm.friend = true;
+                    vm.friend_level = "点头之交";
+                }
+                else if (datas.message == "你们还不是好友") {
+                    vm.friend = false;
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        },
+        add_friend: function () {
+            var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append("target_uid",this.prop.uid);
+            axios({
+                method: "post",
+                url: "https://api.trickydeath.xyz/addfriend/",
+                withCredentials: true,
+                data: post_data
+            })
+            .then(function (response) {
+                var datas = response.data.data;
+                if (datas.message == "添加好友成功") {
+                    vm.is_friend();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         }
     },
     template:`
@@ -38,7 +87,8 @@ Vue.component("people-detail", {
             <p class="explain">><a v-bind:href="'depository.html?uid='+prop.uid">{{ prop.username }}的库房</a></p>
         </div>
         <div class="people-add-friend" v-if="prop.uid != uid">
-            <button class="btn btn-sm">添加好友+</button>
+            <button class="btn btn-sm" v-on:click="add_friend" v-if="friend == false">添加好友+</button>
+            <button class="btn btn-sm" v-else-if="friend == true">{{ friend_level }}x</button>
         </div>
     </div>
     `
@@ -48,31 +98,25 @@ Vue.component("people-social", {
     props: ["prop","uid","type"],
     data: function () {
         return {
-            social_types: ["公开赞扬","公开谴责","私下表扬","私下批评","赠送礼物"],
-            socials: [
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:0,day:105,time:"17:16:15"},
-                {fromuid:6,touid:7,fromusername:"泥鳅养殖专家",tousername:"时间",type:1,day:105,time:"17:16:15"},
-            ],
-            length: 0
+            socials: [],
+            length: 0,
+            page: 1,
+            friend: false,
         }
     },
     created: function () {
+        this.is_friend();
         this.get_social();
-        if (this.type == "total")
-        {
+        if (this.type == "total") {
             document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2"
         }
     },
     watch: {
         prop: {
             handler: function () {
-                document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2";
+                if (this.type == "total") {
+                    document.title = this.prop.username + "的社交记录 - 古典社会模拟 CIVITAS2"
+                }
             },
             deep: true
         }
@@ -86,28 +130,62 @@ Vue.component("people-social", {
                 withCredentials: true,
                 params: {
                     uid: this.prop.uid,
+                    page: this.page
                 },
             })
             .then(function (response) {
-                vm.socials = response.data.data;
-                if (vm.socials.length >= 5 && vm.type == 'people')
-                {
+                var datas = response.data.data;
+                vm.socials = datas.datalist;
+                if (vm.socials.length >= 5 && vm.type == "people") {
                     vm.length = 5;
                 }
-                else
-                {
+                else {
                     vm.length = vm.socials.length;
                 }
             })
             .catch(function (error) {
-                if (vm.socials.length >= 5 && vm.type == 'people')
-                {
-                    vm.length = 5;
+                console.log(error);
+            })
+        },
+        is_friend: function () {
+            var vm = this;
+            axios({
+                method: "get",
+                url: "https://api.trickydeath.xyz/isfriend/",
+                withCredentials: true,
+                params: {
+                    target_uid: this.prop.uid,
+                },
+            })
+            .then(function (response) {
+                var datas = response.data.data;
+                if (datas.message == "你们是好友") {
+                    vm.friend = true;
                 }
-                else
-                {
-                    vm.length = vm.socials.length;
+                else if (datas.message == "你们还不是好友") {
+                    vm.friend = false;
                 }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        },
+        do_social_behavior: function (type) {
+            var vm = this;
+            var post_data = new URLSearchParams();
+            post_data.append("type",type);
+            post_data.append("target_uid",this.prop.uid);
+            post_data.append("message",message);
+            axios({
+                method: "post",
+                url: "https://api.trickydeath.xyz/socialbehavior/",
+                withCredentials: true,
+                data: post_data
+            })
+            .then(function (response) {
+                vm.get_social();
+            })
+            .catch(function (error) {
                 console.log(error);
             })
         }
@@ -115,24 +193,31 @@ Vue.component("people-social", {
     template:`
     <div class="social-total">
         <p class="main-char">{{ prop.username }}的社交关系</p>
-        <div class="social-methods bottomline-dashed">
+        <div class="social-methods bottomline-dashed" v-if="type == 'people'">
             <p class="explain" v-if="prop.uid == uid">你不能对自己进行社交。</p>
-            <p class="explain" v-else>你还不是{{ prop.username }}的好友，但你可以<a href="javascript:void(0)">公开谴责</a>。</p>
+            <p class="explain" v-else-if="friend == false">你还不是{{ prop.username }}的好友，但你可以<a href="javascript:void(0)">公开谴责</a>。</p>
+            <p class="explain" v-else-if="friend == true">
+                <a href="javascript:void(0)" v-on:click="do_social_behavior(0)">公开赞扬</a>
+                <a href="javascript:void(0)" v-on:click="do_social_behavior(1)">公开谴责</a>
+                <a href="javascript:void(0)" v-on:click="do_social_behavior(2)">私下表扬</a>
+                <a href="javascript:void(0)" v-on:click="do_social_behavior(3)">私下批评</a>
+                <a href="javascript:void(0)" v-on:click="do_social_behavior(4)">赠送礼物</a>
+            </p>
         </div>
         <div class="social-detail">
             <p class="explain" v-if="socials.length == 0">{{ prop.username }}还没有社交记录。</p>
             <template v-else>
                 <div class="social-single bottomline-dashed" v-for="(social,index) in socials.slice(0,length)" v-bind:key="index">
-                    <a v-bind:href="'people.html?uid='+social.fromuid">
-                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.fromuid" class="img-thumbnail" width="50px" height="50px">
+                    <a v-bind:href="'people.html?uid='+social.from_person_uid">
+                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.from_person_uid" class="img-thumbnail" width="50px" height="50px">
                     </a>
                     <p>
-                        <a v-bind:href="'people.html?uid='+social.fromuid">{{ social.fromusername }}</a> {{ social_types[social.type] }}了
-                        <a v-bind:href="'people.html?uid='+social.touid">{{ social.tousername }}</a>。<br>
+                        <a v-bind:href="'people.html?uid='+social.from_person_uid">{{ social.from_person_username }}</a> {{ social.social_type }}了
+                        <a v-bind:href="'people.html?uid='+social.to_person_uid">{{ social.to_person_username }}</a>。<br>
                         第{{ social.day }}天，{{ social.time }}。
                     </p>
-                    <a v-bind:href="'people.html?uid='+social.touid">
-                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.touid" class="img-thumbnail" width="50px" height="50px">
+                    <a v-bind:href="'people.html?uid='+social.to_person_uid">
+                        <img v-bind:src="'https://api.trickydeath.xyz/getavatar/?uid='+social.to_person_uid" class="img-thumbnail" width="50px" height="50px">
                     </a>
                 </div>
             </template>

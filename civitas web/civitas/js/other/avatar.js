@@ -21,8 +21,8 @@ function upload_avatar()
             var str = xmlhttp.responseText;
             var json_str = JSON.parse(str);
             document.getElementById("tips").innerHTML = json_str["message"];
-		}
-	}
+        }
+    }
     xmlhttp.open("POST","https://api.trickydeath.xyz/upload-avatar/",true);
     xmlhttp.withCredentials = true;
     xmlhttp.send(formData);
