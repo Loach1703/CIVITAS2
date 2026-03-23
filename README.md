@@ -1,10 +1,12 @@
+## 这个仓库已转为私密仓库
+## This repository has been converted to a private one.
 # CIVITAS2
 
 CIVITAS2 - 古典社会模拟
 
 D0 2021 06 03 二周目 2021 07 24 三周目 2021 08 10（只删除了演讲）
 
-## QQ群号 857703332
+## QQ群号 108728169
 
 ## TODO List
 
